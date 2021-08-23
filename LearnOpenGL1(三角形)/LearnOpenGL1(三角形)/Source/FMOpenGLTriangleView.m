@@ -9,26 +9,40 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES2/gl.h>
 
+//// 顶点着色器
+//const char *vertexShaderSource = "#version 330 core\n"
+//    "layout (location = 0) in vec3 aPos;\n"
+//    "void main()\n"
+//    "{\n"
+//    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+//    "}\0";
+//
+//const char *fragmentShaderSource = "#version 330 core\n"
+//    "out vec4 FragColor;\n"
+//    "void main()\n"
+//    "{\n"
+//    "   FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"
+//    "}\0";
+
 // 顶点着色器
-const char *vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
+const char *vertexShaderSource = "attribute vec4 position;\n"
     "void main()\n"
     "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "   gl_Position = position;\n"
     "}\0";
 
-const char *fragmentShaderSource = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
+// 片段着色器
+const char *fragmentShaderSource = "void main()\n"
     "{\n"
-    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-    "}\0";
-
+    "   gl_FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"
+    "}\n\0";
 
 @interface FMOpenGLTriangleView() {
     GLuint _vertexShader;
     GLuint _fragmentShader;
     GLuint _VBO;
+    GLuint _renderBuffer;
+    GLuint _frameBuffer;
 }
 
 // iOS OpenGL窗口
@@ -53,6 +67,8 @@ const char *fragmentShaderSource = "#version 330 core\n"
 - (void)layoutSubviews {
     [self setupLayer];
     [self createOpenGLContext];
+    [self createRenderBuffer];
+    [self createFrameBuffer];
     
     [self createProgram];
     [self render];
@@ -67,8 +83,22 @@ const char *fragmentShaderSource = "#version 330 core\n"
     self.context = context;
 }
 
+// 3、创建渲染缓存
+- (void)createRenderBuffer {
+    glGenRenderbuffers(1, &_renderBuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
+    [self.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:self.eagLayer];
+}
+
+// 4、创建帧缓存
+- (void)createFrameBuffer {
+    glGenFramebuffers(1, &_frameBuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _renderBuffer);
+}
+
 - (void)render {
-    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClearColor(1.0, 1.0, 1.0, 1.0); // 白色
     glClear(GL_COLOR_BUFFER_BIT);
     
     CGFloat scale = UIScreen.mainScreen.scale;
@@ -90,6 +120,8 @@ const char *fragmentShaderSource = "#version 330 core\n"
     GLuint program = [self createProgram];
     glUseProgram(program);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+    
+    [self.context presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 - (GLuint)createProgram {
@@ -112,6 +144,16 @@ const char *fragmentShaderSource = "#version 330 core\n"
     
     glDeleteShader(_vertexShader);
     glDeleteShader(_fragmentShader);
+    
+    GLint linkSuccess;
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkSuccess);
+    if(linkSuccess == GL_FALSE) {
+        GLchar message[256];
+        glGetProgramInfoLog(shaderProgram, sizeof(message), 0, &message[0]);
+        NSString *messageStr = [NSString stringWithUTF8String:message];
+        NSLog(@"error %@", messageStr);
+        return -1;
+    }
     
     return shaderProgram;
 }
