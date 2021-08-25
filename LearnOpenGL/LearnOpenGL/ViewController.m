@@ -9,6 +9,9 @@
 #import "FMTriangleView.h"
 #import "FMOpenGLTriangleView.h"
 #import "FMOpenGLWindow.h"
+#import "FMOpenGLTriangle.h"
+#import "FMOpenGLShader.h"
+#import "FMOpenGLShader330.h"
 
 @interface ViewController ()
 
@@ -19,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    FMOpenGLWindow *triangleView = [[FMOpenGLWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    FMOpenGLShader330 *triangleView = [[FMOpenGLShader330 alloc] initWithFrame:UIScreen.mainScreen.bounds];
     [self.view addSubview:triangleView];
 }
 

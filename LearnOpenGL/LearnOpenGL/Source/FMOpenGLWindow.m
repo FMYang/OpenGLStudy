@@ -1,9 +1,10 @@
 //
 //  FMOpenGLWindow.m
-//  LearnOpenGL1(三角形)
+//  LearnOpenGL
 //
 //  Created by yfm on 2021/8/25.
 //
+//  你好，窗口
 //  创建OpenGL ES在ios中的窗口（ios中，使用CAEAGLLayer展示openGL绘制的内容）
 //
 
