@@ -34,7 +34,6 @@
 
 // 包含位置和颜色信息的顶点着色器程序
 NSString *const vertexShaderSource = SHADER_STRING(
-    precision mediump float;
     attribute vec3 aPos;   // 位置变量的属性位置值为 0
     attribute vec3 aColor; // 颜色变量的属性位置值为 1
 
@@ -49,13 +48,13 @@ NSString *const vertexShaderSource = SHADER_STRING(
 
 // 片段着色器（in out 分别使用attribute varying）
 NSString *const fragmentShaderSource = SHADER_STRING(
-    precision mediump float;
-    varying vec4 FragColor;
+//    precision highp float;
+//    varying vec4 FragColor;
     attribute vec3 ourColor;
 
     void main()
     {
-        FragColor = vec4(ourColor, 1.0);
+        gl_FragColor = vec4(ourColor, 1.0);
     }
 );
 
@@ -259,17 +258,10 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     
-//    // 设置顶点属性指针，告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）了
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
-//    // 启用顶点属性
-//    glEnableVertexAttribArray(0);
-    
-    // 位置属性
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    // 设置顶点属性指针，告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）了
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
+    // 启用顶点属性
     glEnableVertexAttribArray(0);
-    // 颜色属性
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
-    glEnableVertexAttribArray(1);
         
     GLuint program = [self createProgram];
     glUseProgram(program);
@@ -312,10 +304,16 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
     
-    // 设置顶点属性指针，告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）了
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
-    // 启用顶点属性
+//    // 设置顶点属性指针，告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）了
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
+//    // 启用顶点属性
+//    glEnableVertexAttribArray(0);
+    // 位置属性
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (void*)0);
     glEnableVertexAttribArray(0);
+    // 颜色属性
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (void*)(3* sizeof(GL_FLOAT)));
+    glEnableVertexAttribArray(1);
         
     GLuint program = [self createProgram];
     glUseProgram(program);
@@ -337,6 +335,18 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     // 编译
     glCompileShader(vertextShader);
     
+#if DEBUG
+    // 校验片段着色器程序编译状态
+    GLint logLength = 0;
+    glGetShaderiv(vertextShader, GL_INFO_LOG_LENGTH, &logLength);
+    if(logLength > 0) {
+        GLchar *log = (GLchar *)malloc(logLength);
+        glGetShaderInfoLog(vertextShader, logLength, &logLength, log);
+        NSLog(@"shader compile log:\n%s", log);
+        free(log);
+    }
+#endif
+    
     // 创建顶点着色器
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     // 将着色器源码附加到着色器对象上
@@ -344,17 +354,6 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
     glCompileShader(fragmentShader);
     
-#if DEBUG
-    // 校验片段着色器程序编译状态
-    GLint logLength = 0;
-    glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
-    if(logLength > 0) {
-        GLchar *log = (GLchar *)malloc(logLength);
-        glGetShaderInfoLog(fragmentShader, logLength, &logLength, log);
-        NSLog(@"shader compile log:\n%s", log);
-        free(log);
-    }
-#endif
 
     // 创建程序
     GLuint program = glCreateProgram();
