@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E44A4D7F26D5D8B700BDB0A3 /* FMOpenGLWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D7E26D5D8B700BDB0A3 /* FMOpenGLWindow.m */; };
 		E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E126D334390033F2EB /* AppDelegate.m */; };
 		E4BED5E526D334390033F2EB /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E426D334390033F2EB /* SceneDelegate.m */; };
 		E4BED5E826D334390033F2EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E726D334390033F2EB /* ViewController.m */; };
@@ -22,7 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E4BED5DD26D334390033F2EB /* LearnOpenGL1(三角形).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LearnOpenGL1(三角形).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E44A4D7D26D5D8B700BDB0A3 /* FMOpenGLWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLWindow.h; sourceTree = "<group>"; };
+		E44A4D7E26D5D8B700BDB0A3 /* FMOpenGLWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLWindow.m; sourceTree = "<group>"; };
+		E4BED5DD26D334390033F2EB /* LearnOpenGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnOpenGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BED5E026D334390033F2EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4BED5E126D334390033F2EB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E4BED5E326D334390033F2EB /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
@@ -58,7 +61,7 @@
 		E4BED5D426D334390033F2EB = {
 			isa = PBXGroup;
 			children = (
-				E4BED5DF26D334390033F2EB /* LearnOpenGL1(三角形) */,
+				E4BED5DF26D334390033F2EB /* LearnOpenGL */,
 				E4BED5DE26D334390033F2EB /* Products */,
 				E4BED5FD26D33CC20033F2EB /* Frameworks */,
 			);
@@ -67,12 +70,12 @@
 		E4BED5DE26D334390033F2EB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4BED5DD26D334390033F2EB /* LearnOpenGL1(三角形).app */,
+				E4BED5DD26D334390033F2EB /* LearnOpenGL.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E4BED5DF26D334390033F2EB /* LearnOpenGL1(三角形) */ = {
+		E4BED5DF26D334390033F2EB /* LearnOpenGL */ = {
 			isa = PBXGroup;
 			children = (
 				E4BED60026D348990033F2EB /* shader.fsh */,
@@ -90,12 +93,14 @@
 				E4BED5F126D334400033F2EB /* Info.plist */,
 				E4BED5F226D334400033F2EB /* main.m */,
 			);
-			path = "LearnOpenGL1(三角形)";
+			path = LearnOpenGL;
 			sourceTree = "<group>";
 		};
 		E4BED5F926D3346D0033F2EB /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E44A4D7D26D5D8B700BDB0A3 /* FMOpenGLWindow.h */,
+				E44A4D7E26D5D8B700BDB0A3 /* FMOpenGLWindow.m */,
 				E4BED5FA26D33B400033F2EB /* FMTriangleView.h */,
 				E4BED5FB26D33B400033F2EB /* FMTriangleView.m */,
 				E4BED6AB26D3AFB10033F2EB /* FMOpenGLTriangleView.h */,
@@ -115,9 +120,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4BED5DC26D334390033F2EB /* LearnOpenGL1(三角形) */ = {
+		E4BED5DC26D334390033F2EB /* LearnOpenGL */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4BED5F626D334410033F2EB /* Build configuration list for PBXNativeTarget "LearnOpenGL1(三角形)" */;
+			buildConfigurationList = E4BED5F626D334410033F2EB /* Build configuration list for PBXNativeTarget "LearnOpenGL" */;
 			buildPhases = (
 				E4BED5D926D334390033F2EB /* Sources */,
 				E4BED5DA26D334390033F2EB /* Frameworks */,
@@ -127,9 +132,9 @@
 			);
 			dependencies = (
 			);
-			name = "LearnOpenGL1(三角形)";
+			name = LearnOpenGL;
 			productName = "LearnOpenGL1(三角形)";
-			productReference = E4BED5DD26D334390033F2EB /* LearnOpenGL1(三角形).app */;
+			productReference = E4BED5DD26D334390033F2EB /* LearnOpenGL.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -145,7 +150,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E4BED5D826D334390033F2EB /* Build configuration list for PBXProject "LearnOpenGL1(三角形)" */;
+			buildConfigurationList = E4BED5D826D334390033F2EB /* Build configuration list for PBXProject "LearnOpenGL" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -158,7 +163,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E4BED5DC26D334390033F2EB /* LearnOpenGL1(三角形) */,
+				E4BED5DC26D334390033F2EB /* LearnOpenGL */,
 			);
 		};
 /* End PBXProject section */
@@ -186,6 +191,7 @@
 				E4BED6AD26D3AFB10033F2EB /* FMOpenGLTriangleView.m in Sources */,
 				E4BED5E826D334390033F2EB /* ViewController.m in Sources */,
 				E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */,
+				E44A4D7F26D5D8B700BDB0A3 /* FMOpenGLWindow.m in Sources */,
 				E4BED5FC26D33B400033F2EB /* FMTriangleView.m in Sources */,
 				E4BED5F326D334400033F2EB /* main.m in Sources */,
 				E4BED5E526D334390033F2EB /* SceneDelegate.m in Sources */,
@@ -333,7 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQFEA2B5H2;
-				INFOPLIST_FILE = "LearnOpenGL1(三角形)/Info.plist";
+				INFOPLIST_FILE = LearnOpenGL/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -352,7 +358,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQFEA2B5H2;
-				INFOPLIST_FILE = "LearnOpenGL1(三角形)/Info.plist";
+				INFOPLIST_FILE = LearnOpenGL/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -367,7 +373,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4BED5D826D334390033F2EB /* Build configuration list for PBXProject "LearnOpenGL1(三角形)" */ = {
+		E4BED5D826D334390033F2EB /* Build configuration list for PBXProject "LearnOpenGL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4BED5F426D334410033F2EB /* Debug */,
@@ -376,7 +382,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4BED5F626D334410033F2EB /* Build configuration list for PBXNativeTarget "LearnOpenGL1(三角形)" */ = {
+		E4BED5F626D334410033F2EB /* Build configuration list for PBXNativeTarget "LearnOpenGL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4BED5F726D334410033F2EB /* Debug */,
