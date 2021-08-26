@@ -127,4 +127,21 @@
     
 }
 
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+    if(_frameBuffer) {
+        glDeleteFramebuffers(1, &_frameBuffer);
+        _frameBuffer = 0;
+    }
+    
+    if(_renderBuffer) {
+        glDeleteRenderbuffers(1, &_renderBuffer);
+        _renderBuffer = 0;
+    }
+    if(_program) {
+        glDeleteProgram(_program);
+        _program = 0;
+    }
+}
+
 @end

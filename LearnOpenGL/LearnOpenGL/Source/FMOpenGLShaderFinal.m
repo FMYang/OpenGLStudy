@@ -11,7 +11,7 @@
 #import <OpenGLES/ES2/glext.h>
 
 // 包含位置和颜色信息的顶点着色器程序
-NSString *const vertexShaderSource = SHADER_STRING(
+NSString *const shaderVertexShaderSource = SHADER_STRING(
     attribute vec4 aPos;   // 位置变量的属性位置值为 0
     attribute vec3 aColor; // 颜色变量的属性位置值为 1
 
@@ -25,7 +25,7 @@ NSString *const vertexShaderSource = SHADER_STRING(
 );
 
 // 片段着色器（in out 分别使用attribute varying）
-NSString *const fragmentShaderSource = SHADER_STRING(
+NSString *const shaderFragmentShaderSource = SHADER_STRING(
     precision mediump float;
     varying vec4 FragColor;
 
@@ -36,95 +36,21 @@ NSString *const fragmentShaderSource = SHADER_STRING(
 );
 
 @interface FMOpenGLShaderFinal() {
-    // 顶点着色器
-    GLuint vertextShader;
-    // 片段着色器
-    GLuint fragmentShader;
     // 顶点缓冲对象
     GLuint VBO;
     // 索引缓冲对象
     GLuint EBO;
 }
 
-@property (nonatomic) CAEAGLLayer *eagLayer;
-// openGL上下文，管理OpenGL状态，openGL是一个大的状态机
-@property (nonatomic) EAGLContext *context;
-// 渲染缓存（包括颜色缓存、深度测试）ID
-@property (nonatomic) GLuint renderBuffer;
-// 帧缓存ID（帧缓冲区对象是渲染命令的目的地。帧缓存可以附加渲染缓存）
-@property (nonatomic) GLuint frameBuffer;
-
 @end
 
 @implementation FMOpenGLShaderFinal
 
-+ (Class)layerClass {
-    return [CAEAGLLayer class];
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
-        [self setupLayer];
-        [self createContext];
-        [self createRenderBufferAndFrameBuffer];
-        [self setViewPort];
-//        [self render]; // 基本三角形绘制
-//        [self render2]; // 使用VAO和索引绘制
-        [self render3]; // 绘制更多属性
-        
-        CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(screenUpdate)];
-        link.preferredFramesPerSecond = 5;
-        [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+        [self render3];
     }
     return self;
-}
-
-- (void)screenUpdate {
-//    [self render3];
-}
-
-// 1、设置layer
-- (void)setupLayer {
-    self.eagLayer = (CAEAGLLayer *)self.layer;
-    [self setContentScaleFactor:UIScreen.mainScreen.scale];
-    self.eagLayer.opaque = YES;
-}
-
-// 2、创建上下文
-- (void)createContext {
-    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-    if(![EAGLContext setCurrentContext:context]) {
-        NSLog(@"设置上下文失败");
-    }
-    self.context = context;
-}
-
-// 3、配置渲染缓存和帧缓存
-- (void)createRenderBufferAndFrameBuffer {
-    // 创建渲染缓存对象
-    glGenRenderbuffers(1, &_renderBuffer);
-    glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
-    // 为图层对象分配存储空间。宽度、高度和像素格式取自layer，用于为渲染缓存分配存储空间。
-    [self.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:self.eagLayer];
-    
-    // 获取渲染缓存的宽高，来自于eagLayer的宽高
-    GLint w, h;
-    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &w);
-    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &h);
-    NSLog(@"w = %d h = %d", w, h);
-    
-    // 创建帧缓存
-    glGenRenderbuffers(1, &_frameBuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
-    
-    // 将渲染缓存附加到帧缓存
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _renderBuffer);
-}
-
-- (void)setViewPort {
-    //  设置视口，将屏幕坐标变为标准化设备坐标（范围-1 ～ 1）
-    CGFloat scale = UIScreen.mainScreen.scale;
-    glViewport(self.frame.origin.x * scale, self.frame.origin.y * scale, self.frame.size.width * scale, self.frame.size.height  * scale);
 }
 
 // 4、清屏并显示
@@ -162,13 +88,13 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     // 启用顶点属性
     glEnableVertexAttribArray(0);
         
-    GLuint program = [self createProgram];
-    glUseProgram(program);
+    [self createProgramWithVertexShader:shaderVertexShaderSource fragmentShader:shaderFragmentShaderSource];
+    glUseProgram(self.program);
 
     // 链接程序后设置颜色才生效
     float greenValue = arc4random() % 10 * 1.0 / 10;
     // 获取ourColor的位置，如果返回-1表示没有找到
-    int vertexColorLocation = glGetUniformLocation(program, "ourColor");
+    int vertexColorLocation = glGetUniformLocation(self.program, "ourColor");
     // 设置ourColor的值
     glUniform4f(vertexColorLocation, 0.0, greenValue, 0.0, 1.0);
             
@@ -234,13 +160,13 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     // 启用顶点属性
     glEnableVertexAttribArray(0);
         
-    GLuint program = [self createProgram];
-    glUseProgram(program);
+    [self createProgramWithVertexShader:shaderVertexShaderSource fragmentShader:shaderFragmentShaderSource];
+    glUseProgram(self.program);
 
     // 链接程序后设置颜色才生效
     float greenValue = arc4random() % 10 * 1.0 / 10;
     // 获取ourColor的位置，如果返回-1表示没有找到
-    int vertexColorLocation = glGetUniformLocation(program, "ourColor");
+    int vertexColorLocation = glGetUniformLocation(self.program, "ourColor");
     // 设置uniform类型的ourColor的值
     glUniform4f(vertexColorLocation, 0.0, greenValue, 0.0, 1.0);
     glBindVertexArrayOES(VAO);
@@ -286,8 +212,8 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (void*)(3* sizeof(GL_FLOAT)));
     glEnableVertexAttribArray(1);
         
-    GLuint program = [self createProgram];
-    glUseProgram(program);
+    [self createProgramWithVertexShader:shaderVertexShaderSource fragmentShader:shaderFragmentShaderSource];
+    glUseProgram(self.program);
     glBindVertexArrayOES(VAO);
     // 索引绘制
     glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -295,70 +221,6 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     // 渲染缓存（颜色渲染缓存）保存完成的帧，将渲染缓存绑定到上下文并呈现它。这会将完成的帧交给Core Animation绘制。
     [self.context presentRenderbuffer:GL_RENDERBUFFER];
 
-}
-
-- (GLuint)createProgram {
-    // 创建顶点着色器
-    vertextShader = glCreateShader(GL_VERTEX_SHADER);
-    const GLchar *vertexSource = (GLchar *)[vertexShaderSource UTF8String];
-    // 将着色器源码附加到着色器对象上
-    glShaderSource(vertextShader, 1, &vertexSource, NULL);
-    // 编译
-    glCompileShader(vertextShader);
-    
-#if DEBUG
-    // 校验顶点着色器程序编译状态
-    GLint logLength = 0;
-    glGetShaderiv(vertextShader, GL_INFO_LOG_LENGTH, &logLength);
-    if(logLength > 0) {
-        GLchar *log = (GLchar *)malloc(logLength);
-        glGetShaderInfoLog(vertextShader, logLength, &logLength, log);
-        NSLog(@"shader compile log:\n%s", log);
-        free(log);
-    }
-#endif
-    
-    // 创建顶点着色器
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    // 将着色器源码附加到着色器对象上
-    const GLchar *fragmentSource = (GLchar *)[fragmentShaderSource UTF8String];
-    glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
-    glCompileShader(fragmentShader);
-
-#if DEBUG
-    // 校验片段着色器程序编译状态
-    GLint alogLength = 0;
-    glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &alogLength);
-    if(logLength > 0) {
-        GLchar *log = (GLchar *)malloc(alogLength);
-        glGetShaderInfoLog(fragmentShader, alogLength, &alogLength, log);
-        NSLog(@"shader compile log:\n%s", log);
-        free(log);
-    }
-#endif
-    
-    // 创建程序
-    GLuint program = glCreateProgram();
-    
-    // 把着色器对象附加到程序对象
-    glAttachShader(program, vertextShader);
-    glAttachShader(program, fragmentShader);
-    // 链接程序
-    glLinkProgram(program);
-    
-    glDeleteShader(vertextShader);
-    glDeleteShader(fragmentShader);
-    
-    GLint linkSuccess;
-    glGetProgramiv(program, GL_LINK_STATUS, &linkSuccess);
-    if(linkSuccess == GL_FALSE) {
-        GLchar message[256];
-        glGetProgramInfoLog(program, sizeof(message), 0, &message[0]);
-        NSString *messageStr = [NSString stringWithUTF8String:message];
-        NSLog(@"error %@", messageStr);
-    }
-    
-    return program;
 }
 
 @end
