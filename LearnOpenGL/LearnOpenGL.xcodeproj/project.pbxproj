@@ -15,8 +15,8 @@
 		E44A4D9026D77AAC00BDB0A3 /* FMOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D8F26D77AAC00BDB0A3 /* FMOpenGLView.m */; };
 		E44A4D9426D7896000BDB0A3 /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E44A4D9226D7896000BDB0A3 /* 1.jpeg */; };
 		E44A4D9526D7896000BDB0A3 /* 4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E44A4D9326D7896000BDB0A3 /* 4.jpeg */; };
+		E44A4D9926D79EED00BDB0A3 /* FMOpenGLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */; };
 		E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E126D334390033F2EB /* AppDelegate.m */; };
-		E4BED5E526D334390033F2EB /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E426D334390033F2EB /* SceneDelegate.m */; };
 		E4BED5E826D334390033F2EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E726D334390033F2EB /* ViewController.m */; };
 		E4BED5EB26D3343A0033F2EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4BED5E926D3343A0033F2EB /* Main.storyboard */; };
 		E4BED5ED26D334400033F2EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4BED5EC26D334400033F2EB /* Assets.xcassets */; };
@@ -24,8 +24,6 @@
 		E4BED5F326D334400033F2EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5F226D334400033F2EB /* main.m */; };
 		E4BED5FC26D33B400033F2EB /* FMTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5FB26D33B400033F2EB /* FMTriangleView.m */; };
 		E4BED5FF26D33CC20033F2EB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BED5FE26D33CC20033F2EB /* OpenGLES.framework */; };
-		E4BED60226D348990033F2EB /* shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = E4BED60026D348990033F2EB /* shader.fsh */; };
-		E4BED60326D348990033F2EB /* shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = E4BED60126D348990033F2EB /* shader.vsh */; };
 		E4BED6AD26D3AFB10033F2EB /* FMOpenGLTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED6AC26D3AFB10033F2EB /* FMOpenGLTriangleView.m */; };
 /* End PBXBuildFile section */
 
@@ -45,11 +43,11 @@
 		E44A4D8F26D77AAC00BDB0A3 /* FMOpenGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLView.m; sourceTree = "<group>"; };
 		E44A4D9226D7896000BDB0A3 /* 1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpeg; sourceTree = "<group>"; };
 		E44A4D9326D7896000BDB0A3 /* 4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpeg; sourceTree = "<group>"; };
+		E44A4D9726D79EED00BDB0A3 /* FMOpenGLVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLVC.h; sourceTree = "<group>"; };
+		E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLVC.m; sourceTree = "<group>"; };
 		E4BED5DD26D334390033F2EB /* LearnOpenGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnOpenGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BED5E026D334390033F2EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4BED5E126D334390033F2EB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E4BED5E326D334390033F2EB /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		E4BED5E426D334390033F2EB /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		E4BED5E626D334390033F2EB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E4BED5E726D334390033F2EB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E4BED5EA26D3343A0033F2EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -60,8 +58,6 @@
 		E4BED5FA26D33B400033F2EB /* FMTriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMTriangleView.h; sourceTree = "<group>"; };
 		E4BED5FB26D33B400033F2EB /* FMTriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMTriangleView.m; sourceTree = "<group>"; };
 		E4BED5FE26D33CC20033F2EB /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		E4BED60026D348990033F2EB /* shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.fsh; sourceTree = "<group>"; };
-		E4BED60126D348990033F2EB /* shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vsh; sourceTree = "<group>"; };
 		E4BED6AB26D3AFB10033F2EB /* FMOpenGLTriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLTriangleView.h; sourceTree = "<group>"; };
 		E4BED6AC26D3AFB10033F2EB /* FMOpenGLTriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLTriangleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +94,19 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		E44A4D9626D79E0C00BDB0A3 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				E4BED5E926D3343A0033F2EB /* Main.storyboard */,
+				E4BED5EC26D334400033F2EB /* Assets.xcassets */,
+				E4BED5EE26D334400033F2EB /* LaunchScreen.storyboard */,
+				E4BED5F126D334400033F2EB /* Info.plist */,
+				E4BED5F226D334400033F2EB /* main.m */,
+				E44A4D8D26D779DF00BDB0A3 /* PrefixHeader.pch */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		E4BED5D426D334390033F2EB = {
 			isa = PBXGroup;
 			children = (
@@ -118,22 +127,15 @@
 		E4BED5DF26D334390033F2EB /* LearnOpenGL */ = {
 			isa = PBXGroup;
 			children = (
-				E4BED60026D348990033F2EB /* shader.fsh */,
-				E4BED60126D348990033F2EB /* shader.vsh */,
-				E4BED5F926D3346D0033F2EB /* Source */,
 				E4BED5E026D334390033F2EB /* AppDelegate.h */,
 				E4BED5E126D334390033F2EB /* AppDelegate.m */,
-				E4BED5E326D334390033F2EB /* SceneDelegate.h */,
-				E4BED5E426D334390033F2EB /* SceneDelegate.m */,
 				E4BED5E626D334390033F2EB /* ViewController.h */,
 				E4BED5E726D334390033F2EB /* ViewController.m */,
-				E4BED5E926D3343A0033F2EB /* Main.storyboard */,
-				E4BED5EC26D334400033F2EB /* Assets.xcassets */,
-				E4BED5EE26D334400033F2EB /* LaunchScreen.storyboard */,
-				E4BED5F126D334400033F2EB /* Info.plist */,
-				E4BED5F226D334400033F2EB /* main.m */,
-				E44A4D8D26D779DF00BDB0A3 /* PrefixHeader.pch */,
+				E44A4D9726D79EED00BDB0A3 /* FMOpenGLVC.h */,
+				E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */,
+				E4BED5F926D3346D0033F2EB /* Source */,
 				E44A4D9126D7894F00BDB0A3 /* Resources */,
+				E44A4D9626D79E0C00BDB0A3 /* SupportingFiles */,
 			);
 			path = LearnOpenGL;
 			sourceTree = "<group>";
@@ -222,9 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4BED60326D348990033F2EB /* shader.vsh in Resources */,
 				E44A4D9426D7896000BDB0A3 /* 1.jpeg in Resources */,
-				E4BED60226D348990033F2EB /* shader.fsh in Resources */,
 				E4BED5F026D334400033F2EB /* LaunchScreen.storyboard in Resources */,
 				E44A4D9526D7896000BDB0A3 /* 4.jpeg in Resources */,
 				E4BED5ED26D334400033F2EB /* Assets.xcassets in Resources */,
@@ -243,6 +243,7 @@
 				E4BED6AD26D3AFB10033F2EB /* FMOpenGLTriangleView.m in Sources */,
 				E44A4D8C26D779B200BDB0A3 /* FMOpenGLTexture.m in Sources */,
 				E4BED5E826D334390033F2EB /* ViewController.m in Sources */,
+				E44A4D9926D79EED00BDB0A3 /* FMOpenGLVC.m in Sources */,
 				E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */,
 				E44A4D8926D6363F00BDB0A3 /* FMOpenGLShaderFinal.m in Sources */,
 				E44A4D8226D5F56400BDB0A3 /* FMOpenGLTriangle.m in Sources */,
@@ -250,7 +251,6 @@
 				E44A4D7F26D5D8B700BDB0A3 /* FMOpenGLWindow.m in Sources */,
 				E4BED5FC26D33B400033F2EB /* FMTriangleView.m in Sources */,
 				E4BED5F326D334400033F2EB /* main.m in Sources */,
-				E4BED5E526D334390033F2EB /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,8 +395,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQFEA2B5H2;
-				GCC_PREFIX_HEADER = LearnOpenGL/PrefixHeader.pch;
-				INFOPLIST_FILE = LearnOpenGL/Info.plist;
+				GCC_PREFIX_HEADER = LearnOpenGL/SupportingFiles/PrefixHeader.pch;
+				INFOPLIST_FILE = LearnOpenGL/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -415,8 +415,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQFEA2B5H2;
-				GCC_PREFIX_HEADER = LearnOpenGL/PrefixHeader.pch;
-				INFOPLIST_FILE = LearnOpenGL/Info.plist;
+				GCC_PREFIX_HEADER = LearnOpenGL/SupportingFiles/PrefixHeader.pch;
+				INFOPLIST_FILE = LearnOpenGL/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -1,6 +1,6 @@
 //
 //  AppDelegate.h
-//  LearnOpenGL1(三角形)
+//  LearnOpenGL
 //
 //  Created by yfm on 2021/8/23.
 //
@@ -9,6 +9,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+@property (nonatomic, strong) UIWindow *window;
 
 @end
 

@@ -6,15 +6,12 @@
 //
 
 #import "ViewController.h"
-#import "FMTriangleView.h"
-#import "FMOpenGLTriangleView.h"
-#import "FMOpenGLWindow.h"
-#import "FMOpenGLTriangle.h"
-#import "FMOpenGLShader.h"
-#import "FMOpenGLShaderFinal.h"
-#import "FMOpenGLTexture.h"
+#import "FMOpenGLVC.h"
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) NSArray *datasource;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -22,10 +19,47 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    FMOpenGLTexture *triangleView = [[FMOpenGLTexture alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    [self.view addSubview:triangleView];
+    self.navigationItem.title = @"Learn OpenGL";
+    
+    self.tableView.frame = self.view.bounds;
+    [self.view addSubview:self.tableView];
 }
 
+#pragma mark -
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.datasource.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    NSDictionary *dic = self.datasource[indexPath.row];
+    cell.textLabel.text = dic.allKeys[0];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dic = self.datasource[indexPath.row];
+    NSString *className = dic.allValues[0];
+    FMOpenGLVC *vc = [[FMOpenGLVC alloc] initWithClassName:className];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark -
+- (UITableView *)tableView {
+    if(!_tableView) {
+        _tableView = [[UITableView alloc] init];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"cell"];
+    }
+    return _tableView;
+}
+
+- (NSArray *)datasource {
+    return @[@{@"窗口": NSStringFromClass(FMOpenGLWindow.class)},
+             @{@"三角形": NSStringFromClass(FMOpenGLTriangle.class)},
+             @{@"着色器": NSStringFromClass(FMOpenGLShaderFinal.class)},
+             @{@"纹理": NSStringFromClass(FMOpenGLTexture.class)}];
+}
 
 @end
