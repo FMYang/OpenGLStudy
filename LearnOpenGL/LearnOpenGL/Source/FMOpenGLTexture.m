@@ -148,6 +148,12 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     
     glUniform1i(glGetUniformLocation(self.program, "ourTexture"), 0);
     
+    /**
+     GL_REPEAT    对纹理的默认行为。重复纹理图像。
+     GL_MIRRORED_REPEAT    和GL_REPEAT一样，但每次重复图片是镜像放置的。
+     GL_CLAMP_TO_EDGE    纹理坐标会被约束在0到1之间，超出的部分会重复纹理坐标的边缘，产生一种边缘被拉伸的效果。
+     GL_CLAMP_TO_BORDER    超出的坐标为用户指定的边缘颜色。
+     */
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     

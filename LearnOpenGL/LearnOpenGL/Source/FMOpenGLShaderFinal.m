@@ -58,11 +58,7 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
     glClearColor(1.0, 1.0, 1.0, 1.0);
     // 清除帧缓存附加的渲染缓存信息，下一次绘制不需要上一次的内容，清除以避免将先前的内容加载到内存中
     glClear(GL_COLOR_BUFFER_BIT);
-    
-    //  设置视口，将屏幕坐标变为标准化设备坐标（范围-1 ～ 1）
-    CGFloat scale = UIScreen.mainScreen.scale;
-    glViewport(self.frame.origin.x * scale, self.frame.origin.y * scale, self.frame.size.width * scale, self.frame.size.height  * scale);
-    
+        
     // 顶点数据
     float vertices[] = {
         0.0f, 0.5f, 0.0f,
@@ -201,10 +197,6 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
     glGenVertexArraysOES(1, &VAO);
     glBindVertexArrayOES(VAO);
     
-//    // 设置顶点属性指针，告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）了
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
-//    // 启用顶点属性
-//    glEnableVertexAttribArray(0);
     // 位置属性
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (void*)0);
     glEnableVertexAttribArray(0);
