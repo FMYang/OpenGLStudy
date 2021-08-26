@@ -4,67 +4,38 @@
 //
 //  Created by yfm on 2021/8/25.
 //
-//  使用OpenGL ES 3.0 版本
 
-#import "FMOpenGLShader330.h"
+#import "FMOpenGLShaderFinal.h"
 #import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES3/gl.h>
-
-/**
- 宏用法
-
- #define STRING @#s    // 's' 将传入的单字符参数名转换成字符，以一对单引用括起来.
- #define NSSTRING #str  // "str" 在宏参数前加个#，那么在宏体扩展的时候，宏参数会被扩展成字符串的形式。
- */
-#define STRINGIZE(x) #x
-#define STRINGIZE2(x) STRINGIZE(x)
-#define SHADER_STRING(text) @ STRINGIZE2(text)
-
-// 如果我们打算做渲染的话，现代OpenGL需要至少设置一个顶点着色器和一个片段着色器
-// 顶点着色器 （只包含位置信息的顶点着色器程序）
-//NSString *const vertexShaderSource = SHADER_STRING(
-//   //attribute 关键字用来描述传入shader的变量
-//   attribute vec4 position;
-//
-//   void main() {
-//       // gl_Position是vertex shader的内建变量，gl_Position中的顶点值最终输出到渲染管线中
-//       gl_Position = position;
-//   }
-//);
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 
 // 包含位置和颜色信息的顶点着色器程序
 NSString *const vertexShaderSource = SHADER_STRING(
-    attribute vec3 aPos;   // 位置变量的属性位置值为 0
+    attribute vec4 aPos;   // 位置变量的属性位置值为 0
     attribute vec3 aColor; // 颜色变量的属性位置值为 1
 
-    varying vec3 ourColor; // 向片段着色器输出一个颜色
+    varying vec4 FragColor; // 向片段着色器输出一个颜色
 
     void main()
     {
-        gl_Position = vec4(aPos, 1.0);
-        ourColor = aColor; // 将ourColor设置为我们从顶点数据那里得到的输入颜色
+        gl_Position = aPos;
+        FragColor = vec4(aColor, 1.0); // 将ourColor设置为我们从顶点数据那里得到的输入颜色
     }
 );
 
 // 片段着色器（in out 分别使用attribute varying）
 NSString *const fragmentShaderSource = SHADER_STRING(
-//    precision highp float;
-//    varying vec4 FragColor;
-    attribute vec3 ourColor;
+    precision mediump float;
+    varying vec4 FragColor;
 
     void main()
     {
-        gl_FragColor = vec4(ourColor, 1.0);
+        gl_FragColor = FragColor;
     }
 );
 
-/**
- uniform是一种从CPU中的应用向GPU中的着色器发送数据的方式，但uniform和顶点属性不同。
- 首先，uniform是全局的（Global）。全局意味着必须在每个着色器程序对象中都是独一无二的，而且它可以被着色器程序的任意着色器在任意阶段访问。
- 第二，无论你把uniform值设置成什么，uniform会一直保存它们的数据，直到它们被重置和更新。
- */
-
-@interface FMOpenGLShader330() {
+@interface FMOpenGLShaderFinal() {
     // 顶点着色器
     GLuint vertextShader;
     // 片段着色器
@@ -85,7 +56,7 @@ NSString *const fragmentShaderSource = SHADER_STRING(
 
 @end
 
-@implementation FMOpenGLShader330
+@implementation FMOpenGLShaderFinal
 
 + (Class)layerClass {
     return [CAEAGLLayer class];
@@ -250,9 +221,9 @@ NSString *const fragmentShaderSource = SHADER_STRING(
      可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中。这样的好处就是，当配置顶点属性指针时，你只需要将那些调用执行一次，之后再绘制物体的时候只需要绑定相应的VAO就行了。这使在不同顶点数据和属性配置之间切换变得非常简单，只需要绑定不同的VAO就行了。刚刚设置的所有状态都将存储在VAO中
      */
     GLuint VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-    
+    glGenVertexArraysOES(1, &VAO);
+    glBindVertexArrayOES(VAO);
+
     // 索引对象，可以减少绘制的顶点数量
     glGenBuffers(1, &EBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -270,9 +241,9 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     float greenValue = arc4random() % 10 * 1.0 / 10;
     // 获取ourColor的位置，如果返回-1表示没有找到
     int vertexColorLocation = glGetUniformLocation(program, "ourColor");
-    // 设置ourColor的值
+    // 设置uniform类型的ourColor的值
     glUniform4f(vertexColorLocation, 0.0, greenValue, 0.0, 1.0);
-    glBindVertexArray(VAO);
+    glBindVertexArrayOES(VAO);
     // 索引绘制
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     
@@ -301,8 +272,8 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
     GLuint VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
+    glGenVertexArraysOES(1, &VAO);
+    glBindVertexArrayOES(VAO);
     
 //    // 设置顶点属性指针，告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）了
 //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
@@ -317,7 +288,7 @@ NSString *const fragmentShaderSource = SHADER_STRING(
         
     GLuint program = [self createProgram];
     glUseProgram(program);
-    glBindVertexArray(VAO);
+    glBindVertexArrayOES(VAO);
     // 索引绘制
     glDrawArrays(GL_TRIANGLES, 0, 3);
     
@@ -336,7 +307,7 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     glCompileShader(vertextShader);
     
 #if DEBUG
-    // 校验片段着色器程序编译状态
+    // 校验顶点着色器程序编译状态
     GLint logLength = 0;
     glGetShaderiv(vertextShader, GL_INFO_LOG_LENGTH, &logLength);
     if(logLength > 0) {
@@ -353,8 +324,19 @@ NSString *const fragmentShaderSource = SHADER_STRING(
     const GLchar *fragmentSource = (GLchar *)[fragmentShaderSource UTF8String];
     glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
     glCompileShader(fragmentShader);
-    
 
+#if DEBUG
+    // 校验片段着色器程序编译状态
+    GLint alogLength = 0;
+    glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &alogLength);
+    if(logLength > 0) {
+        GLchar *log = (GLchar *)malloc(alogLength);
+        glGetShaderInfoLog(fragmentShader, alogLength, &alogLength, log);
+        NSLog(@"shader compile log:\n%s", log);
+        free(log);
+    }
+#endif
+    
     // 创建程序
     GLuint program = glCreateProgram();
     

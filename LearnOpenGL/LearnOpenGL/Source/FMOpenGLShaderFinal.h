@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FMOpenGLShader330 : UIView
+@interface FMOpenGLShaderFinal : UIView
 
 @end
 
