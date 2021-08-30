@@ -5,7 +5,7 @@
 //  Created by yfm on 2021/8/26.
 //
 
-#import <OpenGLES/EAGL.h>
+//#import <OpenGLES/EAGL.h> // 需要oc，有c或c++代码就报错
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 

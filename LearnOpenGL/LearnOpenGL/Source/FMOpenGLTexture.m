@@ -6,6 +6,7 @@
 //
 
 #import "FMOpenGLTexture.h"
+#import "Matrix/matrix.h"
 
 // 顶点着色器
 NSString *const textureVertexShaderSource = SHADER_STRING(
@@ -19,10 +20,11 @@ NSString *const textureVertexShaderSource = SHADER_STRING(
                                                           
     void main()
     {
-       gl_Position = vec4(aPos, 1.0);
+       gl_Position = vec4(aPos * 2.0, 1.0); // aPos * 2将图像放大两倍
     
        outColor = aColor;
-       TexCoord = aTexCoord;
+//       TexCoord = aTexCoord;
+        TexCoord = vec2(aTexCoord.x, 1.0 - aTexCoord.y); // 矩阵变换，让纹理沿y轴翻转
     }
 );
 
@@ -36,7 +38,15 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
 
     void main()
     {
+//        gl_FragColor = vec4(vec3(1.0 - texture2D(ourTexture, TexCoord)), 1.0); // 对纹理应用反色
         gl_FragColor = texture2D(ourTexture, TexCoord);
+    
+        // 灰度，取平均
+//        float average = (gl_FragColor.r + gl_FragColor.g + gl_FragColor.b) / 3.0;
+    
+        // 更精确的灰度，人眼对绿色更加敏感些，对蓝色不那么敏感
+        float average = 0.2126 * gl_FragColor.r + 0.7152 * gl_FragColor.g + 0.0722 * gl_FragColor.b;
+        gl_FragColor = vec4(average, average, average, 1.0);
     }
 );
 
@@ -67,14 +77,15 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
 
     float vertices[] = {
         // ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
-        1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
-        1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
-        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
+        0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+        0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
+        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
 
-        -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f,    // 左上
-        1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
-        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
+        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f,    // 左上
+        0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
     };
+    
 
     glGenBuffers(1, &_VBO);
     glBindBuffer(GL_ARRAY_BUFFER, _VBO);
@@ -108,7 +119,9 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
 
 - (void)genTexture {
     UIImage *img = [UIImage imageNamed:@"1.jpeg"];
+    
     CGImageRef imageRef = img.CGImage;
+    
     size_t width = CGImageGetWidth(imageRef);
     size_t height = CGImageGetHeight(imageRef);
     
@@ -119,6 +132,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     NSUInteger bytesPerRow = bytesPerPixel * width;
     NSUInteger bitsPerComponent = 8;
     
+    // 通过图片生成纹理数据
     CGContextRef context = CGBitmapContextCreate(textureData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     
     CGColorSpaceRelease(colorSpace);
@@ -146,16 +160,20 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
      */
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)width, (GLsizei)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
     
+    // 指向编号为0的纹理
     glUniform1i(glGetUniformLocation(self.program, "ourTexture"), 0);
     
+    // 设置环绕方式
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
+    // mip贴图
     glGenerateMipmap(GL_TEXTURE_2D);
     
+    // 释放纹理数据
     free(textureData);
 }
 

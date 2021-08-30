@@ -74,8 +74,9 @@
 
 // 4、设置视口
 - (void)setViewPort {
-    //  设置视口，将屏幕坐标变为标准化设备坐标（范围-1 ～ 1）
+    //  设置视口
     CGFloat scale = UIScreen.mainScreen.scale;
+    // OpenGL会使用glViewPort内部的参数来将标准化设备坐标（-1.0到1.0）映射到屏幕坐标，每个坐标都关联了一个屏幕上的点
     glViewport(self.frame.origin.x * scale, self.frame.origin.y * scale, self.frame.size.width * scale, self.frame.size.height  * scale);
 }
 

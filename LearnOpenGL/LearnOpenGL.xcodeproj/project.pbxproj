@@ -16,6 +16,7 @@
 		E44A4D9426D7896000BDB0A3 /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E44A4D9226D7896000BDB0A3 /* 1.jpeg */; };
 		E44A4D9526D7896000BDB0A3 /* 4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E44A4D9326D7896000BDB0A3 /* 4.jpeg */; };
 		E44A4D9926D79EED00BDB0A3 /* FMOpenGLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */; };
+		E44A4D9D26D891B200BDB0A3 /* matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D9C26D891B200BDB0A3 /* matrix.c */; };
 		E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E126D334390033F2EB /* AppDelegate.m */; };
 		E4BED5E826D334390033F2EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E726D334390033F2EB /* ViewController.m */; };
 		E4BED5EB26D3343A0033F2EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4BED5E926D3343A0033F2EB /* Main.storyboard */; };
@@ -45,6 +46,8 @@
 		E44A4D9326D7896000BDB0A3 /* 4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpeg; sourceTree = "<group>"; };
 		E44A4D9726D79EED00BDB0A3 /* FMOpenGLVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLVC.h; sourceTree = "<group>"; };
 		E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLVC.m; sourceTree = "<group>"; };
+		E44A4D9B26D891B200BDB0A3 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		E44A4D9C26D891B200BDB0A3 /* matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = matrix.c; sourceTree = "<group>"; };
 		E4BED5DD26D334390033F2EB /* LearnOpenGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnOpenGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BED5E026D334390033F2EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4BED5E126D334390033F2EB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -107,6 +110,15 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		E44A4D9A26D891AA00BDB0A3 /* Matrix */ = {
+			isa = PBXGroup;
+			children = (
+				E44A4D9B26D891B200BDB0A3 /* matrix.h */,
+				E44A4D9C26D891B200BDB0A3 /* matrix.c */,
+			);
+			path = Matrix;
+			sourceTree = "<group>";
+		};
 		E4BED5D426D334390033F2EB = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +157,6 @@
 			children = (
 				E44A4D8E26D77AAC00BDB0A3 /* FMOpenGLView.h */,
 				E44A4D8F26D77AAC00BDB0A3 /* FMOpenGLView.m */,
-				E44A4D8326D5F56B00BDB0A3 /* remain */,
 				E44A4D7D26D5D8B700BDB0A3 /* FMOpenGLWindow.h */,
 				E44A4D7E26D5D8B700BDB0A3 /* FMOpenGLWindow.m */,
 				E44A4D8026D5F56400BDB0A3 /* FMOpenGLTriangle.h */,
@@ -156,6 +167,8 @@
 				E44A4D8826D6363F00BDB0A3 /* FMOpenGLShaderFinal.m */,
 				E44A4D8A26D779B200BDB0A3 /* FMOpenGLTexture.h */,
 				E44A4D8B26D779B200BDB0A3 /* FMOpenGLTexture.m */,
+				E44A4D8326D5F56B00BDB0A3 /* remain */,
+				E44A4D9A26D891AA00BDB0A3 /* Matrix */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -251,6 +264,7 @@
 				E44A4D7F26D5D8B700BDB0A3 /* FMOpenGLWindow.m in Sources */,
 				E4BED5FC26D33B400033F2EB /* FMTriangleView.m in Sources */,
 				E4BED5F326D334400033F2EB /* main.m in Sources */,
+				E44A4D9D26D891B200BDB0A3 /* matrix.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
