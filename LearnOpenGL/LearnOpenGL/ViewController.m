@@ -59,7 +59,8 @@
     return @[@{@"窗口": NSStringFromClass(FMOpenGLWindow.class)},
              @{@"三角形": NSStringFromClass(FMOpenGLTriangle.class)},
              @{@"着色器": NSStringFromClass(FMOpenGLShaderFinal.class)},
-             @{@"纹理": NSStringFromClass(FMOpenGLTexture.class)}];
+             @{@"纹理": NSStringFromClass(FMOpenGLTexture.class)},
+             @{@"lut": NSStringFromClass(FMOpenGLLutView.class)}];
 }
 
 @end

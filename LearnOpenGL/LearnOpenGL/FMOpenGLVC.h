@@ -13,6 +13,7 @@
 #import "FMOpenGLShader.h"
 #import "FMOpenGLShaderFinal.h"
 #import "FMOpenGLTexture.h"
+#import "FMOpenGLLutView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -128,8 +128,7 @@
     
 }
 
-- (void)dealloc {
-    NSLog(@"%s", __func__);
+- (void)reset {
     if(_frameBuffer) {
         glDeleteFramebuffers(1, &_frameBuffer);
         _frameBuffer = 0;
@@ -143,6 +142,11 @@
         glDeleteProgram(_program);
         _program = 0;
     }
+}
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+    [self reset];
 }
 
 @end

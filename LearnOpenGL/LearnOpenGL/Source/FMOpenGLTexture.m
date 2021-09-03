@@ -23,8 +23,8 @@ NSString *const textureVertexShaderSource = SHADER_STRING(
        gl_Position = vec4(aPos * 2.0, 1.0); // aPos * 2将图像放大两倍
     
        outColor = aColor;
-//       TexCoord = aTexCoord;
-        TexCoord = vec2(aTexCoord.x, 1.0 - aTexCoord.y); // 矩阵变换，让纹理沿y轴翻转
+       TexCoord = aTexCoord;
+//        TexCoord = vec2(aTexCoord.x, 1.0 - aTexCoord.y); // 矩阵变换，让纹理沿y轴翻转
     }
 );
 
@@ -45,8 +45,8 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
 //        float average = (gl_FragColor.r + gl_FragColor.g + gl_FragColor.b) / 3.0;
     
         // 更精确的灰度，人眼对绿色更加敏感些，对蓝色不那么敏感
-        float average = 0.2126 * gl_FragColor.r + 0.7152 * gl_FragColor.g + 0.0722 * gl_FragColor.b;
-        gl_FragColor = vec4(average, average, average, 1.0);
+//        float average = 0.2126 * gl_FragColor.r + 0.7152 * gl_FragColor.g + 0.0722 * gl_FragColor.b;
+//        gl_FragColor = vec4(average, average, average, 1.0);
     }
 );
 
@@ -136,6 +136,11 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     CGContextRef context = CGBitmapContextCreate(textureData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     
     CGColorSpaceRelease(colorSpace);
+    
+    // 翻转Core Graphics Y轴
+    CGContextTranslateCTM(context, 0, height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
     CGContextRelease(context);
     
@@ -177,7 +182,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
     // mip贴图
-    glGenerateMipmap(GL_TEXTURE_2D);
+//    glGenerateMipmap(GL_TEXTURE_2D);
     
     // 释放纹理数据
     free(textureData);
