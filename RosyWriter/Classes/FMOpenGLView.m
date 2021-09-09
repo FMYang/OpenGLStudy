@@ -270,6 +270,15 @@ NSString *const textureFragmentShaderSource = _STRINGIFY(
         ( 1.0 + textureSamplingSize.width ) / 2.0, ( 1.0 - textureSamplingSize.height ) / 2.0, // bottom right
     };
     
+    /*
+    {
+       0.0, 0.910714268,
+       1.0, 0.910714268,
+       0.0, 0.0892857164,
+       1.0, 0.0892857164
+    }
+     */
+    
     glVertexAttribPointer(texturecoordinateLoc, 2, GL_FLOAT, 0, 0, passThroughTextureVertices);
     glEnableVertexAttribArray(texturecoordinateLoc);
     

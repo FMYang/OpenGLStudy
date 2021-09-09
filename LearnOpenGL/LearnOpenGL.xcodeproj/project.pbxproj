@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE586CAE016A1B2B49F8B952 /* libPods-LearnOpenGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB170A91AB84CF3EACA3C1B5 /* libPods-LearnOpenGL.a */; };
 		E406E72526E2188300C35047 /* FMOpenGLLutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E406E72426E2188300C35047 /* FMOpenGLLutView.m */; };
 		E406E72726E218B800C35047 /* lookup.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E72626E218B800C35047 /* lookup.png */; };
 		E406E74C26E2210A00C35047 /* F01.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E72A26E2210A00C35047 /* F01.png */; };
@@ -39,7 +40,63 @@
 		E406E76726E2210A00C35047 /* filter_general_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E74926E2210A00C35047 /* filter_general_cover.png */; };
 		E406E76826E2210A00C35047 /* filter_food_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E74A26E2210A00C35047 /* filter_food_cover.png */; };
 		E406E76926E2210A00C35047 /* filter_people_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E74B26E2210A00C35047 /* filter_people_cover.png */; };
-		E406E76B26E2266000C35047 /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E406E76A26E2266000C35047 /* 2.JPG */; };
+		E406E76B26E2266000C35047 /* 2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E76A26E2266000C35047 /* 2.jpeg */; };
+		E406E78826E5ABE700C35047 /* 加州.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E76D26E5ABE400C35047 /* 加州.png */; };
+		E406E78926E5ABE700C35047 /* 牛仔.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E76E26E5ABE500C35047 /* 牛仔.png */; };
+		E406E78A26E5ABE700C35047 /* 灰橙.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E76F26E5ABE500C35047 /* 灰橙.png */; };
+		E406E78B26E5ABE700C35047 /* 胶片01.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77026E5ABE500C35047 /* 胶片01.png */; };
+		E406E78C26E5ABE700C35047 /* 暮色.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77126E5ABE500C35047 /* 暮色.png */; };
+		E406E78D26E5ABE700C35047 /* 旺角.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77226E5ABE500C35047 /* 旺角.png */; };
+		E406E78E26E5ABE700C35047 /* 罗兰.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77326E5ABE500C35047 /* 罗兰.png */; };
+		E406E78F26E5ABE700C35047 /* 胶片05.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77426E5ABE500C35047 /* 胶片05.png */; };
+		E406E79026E5ABE700C35047 /* 胶片03.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77526E5ABE500C35047 /* 胶片03.png */; };
+		E406E79126E5ABE700C35047 /* 梦境.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77626E5ABE600C35047 /* 梦境.png */; };
+		E406E79226E5ABE700C35047 /* 香槟.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77726E5ABE600C35047 /* 香槟.png */; };
+		E406E79326E5ABE700C35047 /* 玫瑰.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77826E5ABE600C35047 /* 玫瑰.png */; };
+		E406E79426E5ABE700C35047 /* 青橙.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77926E5ABE600C35047 /* 青橙.png */; };
+		E406E79526E5ABE700C35047 /* 赛博朋克.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77A26E5ABE600C35047 /* 赛博朋克.png */; };
+		E406E79626E5ABE700C35047 /* 胶片02.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77B26E5ABE600C35047 /* 胶片02.png */; };
+		E406E79726E5ABE700C35047 /* 蓝冰.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77C26E5ABE600C35047 /* 蓝冰.png */; };
+		E406E79826E5ABE700C35047 /* 极光.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77D26E5ABE600C35047 /* 极光.png */; };
+		E406E79926E5ABE700C35047 /* 黑金.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77E26E5ABE600C35047 /* 黑金.png */; };
+		E406E79A26E5ABE800C35047 /* 胶片04.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E77F26E5ABE600C35047 /* 胶片04.png */; };
+		E406E79B26E5ABE800C35047 /* Log.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E78026E5ABE700C35047 /* Log.png */; };
+		E406E79C26E5ABE800C35047 /* 青葱.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E78126E5ABE700C35047 /* 青葱.png */; };
+		E406E79D26E5ABE800C35047 /* 美化.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E78226E5ABE700C35047 /* 美化.png */; };
+		E406E79E26E5ABE800C35047 /* 晴空.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E78326E5ABE700C35047 /* 晴空.png */; };
+		E406E79F26E5ABE800C35047 /* 海岛.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E78426E5ABE700C35047 /* 海岛.png */; };
+		E406E7A026E5ABE800C35047 /* 和煦.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E78526E5ABE700C35047 /* 和煦.png */; };
+		E406E7A126E5ABE800C35047 /* 仲夏.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E78626E5ABE700C35047 /* 仲夏.png */; };
+		E406E7A226E5ABE800C35047 /* 初音.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E78726E5ABE700C35047 /* 初音.png */; };
+		E406E7BF26E5B7F300C35047 /* 晴空_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7A426E5B7F300C35047 /* 晴空_cover.jpeg */; };
+		E406E7C026E5B7F300C35047 /* 梦境_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7A526E5B7F300C35047 /* 梦境_cover.jpeg */; };
+		E406E7C126E5B7F300C35047 /* 青橙_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7A626E5B7F300C35047 /* 青橙_cover.png */; };
+		E406E7C226E5B7F300C35047 /* 初音_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7A726E5B7F300C35047 /* 初音_cover.jpeg */; };
+		E406E7C326E5B7F300C35047 /* 和煦_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7A826E5B7F300C35047 /* 和煦_cover.jpeg */; };
+		E406E7C426E5B7F300C35047 /* Log_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7A926E5B7F300C35047 /* Log_cover.jpeg */; };
+		E406E7C526E5B7F300C35047 /* 玫瑰_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7AA26E5B7F300C35047 /* 玫瑰_cover.jpeg */; };
+		E406E7C626E5B7F300C35047 /* 罗兰_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7AB26E5B7F300C35047 /* 罗兰_cover.jpeg */; };
+		E406E7C726E5B7F300C35047 /* 旺角_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7AC26E5B7F300C35047 /* 旺角_cover.jpeg */; };
+		E406E7C826E5B7F300C35047 /* 胶片01_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7AD26E5B7F300C35047 /* 胶片01_cover.png */; };
+		E406E7C926E5B7F300C35047 /* 青葱_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7AE26E5B7F300C35047 /* 青葱_cover.jpeg */; };
+		E406E7CA26E5B7F300C35047 /* 仲夏_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7AF26E5B7F300C35047 /* 仲夏_cover.jpeg */; };
+		E406E7CB26E5B7F300C35047 /* 美化_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B026E5B7F300C35047 /* 美化_cover.jpeg */; };
+		E406E7CC26E5B7F300C35047 /* 香槟_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B126E5B7F300C35047 /* 香槟_cover.jpeg */; };
+		E406E7CD26E5B7F300C35047 /* 海岛_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B226E5B7F300C35047 /* 海岛_cover.jpeg */; };
+		E406E7CE26E5B7F300C35047 /* 胶片04_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B326E5B7F300C35047 /* 胶片04_cover.png */; };
+		E406E7CF26E5B7F400C35047 /* 灰橙_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B426E5B7F300C35047 /* 灰橙_cover.png */; };
+		E406E7D026E5B7F400C35047 /* 加州_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B526E5B7F300C35047 /* 加州_cover.jpeg */; };
+		E406E7D126E5B7F400C35047 /* 胶片02_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B626E5B7F300C35047 /* 胶片02_cover.png */; };
+		E406E7D226E5B7F400C35047 /* 赛博朋克_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B726E5B7F300C35047 /* 赛博朋克_cover.png */; };
+		E406E7D326E5B7F400C35047 /* 极光_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B826E5B7F300C35047 /* 极光_cover.jpeg */; };
+		E406E7D426E5B7F400C35047 /* 胶片05_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7B926E5B7F300C35047 /* 胶片05_cover.png */; };
+		E406E7D526E5B7F400C35047 /* 暮色_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7BA26E5B7F300C35047 /* 暮色_cover.jpeg */; };
+		E406E7D626E5B7F400C35047 /* 牛仔_cover.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7BB26E5B7F300C35047 /* 牛仔_cover.jpeg */; };
+		E406E7D726E5B7F400C35047 /* 胶片03_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7BC26E5B7F300C35047 /* 胶片03_cover.png */; };
+		E406E7D826E5B7F400C35047 /* 蓝冰_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7BD26E5B7F300C35047 /* 蓝冰_cover.png */; };
+		E406E7D926E5B7F400C35047 /* 黑金_cover.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E7BE26E5B7F300C35047 /* 黑金_cover.png */; };
+		E406E7DB26E5D23D00C35047 /* 3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E406E7DA26E5D23D00C35047 /* 3.jpeg */; };
+		E4438C9126E898B6008CAD26 /* WID-small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4438C9026E898B6008CAD26 /* WID-small.jpg */; };
 		E44A4D7F26D5D8B700BDB0A3 /* FMOpenGLWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D7E26D5D8B700BDB0A3 /* FMOpenGLWindow.m */; };
 		E44A4D8226D5F56400BDB0A3 /* FMOpenGLTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D8126D5F56400BDB0A3 /* FMOpenGLTriangle.m */; };
 		E44A4D8626D61D0700BDB0A3 /* FMOpenGLShader.m in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D8526D61D0700BDB0A3 /* FMOpenGLShader.m */; };
@@ -62,6 +119,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74D965FBC4E43AD6F4CE8E1C /* Pods-LearnOpenGL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnOpenGL.debug.xcconfig"; path = "Target Support Files/Pods-LearnOpenGL/Pods-LearnOpenGL.debug.xcconfig"; sourceTree = "<group>"; };
+		ABF1E9628FD39D92374D8DB6 /* Pods-LearnOpenGL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnOpenGL.release.xcconfig"; path = "Target Support Files/Pods-LearnOpenGL/Pods-LearnOpenGL.release.xcconfig"; sourceTree = "<group>"; };
+		DB170A91AB84CF3EACA3C1B5 /* libPods-LearnOpenGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LearnOpenGL.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E406E72326E2188300C35047 /* FMOpenGLLutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLLutView.h; sourceTree = "<group>"; };
 		E406E72426E2188300C35047 /* FMOpenGLLutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLLutView.m; sourceTree = "<group>"; };
 		E406E72626E218B800C35047 /* lookup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup.png; sourceTree = "<group>"; };
@@ -95,7 +155,63 @@
 		E406E74926E2210A00C35047 /* filter_general_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filter_general_cover.png; sourceTree = "<group>"; };
 		E406E74A26E2210A00C35047 /* filter_food_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filter_food_cover.png; sourceTree = "<group>"; };
 		E406E74B26E2210A00C35047 /* filter_people_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filter_people_cover.png; sourceTree = "<group>"; };
-		E406E76A26E2266000C35047 /* 2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.JPG; sourceTree = "<group>"; };
+		E406E76A26E2266000C35047 /* 2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpeg; sourceTree = "<group>"; };
+		E406E76D26E5ABE400C35047 /* 加州.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "加州.png"; sourceTree = "<group>"; };
+		E406E76E26E5ABE500C35047 /* 牛仔.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "牛仔.png"; sourceTree = "<group>"; };
+		E406E76F26E5ABE500C35047 /* 灰橙.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "灰橙.png"; sourceTree = "<group>"; };
+		E406E77026E5ABE500C35047 /* 胶片01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片01.png"; sourceTree = "<group>"; };
+		E406E77126E5ABE500C35047 /* 暮色.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "暮色.png"; sourceTree = "<group>"; };
+		E406E77226E5ABE500C35047 /* 旺角.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "旺角.png"; sourceTree = "<group>"; };
+		E406E77326E5ABE500C35047 /* 罗兰.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "罗兰.png"; sourceTree = "<group>"; };
+		E406E77426E5ABE500C35047 /* 胶片05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片05.png"; sourceTree = "<group>"; };
+		E406E77526E5ABE500C35047 /* 胶片03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片03.png"; sourceTree = "<group>"; };
+		E406E77626E5ABE600C35047 /* 梦境.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "梦境.png"; sourceTree = "<group>"; };
+		E406E77726E5ABE600C35047 /* 香槟.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "香槟.png"; sourceTree = "<group>"; };
+		E406E77826E5ABE600C35047 /* 玫瑰.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "玫瑰.png"; sourceTree = "<group>"; };
+		E406E77926E5ABE600C35047 /* 青橙.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "青橙.png"; sourceTree = "<group>"; };
+		E406E77A26E5ABE600C35047 /* 赛博朋克.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "赛博朋克.png"; sourceTree = "<group>"; };
+		E406E77B26E5ABE600C35047 /* 胶片02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片02.png"; sourceTree = "<group>"; };
+		E406E77C26E5ABE600C35047 /* 蓝冰.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "蓝冰.png"; sourceTree = "<group>"; };
+		E406E77D26E5ABE600C35047 /* 极光.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "极光.png"; sourceTree = "<group>"; };
+		E406E77E26E5ABE600C35047 /* 黑金.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "黑金.png"; sourceTree = "<group>"; };
+		E406E77F26E5ABE600C35047 /* 胶片04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片04.png"; sourceTree = "<group>"; };
+		E406E78026E5ABE700C35047 /* Log.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Log.png; sourceTree = "<group>"; };
+		E406E78126E5ABE700C35047 /* 青葱.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "青葱.png"; sourceTree = "<group>"; };
+		E406E78226E5ABE700C35047 /* 美化.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "美化.png"; sourceTree = "<group>"; };
+		E406E78326E5ABE700C35047 /* 晴空.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "晴空.png"; sourceTree = "<group>"; };
+		E406E78426E5ABE700C35047 /* 海岛.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "海岛.png"; sourceTree = "<group>"; };
+		E406E78526E5ABE700C35047 /* 和煦.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "和煦.png"; sourceTree = "<group>"; };
+		E406E78626E5ABE700C35047 /* 仲夏.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "仲夏.png"; sourceTree = "<group>"; };
+		E406E78726E5ABE700C35047 /* 初音.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "初音.png"; sourceTree = "<group>"; };
+		E406E7A426E5B7F300C35047 /* 晴空_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "晴空_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7A526E5B7F300C35047 /* 梦境_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "梦境_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7A626E5B7F300C35047 /* 青橙_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "青橙_cover.png"; sourceTree = "<group>"; };
+		E406E7A726E5B7F300C35047 /* 初音_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "初音_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7A826E5B7F300C35047 /* 和煦_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "和煦_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7A926E5B7F300C35047 /* Log_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Log_cover.jpeg; sourceTree = "<group>"; };
+		E406E7AA26E5B7F300C35047 /* 玫瑰_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "玫瑰_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7AB26E5B7F300C35047 /* 罗兰_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "罗兰_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7AC26E5B7F300C35047 /* 旺角_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "旺角_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7AD26E5B7F300C35047 /* 胶片01_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片01_cover.png"; sourceTree = "<group>"; };
+		E406E7AE26E5B7F300C35047 /* 青葱_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "青葱_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7AF26E5B7F300C35047 /* 仲夏_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "仲夏_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7B026E5B7F300C35047 /* 美化_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "美化_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7B126E5B7F300C35047 /* 香槟_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "香槟_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7B226E5B7F300C35047 /* 海岛_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "海岛_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7B326E5B7F300C35047 /* 胶片04_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片04_cover.png"; sourceTree = "<group>"; };
+		E406E7B426E5B7F300C35047 /* 灰橙_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "灰橙_cover.png"; sourceTree = "<group>"; };
+		E406E7B526E5B7F300C35047 /* 加州_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "加州_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7B626E5B7F300C35047 /* 胶片02_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片02_cover.png"; sourceTree = "<group>"; };
+		E406E7B726E5B7F300C35047 /* 赛博朋克_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "赛博朋克_cover.png"; sourceTree = "<group>"; };
+		E406E7B826E5B7F300C35047 /* 极光_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "极光_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7B926E5B7F300C35047 /* 胶片05_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片05_cover.png"; sourceTree = "<group>"; };
+		E406E7BA26E5B7F300C35047 /* 暮色_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "暮色_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7BB26E5B7F300C35047 /* 牛仔_cover.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "牛仔_cover.jpeg"; sourceTree = "<group>"; };
+		E406E7BC26E5B7F300C35047 /* 胶片03_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "胶片03_cover.png"; sourceTree = "<group>"; };
+		E406E7BD26E5B7F300C35047 /* 蓝冰_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "蓝冰_cover.png"; sourceTree = "<group>"; };
+		E406E7BE26E5B7F300C35047 /* 黑金_cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "黑金_cover.png"; sourceTree = "<group>"; };
+		E406E7DA26E5D23D00C35047 /* 3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpeg; sourceTree = "<group>"; };
+		E4438C9026E898B6008CAD26 /* WID-small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "WID-small.jpg"; sourceTree = "<group>"; };
 		E44A4D7D26D5D8B700BDB0A3 /* FMOpenGLWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLWindow.h; sourceTree = "<group>"; };
 		E44A4D7E26D5D8B700BDB0A3 /* FMOpenGLWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLWindow.m; sourceTree = "<group>"; };
 		E44A4D8026D5F56400BDB0A3 /* FMOpenGLTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLTriangle.h; sourceTree = "<group>"; };
@@ -138,15 +254,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4BED5FF26D33CC20033F2EB /* OpenGLES.framework in Frameworks */,
+				BE586CAE016A1B2B49F8B952 /* libPods-LearnOpenGL.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF57A69DD5413014FD49607A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				74D965FBC4E43AD6F4CE8E1C /* Pods-LearnOpenGL.debug.xcconfig */,
+				ABF1E9628FD39D92374D8DB6 /* Pods-LearnOpenGL.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E406E72826E2210A00C35047 /* Lut */ = {
 			isa = PBXGroup;
 			children = (
+				E406E76C26E5ABCE00C35047 /* all */,
 				E406E72926E2210A00C35047 /* 美食 */,
 				E406E72F26E2210A00C35047 /* 风景 */,
 				E406E73526E2210A00C35047 /* 人像 */,
@@ -221,6 +348,75 @@
 			path = Cover;
 			sourceTree = "<group>";
 		};
+		E406E76C26E5ABCE00C35047 /* all */ = {
+			isa = PBXGroup;
+			children = (
+				E406E7A326E5B7F300C35047 /* cover */,
+				E406E78726E5ABE700C35047 /* 初音.png */,
+				E406E78426E5ABE700C35047 /* 海岛.png */,
+				E406E78526E5ABE700C35047 /* 和煦.png */,
+				E406E77E26E5ABE600C35047 /* 黑金.png */,
+				E406E76F26E5ABE500C35047 /* 灰橙.png */,
+				E406E77D26E5ABE600C35047 /* 极光.png */,
+				E406E76D26E5ABE400C35047 /* 加州.png */,
+				E406E77026E5ABE500C35047 /* 胶片01.png */,
+				E406E77B26E5ABE600C35047 /* 胶片02.png */,
+				E406E77526E5ABE500C35047 /* 胶片03.png */,
+				E406E77F26E5ABE600C35047 /* 胶片04.png */,
+				E406E77426E5ABE500C35047 /* 胶片05.png */,
+				E406E77C26E5ABE600C35047 /* 蓝冰.png */,
+				E406E77326E5ABE500C35047 /* 罗兰.png */,
+				E406E77826E5ABE600C35047 /* 玫瑰.png */,
+				E406E78226E5ABE700C35047 /* 美化.png */,
+				E406E77626E5ABE600C35047 /* 梦境.png */,
+				E406E77126E5ABE500C35047 /* 暮色.png */,
+				E406E76E26E5ABE500C35047 /* 牛仔.png */,
+				E406E77926E5ABE600C35047 /* 青橙.png */,
+				E406E78126E5ABE700C35047 /* 青葱.png */,
+				E406E78326E5ABE700C35047 /* 晴空.png */,
+				E406E77A26E5ABE600C35047 /* 赛博朋克.png */,
+				E406E77226E5ABE500C35047 /* 旺角.png */,
+				E406E77726E5ABE600C35047 /* 香槟.png */,
+				E406E78626E5ABE700C35047 /* 仲夏.png */,
+				E406E78026E5ABE700C35047 /* Log.png */,
+			);
+			path = all;
+			sourceTree = "<group>";
+		};
+		E406E7A326E5B7F300C35047 /* cover */ = {
+			isa = PBXGroup;
+			children = (
+				E406E7A426E5B7F300C35047 /* 晴空_cover.jpeg */,
+				E406E7A526E5B7F300C35047 /* 梦境_cover.jpeg */,
+				E406E7A626E5B7F300C35047 /* 青橙_cover.png */,
+				E406E7A726E5B7F300C35047 /* 初音_cover.jpeg */,
+				E406E7A826E5B7F300C35047 /* 和煦_cover.jpeg */,
+				E406E7A926E5B7F300C35047 /* Log_cover.jpeg */,
+				E406E7AA26E5B7F300C35047 /* 玫瑰_cover.jpeg */,
+				E406E7AB26E5B7F300C35047 /* 罗兰_cover.jpeg */,
+				E406E7AC26E5B7F300C35047 /* 旺角_cover.jpeg */,
+				E406E7AD26E5B7F300C35047 /* 胶片01_cover.png */,
+				E406E7AE26E5B7F300C35047 /* 青葱_cover.jpeg */,
+				E406E7AF26E5B7F300C35047 /* 仲夏_cover.jpeg */,
+				E406E7B026E5B7F300C35047 /* 美化_cover.jpeg */,
+				E406E7B126E5B7F300C35047 /* 香槟_cover.jpeg */,
+				E406E7B226E5B7F300C35047 /* 海岛_cover.jpeg */,
+				E406E7B326E5B7F300C35047 /* 胶片04_cover.png */,
+				E406E7B426E5B7F300C35047 /* 灰橙_cover.png */,
+				E406E7B526E5B7F300C35047 /* 加州_cover.jpeg */,
+				E406E7B626E5B7F300C35047 /* 胶片02_cover.png */,
+				E406E7B726E5B7F300C35047 /* 赛博朋克_cover.png */,
+				E406E7B826E5B7F300C35047 /* 极光_cover.jpeg */,
+				E406E7B926E5B7F300C35047 /* 胶片05_cover.png */,
+				E406E7BA26E5B7F300C35047 /* 暮色_cover.jpeg */,
+				E406E7BB26E5B7F300C35047 /* 牛仔_cover.jpeg */,
+				E406E7BC26E5B7F300C35047 /* 胶片03_cover.png */,
+				E406E7BD26E5B7F300C35047 /* 蓝冰_cover.png */,
+				E406E7BE26E5B7F300C35047 /* 黑金_cover.png */,
+			);
+			path = cover;
+			sourceTree = "<group>";
+		};
 		E44A4D8326D5F56B00BDB0A3 /* remain */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,9 +433,11 @@
 			children = (
 				E406E72826E2210A00C35047 /* Lut */,
 				E406E72626E218B800C35047 /* lookup.png */,
+				E406E7DA26E5D23D00C35047 /* 3.jpeg */,
 				E44A4D9226D7896000BDB0A3 /* 1.jpeg */,
 				E44A4D9326D7896000BDB0A3 /* 4.jpeg */,
-				E406E76A26E2266000C35047 /* 2.JPG */,
+				E406E76A26E2266000C35047 /* 2.jpeg */,
+				E4438C9026E898B6008CAD26 /* WID-small.jpg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -272,6 +470,7 @@
 				E4BED5DF26D334390033F2EB /* LearnOpenGL */,
 				E4BED5DE26D334390033F2EB /* Products */,
 				E4BED5FD26D33CC20033F2EB /* Frameworks */,
+				CF57A69DD5413014FD49607A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -326,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				E4BED5FE26D33CC20033F2EB /* OpenGLES.framework */,
+				DB170A91AB84CF3EACA3C1B5 /* libPods-LearnOpenGL.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -337,6 +537,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4BED5F626D334410033F2EB /* Build configuration list for PBXNativeTarget "LearnOpenGL" */;
 			buildPhases = (
+				CD9C9A4B6662C7CEE7DAD21E /* [CP] Check Pods Manifest.lock */,
 				E4BED5D926D334390033F2EB /* Sources */,
 				E4BED5DA26D334390033F2EB /* Frameworks */,
 				E4BED5DB26D334390033F2EB /* Resources */,
@@ -386,47 +587,128 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E406E78E26E5ABE700C35047 /* 罗兰.png in Resources */,
+				E406E7C326E5B7F300C35047 /* 和煦_cover.jpeg in Resources */,
 				E406E75A26E2210A00C35047 /* P02.png in Resources */,
+				E406E79126E5ABE700C35047 /* 梦境.png in Resources */,
 				E406E76126E2210A00C35047 /* C04.png in Resources */,
 				E406E74E26E2210A00C35047 /* F03.png in Resources */,
 				E406E75226E2210A00C35047 /* L02.png in Resources */,
+				E406E79626E5ABE700C35047 /* 胶片02.png in Resources */,
 				E406E75D26E2210A00C35047 /* C06.png in Resources */,
 				E44A4D9426D7896000BDB0A3 /* 1.jpeg in Resources */,
+				E406E7BF26E5B7F300C35047 /* 晴空_cover.jpeg in Resources */,
+				E406E7A226E5ABE800C35047 /* 初音.png in Resources */,
 				E406E76626E2210A00C35047 /* filter_orignal_cover.png in Resources */,
+				E406E7C826E5B7F300C35047 /* 胶片01_cover.png in Resources */,
+				E406E7C526E5B7F300C35047 /* 玫瑰_cover.jpeg in Resources */,
+				E406E7D726E5B7F400C35047 /* 胶片03_cover.png in Resources */,
+				E406E7C626E5B7F300C35047 /* 罗兰_cover.jpeg in Resources */,
 				E406E76326E2210A00C35047 /* C03.png in Resources */,
+				E406E79726E5ABE700C35047 /* 蓝冰.png in Resources */,
+				E406E7C126E5B7F300C35047 /* 青橙_cover.png in Resources */,
 				E406E75826E2210A00C35047 /* P01.png in Resources */,
+				E406E7CA26E5B7F300C35047 /* 仲夏_cover.jpeg in Resources */,
+				E406E7C926E5B7F300C35047 /* 青葱_cover.jpeg in Resources */,
 				E406E75426E2210A00C35047 /* L05.png in Resources */,
+				E406E78A26E5ABE700C35047 /* 灰橙.png in Resources */,
+				E406E7C726E5B7F300C35047 /* 旺角_cover.jpeg in Resources */,
 				E406E75626E2210A00C35047 /* P05.png in Resources */,
 				E406E75326E2210A00C35047 /* L01.png in Resources */,
 				E406E75726E2210A00C35047 /* P04.png in Resources */,
 				E4BED5F026D334400033F2EB /* LaunchScreen.storyboard in Resources */,
+				E406E7D126E5B7F400C35047 /* 胶片02_cover.png in Resources */,
+				E406E7D626E5B7F400C35047 /* 牛仔_cover.jpeg in Resources */,
+				E406E79826E5ABE700C35047 /* 极光.png in Resources */,
+				E406E7C226E5B7F300C35047 /* 初音_cover.jpeg in Resources */,
+				E406E79926E5ABE700C35047 /* 黑金.png in Resources */,
+				E406E79226E5ABE700C35047 /* 香槟.png in Resources */,
 				E406E75926E2210A00C35047 /* P03.png in Resources */,
 				E406E75C26E2210A00C35047 /* C08.png in Resources */,
+				E406E79C26E5ABE800C35047 /* 青葱.png in Resources */,
+				E406E79426E5ABE700C35047 /* 青橙.png in Resources */,
+				E4438C9126E898B6008CAD26 /* WID-small.jpg in Resources */,
+				E406E7D226E5B7F400C35047 /* 赛博朋克_cover.png in Resources */,
+				E406E79326E5ABE700C35047 /* 玫瑰.png in Resources */,
+				E406E7D926E5B7F400C35047 /* 黑金_cover.png in Resources */,
+				E406E78C26E5ABE700C35047 /* 暮色.png in Resources */,
+				E406E7CB26E5B7F300C35047 /* 美化_cover.jpeg in Resources */,
+				E406E7C026E5B7F300C35047 /* 梦境_cover.jpeg in Resources */,
+				E406E7D426E5B7F400C35047 /* 胶片05_cover.png in Resources */,
+				E406E79B26E5ABE800C35047 /* Log.png in Resources */,
 				E406E76726E2210A00C35047 /* filter_general_cover.png in Resources */,
 				E406E74D26E2210A00C35047 /* F02.png in Resources */,
 				E406E75F26E2210A00C35047 /* C05.png in Resources */,
+				E406E78826E5ABE700C35047 /* 加州.png in Resources */,
 				E406E76826E2210A00C35047 /* filter_food_cover.png in Resources */,
+				E406E78F26E5ABE700C35047 /* 胶片05.png in Resources */,
 				E406E76426E2210A00C35047 /* C02.png in Resources */,
 				E406E76026E2210A00C35047 /* C10.png in Resources */,
+				E406E78B26E5ABE700C35047 /* 胶片01.png in Resources */,
 				E44A4D9526D7896000BDB0A3 /* 4.jpeg in Resources */,
 				E406E72726E218B800C35047 /* lookup.png in Resources */,
-				E406E76B26E2266000C35047 /* 2.JPG in Resources */,
+				E406E76B26E2266000C35047 /* 2.jpeg in Resources */,
+				E406E78D26E5ABE700C35047 /* 旺角.png in Resources */,
+				E406E7D026E5B7F400C35047 /* 加州_cover.jpeg in Resources */,
+				E406E79F26E5ABE800C35047 /* 海岛.png in Resources */,
+				E406E7D526E5B7F400C35047 /* 暮色_cover.jpeg in Resources */,
+				E406E78926E5ABE700C35047 /* 牛仔.png in Resources */,
+				E406E7D826E5B7F400C35047 /* 蓝冰_cover.png in Resources */,
+				E406E7CC26E5B7F300C35047 /* 香槟_cover.jpeg in Resources */,
 				E406E76226E2210A00C35047 /* C01.png in Resources */,
+				E406E79D26E5ABE800C35047 /* 美化.png in Resources */,
+				E406E7C426E5B7F300C35047 /* Log_cover.jpeg in Resources */,
 				E4BED5ED26D334400033F2EB /* Assets.xcassets in Resources */,
 				E406E75526E2210A00C35047 /* L04.png in Resources */,
+				E406E7A126E5ABE800C35047 /* 仲夏.png in Resources */,
+				E406E7DB26E5D23D00C35047 /* 3.jpeg in Resources */,
+				E406E7CE26E5B7F300C35047 /* 胶片04_cover.png in Resources */,
 				E406E76526E2210A00C35047 /* filter_scape_cover.png in Resources */,
+				E406E79026E5ABE700C35047 /* 胶片03.png in Resources */,
+				E406E79526E5ABE700C35047 /* 赛博朋克.png in Resources */,
 				E406E75026E2210A00C35047 /* F05.png in Resources */,
+				E406E7CF26E5B7F400C35047 /* 灰橙_cover.png in Resources */,
 				E4BED5EB26D3343A0033F2EB /* Main.storyboard in Resources */,
 				E406E76926E2210A00C35047 /* filter_people_cover.png in Resources */,
 				E406E75B26E2210A00C35047 /* C09.png in Resources */,
+				E406E7D326E5B7F400C35047 /* 极光_cover.jpeg in Resources */,
 				E406E75126E2210A00C35047 /* L03.png in Resources */,
+				E406E79E26E5ABE800C35047 /* 晴空.png in Resources */,
+				E406E79A26E5ABE800C35047 /* 胶片04.png in Resources */,
 				E406E75E26E2210A00C35047 /* C07.png in Resources */,
+				E406E7A026E5ABE800C35047 /* 和煦.png in Resources */,
 				E406E74F26E2210A00C35047 /* F04.png in Resources */,
 				E406E74C26E2210A00C35047 /* F01.png in Resources */,
+				E406E7CD26E5B7F300C35047 /* 海岛_cover.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CD9C9A4B6662C7CEE7DAD21E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LearnOpenGL-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E4BED5D926D334390033F2EB /* Sources */ = {
@@ -586,6 +868,7 @@
 		};
 		E4BED5F726D334410033F2EB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74D965FBC4E43AD6F4CE8E1C /* Pods-LearnOpenGL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -606,6 +889,7 @@
 		};
 		E4BED5F826D334410033F2EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABF1E9628FD39D92374D8DB6 /* Pods-LearnOpenGL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
