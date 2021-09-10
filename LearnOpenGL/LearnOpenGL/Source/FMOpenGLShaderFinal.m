@@ -20,7 +20,7 @@ NSString *const shaderVertexShaderSource = SHADER_STRING(
     void main()
     {
         gl_Position = aPos;
-        FragColor = vec4(aColor, 1.0); // 将ourColor设置为我们从顶点数据那里得到的输入颜色
+        FragColor = vec4(aColor, 1.0); // 将FragColor设置为我们从顶点数据那里得到的输入颜色
     }
 );
 
@@ -122,13 +122,7 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
         0, 1, 3, // 第一个三角形
         1, 2, 3  // 第二个三角形
     };
-    
-    /*
-     图形渲染管线的第一阶段，顶点着色器。它会在GPU上创建内存用于存储我们的顶点数据
-     
-     我们通过顶点缓冲对象（Vertex Buffer Objects，VBO）管理这个内存，它会在GPU中存储大量顶点。使用这个对象的好处是我们可以一次性的发送一大批数据到显卡上，而不是每个顶点发送一次。从CPU把数据发送到GPU比较慢，所以尽可能一次性发送尽可能多的数据。
-     */
-    
+        
     // 创建顶点缓冲对象
     glGenBuffers(1, &VBO);
     // 顶点缓冲对象的缓冲类型是GL_ARRAY_BUFFER，把新创建的缓冲绑定到GL_ARRAY_BUFFER目标上，复制顶点数组供OpenGL使用
