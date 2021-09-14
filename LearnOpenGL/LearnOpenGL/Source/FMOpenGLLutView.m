@@ -237,10 +237,9 @@ NSString *const lutFragmentShaderSource = SHADER_STRING(
         1.0, 0.0,
     };
         
-    UIImage *srcImage = [UIImage imageNamed:@"2.jpeg"];
-    float scale = UIScreen.mainScreen.scale;
-    float h = (srcImage.size.width / srcImage.size.height) * UIScreen.mainScreen.bounds.size.width * scale;
-    glViewport(0, UIScreen.mainScreen.bounds.size.height * 0.5 * scale - h * 0.5, UIScreen.mainScreen.bounds.size.width * scale, h);
+//    float scale = UIScreen.mainScreen.scale;
+//    float h = (srcImage.size.width / srcImage.size.height) * UIScreen.mainScreen.bounds.size.width * scale;
+//    glViewport(0, UIScreen.mainScreen.bounds.size.height * 0.5 * scale - h * 0.5, UIScreen.mainScreen.bounds.size.width * scale, h);
     
     
     [self createProgramWithVertexShader:lutVertexShaderSource fragmentShader:lutFragmentShaderSource];
@@ -249,12 +248,13 @@ NSString *const lutFragmentShaderSource = SHADER_STRING(
     glEnableVertexAttribArray(glGetAttribLocation(self.program, "position"));
     glVertexAttribPointer(glGetAttribLocation(self.program, "position"), 3, GL_FLOAT, GL_FALSE, 0, vertices);
     
-    glVertexAttribPointer(glGetAttribLocation(self.program, "a_texCoordIn"), 2, GL_FLOAT, GL_FALSE, 0, rotateLeftCoords);
+    glVertexAttribPointer(glGetAttribLocation(self.program, "a_texCoordIn"), 2, GL_FLOAT, GL_FALSE, 0, rotateYCoords);
     glEnableVertexAttribArray(glGetAttribLocation(self.program, "a_texCoordIn"));
     
     // 原始图片纹理
     glActiveTexture(GL_TEXTURE0);
     if(scrTexture == 0) {
+        UIImage *srcImage = [UIImage imageNamed:@"2.jpeg"];
         scrTexture = [self genTextureFromImage:srcImage];
     }
     glBindTexture(GL_TEXTURE_2D, scrTexture);
