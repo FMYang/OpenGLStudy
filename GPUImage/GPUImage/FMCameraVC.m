@@ -10,6 +10,7 @@
 #import "GPUImageView.h"
 
 @interface FMCameraVC() {
+    GPUImageVideoCamera *videoCamera;
     GPUImageView *_glView;
 }
 
@@ -21,10 +22,11 @@
     [super viewDidLoad];
     
     _glView = [[GPUImageView alloc] init];
+    _glView.backgroundColor = UIColor.redColor;
     _glView.frame = self.view.bounds;
     [self.view addSubview:_glView];
     
-    GPUImageVideoCamera *videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionBack];
+    videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionBack];
     videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
 
     [videoCamera addTarget:_glView];

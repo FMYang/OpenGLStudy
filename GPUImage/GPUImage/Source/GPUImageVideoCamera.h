@@ -14,10 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GPUImageVideoCamera : GPUImageOutput <AVCaptureVideoDataOutputSampleBufferDelegate> {
-    AVCaptureSession *_captureSession;
-    AVCaptureDevice *_inputCamera;
-    AVCaptureDevice *_microphone;
+@interface GPUImageVideoCamera : GPUImageOutput {
     AVCaptureDeviceInput *videoInput;
     AVCaptureVideoDataOutput *videoOutput;
     

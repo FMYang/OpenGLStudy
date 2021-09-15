@@ -8,7 +8,7 @@
 #import "GPUImageVideoCamera.h"
 #import "GPUImageFilter.h"
 
-@interface GPUImageVideoCamera() {
+@interface GPUImageVideoCamera() <AVCaptureVideoDataOutputSampleBufferDelegate> {
     NSDate *startingCaptureTime;
     dispatch_queue_t cameraProcessingQueue;
     
@@ -60,6 +60,8 @@
         videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:_inputCamera error:&error];
         if([_captureSession canAddInput:videoInput]) {
             [_captureSession addInput:videoInput];
+        } else {
+            NSLog(@"Fail to add video input");
         }
         
         videoOutput = [[AVCaptureVideoDataOutput alloc] init];
@@ -150,7 +152,6 @@
             [currentTarget setInputRotation:outputRotation atIndex:textureIndexOfTarget];
             [currentTarget setInputSize:CGSizeMake(bufferWidth, bufferHeight) atIndex:textureIndexOfTarget];
             
-            [currentTarget setCurrentlyReceivingMonochromeInput:NO];
             [currentTarget setInputFramebuffer:outputFramebuffer atIndex:textureIndexOfTarget];
         }
     }
@@ -212,7 +213,8 @@
 
             // 创建色度纹理 UV-plane
             glActiveTexture(GL_TEXTURE5);
-            err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache], cameraFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE, bufferWidth, bufferHeight, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0, &luminanceTextureRef);
+            err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache], cameraFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, bufferWidth/2, bufferHeight/2, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 1, &chrominanceTextureRef);
+
             if (err)
             {
                 NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
@@ -269,7 +271,7 @@
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-#pragma mark AVCaptureVideoDataOutputSampleBufferDelegate
+#pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     if(!_captureSession.isRunning) return;
     

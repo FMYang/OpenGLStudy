@@ -275,4 +275,23 @@
     [inputFramebufferForDisplay lock];
 }
 
+- (void)setInputRotation:(GPUImageRotationMode)newInputRotation atIndex:(NSInteger)textureIndex;
+{
+    inputRotation = newInputRotation;
+}
+
+- (void)setInputSize:(CGSize)newSize atIndex:(NSInteger)textureIndex;
+{
+    runSynchronouslyOnVideoProcessingQueue(^{
+        CGSize rotatedSize = newSize;
+        
+        if (!CGSizeEqualToSize(inputImageSize, rotatedSize))
+        {
+            inputImageSize = rotatedSize;
+            [self recalculateViewGeometry];
+        }
+    });
+}
+
+
 @end
