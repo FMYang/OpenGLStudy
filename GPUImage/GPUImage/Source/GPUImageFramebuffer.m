@@ -49,6 +49,8 @@
                 [self generateTexture];
                 framebuffer = 0;
             });
+        } else {
+            [self generateFramebuffer];
         }
     }
     return self;
