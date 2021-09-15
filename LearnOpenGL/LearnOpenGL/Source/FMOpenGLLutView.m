@@ -268,7 +268,6 @@ NSString *const lutFragmentShaderSource = SHADER_STRING(
         lutTexture = [self genTextureFromImage:lutImage];
     }
     glBindTexture(GL_TEXTURE_2D, lutTexture);
-    // 指向编号为1的纹理
     glUniform1i(glGetUniformLocation(self.program, "inputImageTexture2"), 1);
     
     glUniform1i(glGetUniformLocation(self.program, "original"), (GLint)self.selectedIndex);

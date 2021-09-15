@@ -125,6 +125,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     size_t width = CGImageGetWidth(imageRef);
     size_t height = CGImageGetHeight(imageRef);
     
+    // 为textureData分配存储空间，rgba占用4字节，纹理占用的空间大小为图片宽x高x4
     GLubyte *textureData = (GLubyte *)malloc(width * height * 4);
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -132,7 +133,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     NSUInteger bytesPerRow = bytesPerPixel * width;
     NSUInteger bitsPerComponent = 8;
     
-    // 通过图片生成纹理数据
+    // 根据图片宽高和颜色空间生成位图
     CGContextRef context = CGBitmapContextCreate(textureData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     
     CGColorSpaceRelease(colorSpace);
@@ -141,6 +142,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     CGContextTranslateCTM(context, 0, height);
     CGContextScaleCTM(context, 1.0, -1.0);
     
+    // 将图片数据转为RGB数据存储在变量textureData中
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
     CGContextRelease(context);
     
@@ -165,7 +167,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
      */
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)width, (GLsizei)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
     
-    // 指向编号为0的纹理
+    // 给片段着色器的ourTexture变量赋值，默认使用第0块纹理，这里传0
     glUniform1i(glGetUniformLocation(self.program, "ourTexture"), 0);
     
     // 设置环绕方式

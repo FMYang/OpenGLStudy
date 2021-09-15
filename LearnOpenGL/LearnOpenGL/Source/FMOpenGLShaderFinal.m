@@ -48,7 +48,7 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
-        [self render3];
+        [self render4];
     }
     return self;
 }
@@ -203,6 +203,52 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
     glBindVertexArrayOES(VAO);
     // 索引绘制
     glDrawArrays(GL_TRIANGLES, 0, 3);
+    
+    // 渲染缓存（颜色渲染缓存）保存完成的帧，将渲染缓存绑定到上下文并呈现它。这会将完成的帧交给Core Animation绘制。
+    [self.context presentRenderbuffer:GL_RENDERBUFFER];
+
+}
+
+- (void)render4 {
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    // 清除帧缓存附加的渲染缓存信息，下一次绘制不需要上一次的内容，清除以避免将先前的内容加载到内存中
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    // 顶点数据
+    float vertices[] = {
+        // 位置              // 颜色
+        -1.0,  1.0, 0.0,  1.0, 0.0, 0.0,   // a
+        -1.0, -1.0, 0.0,  1.0, 0.0, 0.0,   // b
+         1.0, -1.0, 0.0,  1.0, 0.0, 0.0,   // c
+        
+        -1.0, 1.0, 0.0,   0.0, 1.0, 0.0,   // b
+         1.0, -1.0, 0.0,  0.0, 1.0, 0.0,   // c
+         1.0,  1.0, 0.0,  0.0, 1.0, 0.0    // d
+    };
+    
+    // 创建顶点缓冲对象
+    glGenBuffers(1, &VBO);
+    // 顶点缓冲对象的缓冲类型是GL_ARRAY_BUFFER，把新创建的缓冲绑定到GL_ARRAY_BUFFER目标上，复制顶点数组供OpenGL使用
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // 把用户定义的数据复制到顶点缓冲中
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    GLuint VAO;
+    glGenVertexArraysOES(1, &VAO);
+    glBindVertexArrayOES(VAO);
+    
+    // 位置属性
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (void*)0);
+    glEnableVertexAttribArray(0);
+    // 颜色属性
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (void*)(3* sizeof(GL_FLOAT)));
+    glEnableVertexAttribArray(1);
+        
+    [self createProgramWithVertexShader:shaderVertexShaderSource fragmentShader:shaderFragmentShaderSource];
+    glUseProgram(self.program);
+    glBindVertexArrayOES(VAO);
+    // 索引绘制
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     
     // 渲染缓存（颜色渲染缓存）保存完成的帧，将渲染缓存绑定到上下文并呈现它。这会将完成的帧交给Core Animation绘制。
     [self.context presentRenderbuffer:GL_RENDERBUFFER];
