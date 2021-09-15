@@ -19,6 +19,10 @@
 
 - (id)initWithVertexShaderString:(NSString *)vShaderString fragmentShaderString:(NSString *)fShaderString {
     if(self = [super init]) {
+        _initialized = NO;
+        
+        attributes = @[].mutableCopy;
+        uniforms = @[].mutableCopy;
         program = glCreateProgram();
         
         if(![self compileShader:&vertShader type:GL_VERTEX_SHADER string:vShaderString]) {
@@ -76,6 +80,22 @@
     return status == GL_TRUE;
 }
 
+- (void)addAttribute:(NSString *)attributeName {
+    if(![attributes containsObject:attributeName]) {
+        [attributes addObject:attributeName];
+        glBindAttribLocation(program, (GLuint)[self attributeIndex:attributeName], [attributeName UTF8String]);
+    }
+}
+
+- (GLuint)attributeIndex:(NSString *)attributeName {
+    return (GLuint)[attributes indexOfObject:attributeName];
+}
+
+- (GLuint)uniformIndex:(NSString *)uniformName {
+    return glGetUniformLocation(program, [uniformName UTF8String]);
+}
+
+
 - (BOOL)link {
     GLint status;
     
@@ -95,6 +115,8 @@
         glDeleteShader(fragShader);
         fragShader = 0;
     }
+    
+    self.initialized = YES;
 
     return YES;
 }
@@ -114,6 +136,20 @@
         glGetProgramInfoLog(program, logLength, &logLength, log);
         self.programLog = [NSString stringWithFormat:@"%s", log];
         free(log);
+    }
+}
+
+- (void)dealloc {
+    if(vertShader) {
+        glDeleteShader(vertShader);
+    }
+    
+    if(fragShader) {
+        glDeleteShader(fragShader);
+    }
+    
+    if(program) {
+        glDeleteProgram(program);
     }
 }
 

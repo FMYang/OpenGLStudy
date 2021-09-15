@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		880C266A26F0EE3F009140CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C266926F0EE3F009140CC /* AppDelegate.m */; };
-		880C266D26F0EE3F009140CC /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C266C26F0EE3F009140CC /* SceneDelegate.m */; };
 		880C267026F0EE3F009140CC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C266F26F0EE3F009140CC /* ViewController.m */; };
 		880C267326F0EE3F009140CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 880C267126F0EE3F009140CC /* Main.storyboard */; };
 		880C267526F0EE41009140CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 880C267426F0EE41009140CC /* Assets.xcassets */; };
@@ -17,14 +16,21 @@
 		880C268526F0EE60009140CC /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C268426F0EE60009140CC /* GLProgram.m */; };
 		880C268926F0EE75009140CC /* GPUImageContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C268826F0EE75009140CC /* GPUImageContext.m */; };
 		880C268D26F0EE82009140CC /* GPUImageFramebuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C268C26F0EE82009140CC /* GPUImageFramebuffer.m */; };
+		E4438D1026F18729008CAD26 /* GPUImageOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D0F26F18729008CAD26 /* GPUImageOutput.m */; };
+		E4438D1326F19B10008CAD26 /* GPUImageVideoCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D1226F19B10008CAD26 /* GPUImageVideoCamera.m */; };
+		E4438D1626F1A559008CAD26 /* GPUImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D1526F1A559008CAD26 /* GPUImageFilter.m */; };
+		E4438D1926F1A5F7008CAD26 /* GPUImageColorConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D1826F1A5F7008CAD26 /* GPUImageColorConversion.m */; };
+		E4438D1C26F1A697008CAD26 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4438D1B26F1A697008CAD26 /* OpenGLES.framework */; };
+		E4438D1E26F1A6B5008CAD26 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4438D1D26F1A6B5008CAD26 /* CoreMedia.framework */; };
+		E4438D2126F1D4A3008CAD26 /* GPUImageFramebufferCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D2026F1D4A3008CAD26 /* GPUImageFramebufferCache.m */; };
+		E4438D2426F1DC70008CAD26 /* GPUImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D2326F1DC70008CAD26 /* GPUImageView.m */; };
+		E4438D2726F1EC6A008CAD26 /* FMCameraVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D2626F1EC6A008CAD26 /* FMCameraVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		880C266526F0EE3E009140CC /* GPUImage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPUImage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		880C266826F0EE3E009140CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		880C266926F0EE3F009140CC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		880C266B26F0EE3F009140CC /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		880C266C26F0EE3F009140CC /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		880C266E26F0EE3F009140CC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		880C266F26F0EE3F009140CC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		880C267226F0EE3F009140CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -38,6 +44,22 @@
 		880C268826F0EE75009140CC /* GPUImageContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageContext.m; sourceTree = "<group>"; };
 		880C268B26F0EE82009140CC /* GPUImageFramebuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageFramebuffer.h; sourceTree = "<group>"; };
 		880C268C26F0EE82009140CC /* GPUImageFramebuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageFramebuffer.m; sourceTree = "<group>"; };
+		E4438D0E26F18729008CAD26 /* GPUImageOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageOutput.h; sourceTree = "<group>"; };
+		E4438D0F26F18729008CAD26 /* GPUImageOutput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageOutput.m; sourceTree = "<group>"; };
+		E4438D1126F19B10008CAD26 /* GPUImageVideoCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageVideoCamera.h; sourceTree = "<group>"; };
+		E4438D1226F19B10008CAD26 /* GPUImageVideoCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageVideoCamera.m; sourceTree = "<group>"; };
+		E4438D1426F1A559008CAD26 /* GPUImageFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageFilter.h; sourceTree = "<group>"; };
+		E4438D1526F1A559008CAD26 /* GPUImageFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageFilter.m; sourceTree = "<group>"; };
+		E4438D1726F1A5F7008CAD26 /* GPUImageColorConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageColorConversion.h; sourceTree = "<group>"; };
+		E4438D1826F1A5F7008CAD26 /* GPUImageColorConversion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageColorConversion.m; sourceTree = "<group>"; };
+		E4438D1B26F1A697008CAD26 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		E4438D1D26F1A6B5008CAD26 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		E4438D1F26F1D4A3008CAD26 /* GPUImageFramebufferCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageFramebufferCache.h; sourceTree = "<group>"; };
+		E4438D2026F1D4A3008CAD26 /* GPUImageFramebufferCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageFramebufferCache.m; sourceTree = "<group>"; };
+		E4438D2226F1DC70008CAD26 /* GPUImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageView.h; sourceTree = "<group>"; };
+		E4438D2326F1DC70008CAD26 /* GPUImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageView.m; sourceTree = "<group>"; };
+		E4438D2526F1EC6A008CAD26 /* FMCameraVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraVC.h; sourceTree = "<group>"; };
+		E4438D2626F1EC6A008CAD26 /* FMCameraVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4438D1E26F1A6B5008CAD26 /* CoreMedia.framework in Frameworks */,
+				E4438D1C26F1A697008CAD26 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +80,7 @@
 			children = (
 				880C266726F0EE3E009140CC /* GPUImage */,
 				880C266626F0EE3E009140CC /* Products */,
+				E4438D1A26F1A697008CAD26 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,8 +98,6 @@
 				880C268226F0EE48009140CC /* Source */,
 				880C266826F0EE3E009140CC /* AppDelegate.h */,
 				880C266926F0EE3F009140CC /* AppDelegate.m */,
-				880C266B26F0EE3F009140CC /* SceneDelegate.h */,
-				880C266C26F0EE3F009140CC /* SceneDelegate.m */,
 				880C266E26F0EE3F009140CC /* ViewController.h */,
 				880C266F26F0EE3F009140CC /* ViewController.m */,
 				880C267126F0EE3F009140CC /* Main.storyboard */,
@@ -82,6 +105,8 @@
 				880C267626F0EE41009140CC /* LaunchScreen.storyboard */,
 				880C267926F0EE41009140CC /* Info.plist */,
 				880C267A26F0EE41009140CC /* main.m */,
+				E4438D2526F1EC6A008CAD26 /* FMCameraVC.h */,
+				E4438D2626F1EC6A008CAD26 /* FMCameraVC.m */,
 			);
 			path = GPUImage;
 			sourceTree = "<group>";
@@ -95,8 +120,29 @@
 				880C268826F0EE75009140CC /* GPUImageContext.m */,
 				880C268B26F0EE82009140CC /* GPUImageFramebuffer.h */,
 				880C268C26F0EE82009140CC /* GPUImageFramebuffer.m */,
+				E4438D1F26F1D4A3008CAD26 /* GPUImageFramebufferCache.h */,
+				E4438D2026F1D4A3008CAD26 /* GPUImageFramebufferCache.m */,
+				E4438D0E26F18729008CAD26 /* GPUImageOutput.h */,
+				E4438D0F26F18729008CAD26 /* GPUImageOutput.m */,
+				E4438D1126F19B10008CAD26 /* GPUImageVideoCamera.h */,
+				E4438D1226F19B10008CAD26 /* GPUImageVideoCamera.m */,
+				E4438D1426F1A559008CAD26 /* GPUImageFilter.h */,
+				E4438D1526F1A559008CAD26 /* GPUImageFilter.m */,
+				E4438D1726F1A5F7008CAD26 /* GPUImageColorConversion.h */,
+				E4438D1826F1A5F7008CAD26 /* GPUImageColorConversion.m */,
+				E4438D2226F1DC70008CAD26 /* GPUImageView.h */,
+				E4438D2326F1DC70008CAD26 /* GPUImageView.m */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		E4438D1A26F1A697008CAD26 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4438D1D26F1A6B5008CAD26 /* CoreMedia.framework */,
+				E4438D1B26F1A697008CAD26 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,10 +217,16 @@
 				880C267026F0EE3F009140CC /* ViewController.m in Sources */,
 				880C266A26F0EE3F009140CC /* AppDelegate.m in Sources */,
 				880C268526F0EE60009140CC /* GLProgram.m in Sources */,
+				E4438D1026F18729008CAD26 /* GPUImageOutput.m in Sources */,
 				880C268D26F0EE82009140CC /* GPUImageFramebuffer.m in Sources */,
+				E4438D2126F1D4A3008CAD26 /* GPUImageFramebufferCache.m in Sources */,
 				880C267B26F0EE41009140CC /* main.m in Sources */,
+				E4438D1926F1A5F7008CAD26 /* GPUImageColorConversion.m in Sources */,
+				E4438D2726F1EC6A008CAD26 /* FMCameraVC.m in Sources */,
+				E4438D1626F1A559008CAD26 /* GPUImageFilter.m in Sources */,
+				E4438D2426F1DC70008CAD26 /* GPUImageView.m in Sources */,
 				880C268926F0EE75009140CC /* GPUImageContext.m in Sources */,
-				880C266D26F0EE3F009140CC /* SceneDelegate.m in Sources */,
+				E4438D1326F19B10008CAD26 /* GPUImageVideoCamera.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +303,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -304,7 +356,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -318,7 +370,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DQFEA2B5H2;
 				INFOPLIST_FILE = GPUImage/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,7 +389,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DQFEA2B5H2;
 				INFOPLIST_FILE = GPUImage/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

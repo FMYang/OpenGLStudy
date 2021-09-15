@@ -47,6 +47,7 @@ typedef struct GPUTextureOptions {
 // 引用计数
 - (void)lock;
 - (void)unlock;
+- (void)clearAllLocks;
 
 // 图像捕捉
 - (CGImageRef)newCGImageFromFramebufferContents;

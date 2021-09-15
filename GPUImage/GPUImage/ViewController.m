@@ -6,6 +6,7 @@
 //
 
 #import "ViewController.h"
+#import "FMCameraVC.h"
 
 @interface ViewController ()
 
@@ -15,8 +16,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(100, 100, 100, 100);
+    btn.backgroundColor = UIColor.redColor;
+    [btn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
+- (void)btnAction {
+    FMCameraVC *vc = [[FMCameraVC alloc] init];
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 @end

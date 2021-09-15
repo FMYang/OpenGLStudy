@@ -13,17 +13,24 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GLProgram : NSObject {
+    NSMutableArray  *attributes;
+    NSMutableArray  *uniforms;
     GLuint          program,
     vertShader,
     fragShader;
 }
 
+@property(readwrite, nonatomic) BOOL initialized;
 @property(readwrite, copy, nonatomic) NSString *vertexShaderLog;
 @property(readwrite, copy, nonatomic) NSString *fragmentShaderLog;
 @property(readwrite, copy, nonatomic) NSString *programLog;
 
 - (id)initWithVertexShaderString:(NSString *)vShaderString
             fragmentShaderString:(NSString *)fShaderString;
+
+- (void)addAttribute:(NSString *)attributeName;
+- (GLuint)attributeIndex:(NSString *)attributeName;
+- (GLuint)uniformIndex:(NSString *)uniformName;
 
 - (BOOL)link;
 - (void)use;
