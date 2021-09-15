@@ -38,8 +38,8 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
 
     void main()
     {
-//        gl_FragColor = vec4(vec3(1.0 - texture2D(ourTexture, TexCoord)), 1.0); // 对纹理应用反色
-        gl_FragColor = texture2D(ourTexture, TexCoord);
+        gl_FragColor = vec4(vec3(1.0 - texture2D(ourTexture, TexCoord)), 1.0); // 对纹理应用反色
+//        gl_FragColor = texture2D(ourTexture, TexCoord);
     
         // 灰度，取平均
 //        float average = (gl_FragColor.r + gl_FragColor.g + gl_FragColor.b) / 3.0;
@@ -184,7 +184,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
     // mip贴图
-//    glGenerateMipmap(GL_TEXTURE_2D);
+    glGenerateMipmap(GL_TEXTURE_2D);
     
     // 释放纹理数据
     free(textureData);
