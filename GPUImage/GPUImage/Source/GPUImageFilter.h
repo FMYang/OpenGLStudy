@@ -81,6 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setUniformsForProgramAtIndex:(NSUInteger)programIndex;
 - (void)setFloat:(GLfloat)floatValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
+- (void)setMatrix4f:(GPUMatrix4x4)matrix forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 
 @end
 

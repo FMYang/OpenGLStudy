@@ -56,12 +56,12 @@ NSString *const kGPUImageColorMatrixFragmentShaderString = SHADER_STRING
     [self setFloat:_intensity forUniform:intensityUniform program:filterProgram];
 }
 
-//
-//- (void)setColorMatrix:(GPUMatrix4x4)newColorMatrix;
-//{
-//    _colorMatrix = newColorMatrix;
-//
-//    [self setMatrix4f:_colorMatrix forUniform:colorMatrixUniform program:filterProgram];
-//}
+
+- (void)setColorMatrix:(GPUMatrix4x4)newColorMatrix;
+{
+    _colorMatrix = newColorMatrix;
+
+    [self setMatrix4f:_colorMatrix forUniform:colorMatrixUniform program:filterProgram];
+}
 
 @end

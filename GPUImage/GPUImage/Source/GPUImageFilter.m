@@ -61,6 +61,10 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
         return nil;
     }
     
+    uniformStateRestorationBlocks = [NSMutableDictionary dictionaryWithCapacity:10];
+    inputRotation = kGPUImageNoRotation;
+    imageCaptureSemaphore = dispatch_semaphore_create(0);
+    dispatch_semaphore_signal(imageCaptureSemaphore);
 
     runSynchronouslyOnVideoProcessingQueue(^{
         [GPUImageContext useImageProcessingContext];
@@ -241,22 +245,23 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
     }
 
     [self setUniformsForProgramAtIndex:0];
-    
+
     glClearColor(backgroundColorRed, backgroundColorGreen, backgroundColorBlue, backgroundColorAlpha);
+    glClearColor(1.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, [firstInputFramebuffer texture]);
-    
+
     glUniform1i(filterInputTextureUniform, 2);
 
     glVertexAttribPointer(filterPositionAttribute, 2, GL_FLOAT, 0, 0, vertices);
     glVertexAttribPointer(filterTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, textureCoordinates);
-    
+
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    
+
     [firstInputFramebuffer unlock];
-    
+
     if (usingNextFrameForImageCapture)
     {
         dispatch_semaphore_signal(imageCaptureSemaphore);
@@ -276,6 +281,9 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
     
     // Release our hold so it can return to the cache immediately upon processing
     [[self framebufferForOutput] unlock];
+    
+    // 瞎几把删除
+    [self removeOutputFramebuffer];
     
     // Trigger processing last, so that our unlock comes first in serial execution, avoiding the need for a callback
     for (id<GPUImageInput> currentTarget in targets)
@@ -325,6 +333,16 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
         [GPUImageContext setActiveShaderProgram:shaderProgram];
         [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
             glUniform1f(uniform, floatValue);
+        }];
+    });
+}
+
+- (void)setMatrix4f:(GPUMatrix4x4)matrix forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
+{
+    runAsynchronouslyOnVideoProcessingQueue(^{
+        [GPUImageContext setActiveShaderProgram:shaderProgram];
+        [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{
+            glUniformMatrix4fv(uniform, 1, GL_FALSE, (GLfloat *)&matrix);
         }];
     });
 }
