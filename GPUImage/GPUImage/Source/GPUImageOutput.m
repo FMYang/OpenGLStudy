@@ -166,6 +166,10 @@ void reportAvailableMemoryForGPUImage(NSString *tag)
     return outputFramebuffer;
 }
 
+- (void)removeOutputFramebuffer {
+    outputFramebuffer = nil;
+}
+
 - (void)addTarget:(id<GPUImageInput>)newTarget {
     NSInteger nextAvailableTextureIndex = [newTarget nextAvailableTextureIndex];
     [self addTarget:newTarget atTextureLocation:nextAvailableTextureIndex];

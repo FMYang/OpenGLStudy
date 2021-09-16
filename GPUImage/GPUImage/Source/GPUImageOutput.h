@@ -23,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
     GPUImageFramebuffer *outputFramebuffer;
     
     NSMutableArray *targets, *targetTextureIndices;
+    
+    CGSize inputTextureSize, cachedMaximumOutputSize, forcedMaximumSize;
+    
+    BOOL usingNextFrameForImageCapture;
 }
 
 @property(readwrite, nonatomic) GPUTextureOptions outputTextureOptions;
@@ -31,6 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addTarget:(id<GPUImageInput>)newTarget atTextureLocation:(NSInteger)textureLocation;
 - (void)removeTarget:(id<GPUImageInput>)targetToRemove;
 - (void)removeAllTargets;
+
+- (GPUImageFramebuffer *)framebufferForOutput;
+- (void)removeOutputFramebuffer;
+- (void)setInputFramebufferForTarget:(id<GPUImageInput>)target atIndex:(NSInteger)inputTextureIndex;
 
 @end
 

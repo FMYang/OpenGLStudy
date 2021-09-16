@@ -16,6 +16,8 @@
 		880C268526F0EE60009140CC /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C268426F0EE60009140CC /* GLProgram.m */; };
 		880C268926F0EE75009140CC /* GPUImageContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C268826F0EE75009140CC /* GPUImageContext.m */; };
 		880C268D26F0EE82009140CC /* GPUImageFramebuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C268C26F0EE82009140CC /* GPUImageFramebuffer.m */; };
+		E412F97A26F2E2A6005395F4 /* GPUImageSepiaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E412F97826F2E2A6005395F4 /* GPUImageSepiaFilter.m */; };
+		E412F97D26F2E2CA005395F4 /* GPUImageColorMatrixFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E412F97B26F2E2CA005395F4 /* GPUImageColorMatrixFilter.m */; };
 		E4438D1026F18729008CAD26 /* GPUImageOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D0F26F18729008CAD26 /* GPUImageOutput.m */; };
 		E4438D1326F19B10008CAD26 /* GPUImageVideoCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D1226F19B10008CAD26 /* GPUImageVideoCamera.m */; };
 		E4438D1626F1A559008CAD26 /* GPUImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4438D1526F1A559008CAD26 /* GPUImageFilter.m */; };
@@ -44,6 +46,10 @@
 		880C268826F0EE75009140CC /* GPUImageContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageContext.m; sourceTree = "<group>"; };
 		880C268B26F0EE82009140CC /* GPUImageFramebuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageFramebuffer.h; sourceTree = "<group>"; };
 		880C268C26F0EE82009140CC /* GPUImageFramebuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageFramebuffer.m; sourceTree = "<group>"; };
+		E412F97826F2E2A6005395F4 /* GPUImageSepiaFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSepiaFilter.m; sourceTree = "<group>"; };
+		E412F97926F2E2A6005395F4 /* GPUImageSepiaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSepiaFilter.h; sourceTree = "<group>"; };
+		E412F97B26F2E2CA005395F4 /* GPUImageColorMatrixFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageColorMatrixFilter.m; sourceTree = "<group>"; };
+		E412F97C26F2E2CA005395F4 /* GPUImageColorMatrixFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageColorMatrixFilter.h; sourceTree = "<group>"; };
 		E4438D0E26F18729008CAD26 /* GPUImageOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageOutput.h; sourceTree = "<group>"; };
 		E4438D0F26F18729008CAD26 /* GPUImageOutput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageOutput.m; sourceTree = "<group>"; };
 		E4438D1126F19B10008CAD26 /* GPUImageVideoCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageVideoCamera.h; sourceTree = "<group>"; };
@@ -126,12 +132,16 @@
 				E4438D0F26F18729008CAD26 /* GPUImageOutput.m */,
 				E4438D1126F19B10008CAD26 /* GPUImageVideoCamera.h */,
 				E4438D1226F19B10008CAD26 /* GPUImageVideoCamera.m */,
-				E4438D1426F1A559008CAD26 /* GPUImageFilter.h */,
-				E4438D1526F1A559008CAD26 /* GPUImageFilter.m */,
 				E4438D1726F1A5F7008CAD26 /* GPUImageColorConversion.h */,
 				E4438D1826F1A5F7008CAD26 /* GPUImageColorConversion.m */,
 				E4438D2226F1DC70008CAD26 /* GPUImageView.h */,
 				E4438D2326F1DC70008CAD26 /* GPUImageView.m */,
+				E4438D1426F1A559008CAD26 /* GPUImageFilter.h */,
+				E4438D1526F1A559008CAD26 /* GPUImageFilter.m */,
+				E412F97926F2E2A6005395F4 /* GPUImageSepiaFilter.h */,
+				E412F97826F2E2A6005395F4 /* GPUImageSepiaFilter.m */,
+				E412F97C26F2E2CA005395F4 /* GPUImageColorMatrixFilter.h */,
+				E412F97B26F2E2CA005395F4 /* GPUImageColorMatrixFilter.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -221,9 +231,11 @@
 				880C268D26F0EE82009140CC /* GPUImageFramebuffer.m in Sources */,
 				E4438D2126F1D4A3008CAD26 /* GPUImageFramebufferCache.m in Sources */,
 				880C267B26F0EE41009140CC /* main.m in Sources */,
+				E412F97A26F2E2A6005395F4 /* GPUImageSepiaFilter.m in Sources */,
 				E4438D1926F1A5F7008CAD26 /* GPUImageColorConversion.m in Sources */,
 				E4438D2726F1EC6A008CAD26 /* FMCameraVC.m in Sources */,
 				E4438D1626F1A559008CAD26 /* GPUImageFilter.m in Sources */,
+				E412F97D26F2E2CA005395F4 /* GPUImageColorMatrixFilter.m in Sources */,
 				E4438D2426F1DC70008CAD26 /* GPUImageView.m in Sources */,
 				880C268926F0EE75009140CC /* GPUImageContext.m in Sources */,
 				E4438D1326F19B10008CAD26 /* GPUImageVideoCamera.m in Sources */,

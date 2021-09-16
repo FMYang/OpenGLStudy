@@ -51,9 +51,36 @@ typedef struct GPUMatrix3x3 GPUMatrix3x3;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GPUImageFilter : GPUImageOutput <GPUImageInput>
+@interface GPUImageFilter : GPUImageOutput <GPUImageInput> {
+    GPUImageFramebuffer *firstInputFramebuffer;
+    
+    GLProgram *filterProgram;
+    GLint filterPositionAttribute, filterTextureCoordinateAttribute;
+    GLint filterInputTextureUniform;
+    GLfloat backgroundColorRed, backgroundColorGreen, backgroundColorBlue, backgroundColorAlpha;
+    
+    BOOL isEndProcessing;
 
+    CGSize currentFilterSize;
+    GPUImageRotationMode inputRotation;
+    
+    BOOL currentlyReceivingMonochromeInput;
+    
+    NSMutableDictionary *uniformStateRestorationBlocks;
+    dispatch_semaphore_t imageCaptureSemaphore;
+
+}
+
+@property(readonly) CVPixelBufferRef renderTarget;
+@property(readwrite, nonatomic) BOOL preventRendering;
+
+- (id)initWithFragmentShaderFromString:(NSString *)fragmentShaderString;
 + (const GLfloat *)textureCoordinatesForRotation:(GPUImageRotationMode)rotationMode;
+
+- (CGSize)sizeOfFBO;
+
+- (void)setUniformsForProgramAtIndex:(NSUInteger)programIndex;
+- (void)setFloat:(GLfloat)floatValue forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
 
 @end
 

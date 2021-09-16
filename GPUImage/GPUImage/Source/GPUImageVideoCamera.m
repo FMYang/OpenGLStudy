@@ -37,6 +37,7 @@
 
         _frameRate = 0;
         captureAsYUV = YES;
+        internalRotation = kGPUImageNoRotation;
         
         _inputCamera = nil;
         
@@ -144,8 +145,8 @@
 
 #define INITIALFRAMESTOIGNOREFORBENCHMARK 5
 - (void)updateTargetsForVideoCameraUsingCacheTextureAtWidth:(int)bufferWidth height:(int)bufferHeight time:(CMTime)currentTime {
+    
     for(id<GPUImageInput> currentTarget in targets) {
-        if([currentTarget enabled]) {
             NSInteger indexOfObject = [targets indexOfObject:currentTarget];
             NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
             
@@ -153,20 +154,18 @@
             [currentTarget setInputSize:CGSizeMake(bufferWidth, bufferHeight) atIndex:textureIndexOfTarget];
             
             [currentTarget setInputFramebuffer:outputFramebuffer atIndex:textureIndexOfTarget];
-        }
     }
     
     [outputFramebuffer unlock];
     outputFramebuffer = nil;
 
+    // filter start
     for(id<GPUImageInput> currentTarget in targets) {
-        if([currentTarget enabled]) {
             NSInteger indexOfObject = [targets indexOfObject:currentTarget];
             NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
-
             [currentTarget newFrameReadyAtTime:currentTime atIndex:textureIndexOfTarget];
-        }
     }
+    // filter end
 }
 
 - (void)processVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer {
@@ -245,7 +244,7 @@
     outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:CGSizeMake(rotatedImageBufferWidth, rotatedImageBufferHeight) textureOptions:self.outputTextureOptions onlyTexture:NO];
     [outputFramebuffer activateFramebuffer];
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     static const GLfloat squareVertices[] = {

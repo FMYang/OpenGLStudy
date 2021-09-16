@@ -8,10 +8,12 @@
 #import "FMCameraVC.h"
 #import "GPUImageVideoCamera.h"
 #import "GPUImageView.h"
+#import "GPUImageSepiaFilter.h"
 
 @interface FMCameraVC() {
     GPUImageVideoCamera *videoCamera;
     GPUImageView *_glView;
+    GPUImageOutput<GPUImageInput> *filter;
 }
 
 @end
@@ -21,16 +23,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _glView = [[GPUImageView alloc] init];
-    _glView.backgroundColor = UIColor.redColor;
-    _glView.frame = self.view.bounds;
+    // 要用initWithFrame初始化
+    _glView = [[GPUImageView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_glView];
     
-    videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionBack];
-    videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    filter = [[GPUImageSepiaFilter alloc] init];
 
-    [videoCamera addTarget:_glView];
+    videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:AVCaptureDevicePositionBack];
+    videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    [videoCamera addTarget:filter];
+    [filter addTarget:_glView];
+    
     [videoCamera startCameraCapture];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
