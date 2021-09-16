@@ -226,7 +226,15 @@
 
             [self convertYUVToRGBOutput];
             
-            [self updateTargetsForVideoCameraUsingCacheTextureAtWidth:bufferWidth height:bufferHeight time:currentTime];
+            int rotatedImageBufferWidth = bufferWidth, rotatedImageBufferHeight = bufferHeight;
+            
+            if (GPUImageRotationSwapsWidthAndHeight(internalRotation))
+            {
+                rotatedImageBufferWidth = bufferHeight;
+                rotatedImageBufferHeight = bufferWidth;
+            }
+            
+            [self updateTargetsForVideoCameraUsingCacheTextureAtWidth:rotatedImageBufferWidth height:rotatedImageBufferHeight time:currentTime];
             
             CVPixelBufferUnlockBaseAddress(cameraFrame, 0);
             CFRelease(luminanceTextureRef);
@@ -238,8 +246,14 @@
 // YUV转RGB
 - (void)convertYUVToRGBOutput {
     [GPUImageContext setActiveShaderProgram:yuvConversionProgram];
-
+    
     int rotatedImageBufferWidth = imageBufferWidth, rotatedImageBufferHeight = imageBufferHeight;
+
+    if (GPUImageRotationSwapsWidthAndHeight(internalRotation))
+    {
+        rotatedImageBufferWidth = imageBufferHeight;
+        rotatedImageBufferHeight = imageBufferWidth;
+    }
 
     outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:CGSizeMake(rotatedImageBufferWidth, rotatedImageBufferHeight) textureOptions:self.outputTextureOptions onlyTexture:NO];
     [outputFramebuffer activateFramebuffer];
@@ -289,5 +303,25 @@
         });
     }
 }
+
+#pragma mark - 方向
+- (void)setOutputImageOrientation:(UIInterfaceOrientation)newValue {
+    _outputImageOrientation = newValue;
+    [self updateOrientationSendToTargets];
+}
+
+- (void)updateOrientationSendToTargets {
+    runSynchronouslyOnVideoProcessingQueue(^{
+        outputRotation = kGPUImageNoRotation;
+        internalRotation = kGPUImageRotateRight;
+        
+        for (id<GPUImageInput> currentTarget in targets)
+        {
+            NSInteger indexOfObject = [targets indexOfObject:currentTarget];
+            [currentTarget setInputRotation:outputRotation atIndex:[[targetTextureIndices objectAtIndex:indexOfObject] integerValue]];
+        }
+    });
+}
+
 
 @end

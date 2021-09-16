@@ -326,6 +326,12 @@
     runSynchronouslyOnVideoProcessingQueue(^{
         CGSize rotatedSize = newSize;
         
+        if (GPUImageRotationSwapsWidthAndHeight(inputRotation))
+        {
+            rotatedSize.width = newSize.height;
+            rotatedSize.height = newSize.width;
+        }
+        
         if (!CGSizeEqualToSize(inputImageSize, rotatedSize))
         {
             inputImageSize = rotatedSize;

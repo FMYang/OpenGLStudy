@@ -101,18 +101,14 @@
 		880C266726F0EE3E009140CC /* GPUImage */ = {
 			isa = PBXGroup;
 			children = (
-				880C268226F0EE48009140CC /* Source */,
 				880C266826F0EE3E009140CC /* AppDelegate.h */,
 				880C266926F0EE3F009140CC /* AppDelegate.m */,
 				880C266E26F0EE3F009140CC /* ViewController.h */,
 				880C266F26F0EE3F009140CC /* ViewController.m */,
-				880C267126F0EE3F009140CC /* Main.storyboard */,
-				880C267426F0EE41009140CC /* Assets.xcassets */,
-				880C267626F0EE41009140CC /* LaunchScreen.storyboard */,
-				880C267926F0EE41009140CC /* Info.plist */,
-				880C267A26F0EE41009140CC /* main.m */,
 				E4438D2526F1EC6A008CAD26 /* FMCameraVC.h */,
 				E4438D2626F1EC6A008CAD26 /* FMCameraVC.m */,
+				880C26A226F37EF7009140CC /* SupportingFiles */,
+				880C268226F0EE48009140CC /* Source */,
 			);
 			path = GPUImage;
 			sourceTree = "<group>";
@@ -144,6 +140,18 @@
 				E412F97B26F2E2CA005395F4 /* GPUImageColorMatrixFilter.m */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		880C26A226F37EF7009140CC /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				880C267126F0EE3F009140CC /* Main.storyboard */,
+				880C267426F0EE41009140CC /* Assets.xcassets */,
+				880C267626F0EE41009140CC /* LaunchScreen.storyboard */,
+				880C267926F0EE41009140CC /* Info.plist */,
+				880C267A26F0EE41009140CC /* main.m */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		E4438D1A26F1A697008CAD26 /* Frameworks */ = {
@@ -383,7 +391,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQFEA2B5H2;
-				INFOPLIST_FILE = GPUImage/Info.plist;
+				INFOPLIST_FILE = GPUImage/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -402,7 +410,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQFEA2B5H2;
-				INFOPLIST_FILE = GPUImage/Info.plist;
+				INFOPLIST_FILE = GPUImage/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
