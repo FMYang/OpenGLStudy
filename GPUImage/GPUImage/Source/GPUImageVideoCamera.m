@@ -82,31 +82,31 @@
                 [GPUImageContext useImageProcessingContext];
                 
                 yuvConversionProgram = [[GPUImageContext sharedImageProcessingContext] programForVertexShaderString:kGPUImageVertexShaderString fragmentShaderString:kGPUImageYUVFullRangeConversionForLAFragmentShaderString];
-            }
-            
-            if(!yuvConversionProgram.initialized) {
-                [yuvConversionProgram addAttribute:@"position"];
-                [yuvConversionProgram addAttribute:@"inputTextureCoordinate"];
                 
-                if(![yuvConversionProgram link]) {
-                    NSString *progLog = [yuvConversionProgram programLog];
-                    NSLog(@"Program link log: %@", progLog);
-                    NSString *fragLog = [yuvConversionProgram fragmentShaderLog];
-                    NSLog(@"Fragment shader compile log: %@", fragLog);
-                    NSString *vertLog = [yuvConversionProgram vertexShaderLog];
-                    NSLog(@"Vertex shader compile log: %@", vertLog);
-                    yuvConversionProgram = nil;
-                    NSAssert(NO, @"Filter shader link failed");
+                if(!yuvConversionProgram.initialized) {
+                    [yuvConversionProgram addAttribute:@"position"];
+                    [yuvConversionProgram addAttribute:@"inputTextureCoordinate"];
+                    
+                    if(![yuvConversionProgram link]) {
+                        NSString *progLog = [yuvConversionProgram programLog];
+                        NSLog(@"Program link log: %@", progLog);
+                        NSString *fragLog = [yuvConversionProgram fragmentShaderLog];
+                        NSLog(@"Fragment shader compile log: %@", fragLog);
+                        NSString *vertLog = [yuvConversionProgram vertexShaderLog];
+                        NSLog(@"Vertex shader compile log: %@", vertLog);
+                        yuvConversionProgram = nil;
+                        NSAssert(NO, @"Filter shader link failed");
+                    }
                 }
+                
+                yuvConversionPositionAttribute = [yuvConversionProgram attributeIndex:@"position"];
+                yuvConversionTextureCoordinateAttribute = [yuvConversionProgram attributeIndex:@"inputTextureCoordinate"];
+                yuvConversionLuminanceTextureUniform = [yuvConversionProgram uniformIndex:@"luminanceTexture"];
+                yuvConversionChrominanceTextureUniform = [yuvConversionProgram uniformIndex:@"chrominanceTexture"];
+                yuvConversionMatrixUniform = [yuvConversionProgram uniformIndex:@"colorConversionMatrix"];
+                
+                [GPUImageContext setActiveShaderProgram:yuvConversionProgram];
             }
-            
-            yuvConversionPositionAttribute = [yuvConversionProgram attributeIndex:@"position"];
-            yuvConversionTextureCoordinateAttribute = [yuvConversionProgram attributeIndex:@"inputTextureCoordinate"];
-            yuvConversionLuminanceTextureUniform = [yuvConversionProgram uniformIndex:@"luminanceTexture"];
-            yuvConversionChrominanceTextureUniform = [yuvConversionProgram uniformIndex:@"chrominanceTexture"];
-            yuvConversionMatrixUniform = [yuvConversionProgram uniformIndex:@"colorConversionMatrix"];
-            
-            [GPUImageContext setActiveShaderProgram:yuvConversionProgram];
         });
         
         [videoOutput setSampleBufferDelegate:self queue:cameraProcessingQueue];
