@@ -112,9 +112,6 @@
         [videoOutput setSampleBufferDelegate:self queue:cameraProcessingQueue];
         if([_captureSession canAddOutput:videoOutput]) {
             [_captureSession addOutput:videoOutput];
-        } else {
-            NSLog(@"Couldn't add video output");
-            return nil;
         }
         
         _captureSessionPreset = sessionPreset;

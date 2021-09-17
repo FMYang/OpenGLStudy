@@ -42,6 +42,7 @@
 // 初始化方法
 - (id)initWithSize:(CGSize)framebufferSize textureOptions:(GPUTextureOptions)fboTextureOptions onlyTexture:(BOOL)onlyGenerateTexture {
     if(self = [super init]) {
+        NSLog(@"fm create framebuffer");
         _size = framebufferSize;
         
         _textureOptions = fboTextureOptions;
@@ -82,7 +83,7 @@
         glGenFramebuffers(1, &framebuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
         
-//        if ([GPUImageContext supportsFastTextureUpload]) {
+        if ([GPUImageContext supportsFastTextureUpload]) {
             CVOpenGLESTextureCacheRef coreVideoTextureCache = [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache];
             
             // Code originally sourced from http://allmybrain.com/2011/12/08/rendering-to-a-texture-with-ios-5-texture-cache-api/
@@ -128,13 +129,13 @@
             
             // 将纹理附加到帧缓存
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, CVOpenGLESTextureGetName(renderTexture), 0);
-//        } else {
-//            [self generateTexture];
-//
-//            glBindTexture(GL_TEXTURE_2D, _texture);
-//            glTexImage2D(GL_TEXTURE_2D, 0, _textureOptions.internalFormat, (int)_size.width, (int)_size.height, 0, _textureOptions.format, _textureOptions.type, 0);
-//            glFramebufferTexture2D(GL_TEXTURE_2D, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _texture, 0);
-//        }
+        } else {
+            [self generateTexture];
+
+            glBindTexture(GL_TEXTURE_2D, _texture);
+            glTexImage2D(GL_TEXTURE_2D, 0, _textureOptions.internalFormat, (int)_size.width, (int)_size.height, 0, _textureOptions.format, _textureOptions.type, 0);
+            glFramebufferTexture2D(GL_TEXTURE_2D, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _texture, 0);
+        }
         
         #ifndef NS_BLOCK_ASSERTIONS
         GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);

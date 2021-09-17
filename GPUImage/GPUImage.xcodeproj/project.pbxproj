@@ -132,12 +132,7 @@
 				E4438D1826F1A5F7008CAD26 /* GPUImageColorConversion.m */,
 				E4438D2226F1DC70008CAD26 /* GPUImageView.h */,
 				E4438D2326F1DC70008CAD26 /* GPUImageView.m */,
-				E4438D1426F1A559008CAD26 /* GPUImageFilter.h */,
-				E4438D1526F1A559008CAD26 /* GPUImageFilter.m */,
-				E412F97926F2E2A6005395F4 /* GPUImageSepiaFilter.h */,
-				E412F97826F2E2A6005395F4 /* GPUImageSepiaFilter.m */,
-				E412F97C26F2E2CA005395F4 /* GPUImageColorMatrixFilter.h */,
-				E412F97B26F2E2CA005395F4 /* GPUImageColorMatrixFilter.m */,
+				E49275AC26F433EC00834D03 /* Filter */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -161,6 +156,19 @@
 				E4438D1B26F1A697008CAD26 /* OpenGLES.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E49275AC26F433EC00834D03 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				E4438D1426F1A559008CAD26 /* GPUImageFilter.h */,
+				E4438D1526F1A559008CAD26 /* GPUImageFilter.m */,
+				E412F97926F2E2A6005395F4 /* GPUImageSepiaFilter.h */,
+				E412F97826F2E2A6005395F4 /* GPUImageSepiaFilter.m */,
+				E412F97C26F2E2CA005395F4 /* GPUImageColorMatrixFilter.h */,
+				E412F97B26F2E2CA005395F4 /* GPUImageColorMatrixFilter.m */,
+			);
+			path = Filter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

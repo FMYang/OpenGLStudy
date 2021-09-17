@@ -205,13 +205,6 @@
 }
 
 + (const GLfloat *)textureCoordinatesForRotation:(GPUImageRotationMode)rotationMode {
-//    static const GLfloat noRotationTextureCoordinates[] = {
-//        0.0f, 0.0f,
-//        1.0f, 0.0f,
-//        0.0f, 1.0f,
-//        1.0f, 1.0f,
-//    };
-    
     static const GLfloat noRotationTextureCoordinates[] = {
         0.0f, 1.0f,
         1.0f, 1.0f,
@@ -326,31 +319,16 @@
     runSynchronouslyOnVideoProcessingQueue(^{
         CGSize rotatedSize = newSize;
         
-        if (GPUImageRotationSwapsWidthAndHeight(inputRotation))
-        {
+        if (GPUImageRotationSwapsWidthAndHeight(inputRotation)) {
             rotatedSize.width = newSize.height;
             rotatedSize.height = newSize.width;
         }
         
-        if (!CGSizeEqualToSize(inputImageSize, rotatedSize))
-        {
+        if (!CGSizeEqualToSize(inputImageSize, rotatedSize)) {
             inputImageSize = rotatedSize;
             [self recalculateViewGeometry];
         }
     });
-}
-
-- (CGSize)maximumOutputSize;
-{
-    if ([self respondsToSelector:@selector(setContentScaleFactor:)])
-    {
-        CGSize pointSize = self.bounds.size;
-        return CGSizeMake(self.contentScaleFactor * pointSize.width, self.contentScaleFactor * pointSize.height);
-    }
-    else
-    {
-        return self.bounds.size;
-    }
 }
 
 @end

@@ -239,10 +239,6 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
 
     outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:[self sizeOfFBO] textureOptions:self.outputTextureOptions onlyTexture:NO];
     [outputFramebuffer activateFramebuffer];
-    if (usingNextFrameForImageCapture)
-    {
-        [outputFramebuffer lock];
-    }
 
     [self setUniformsForProgramAtIndex:0];
 
@@ -261,11 +257,6 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     [firstInputFramebuffer unlock];
-
-    if (usingNextFrameForImageCapture)
-    {
-        dispatch_semaphore_signal(imageCaptureSemaphore);
-    }
 }
 
 - (void)informTargetsAboutNewFrameAtTime:(CMTime)frameTime {
@@ -282,7 +273,7 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
     // Release our hold so it can return to the cache immediately upon processing
     [[self framebufferForOutput] unlock];
     
-    // 瞎几把删除
+    // 删除帧缓存
     [self removeOutputFramebuffer];
     
     // Trigger processing last, so that our unlock comes first in serial execution, avoiding the need for a callback

@@ -8,8 +8,6 @@
 #import "GPUImageContext.h"
 #import "GPUImageOutput.h"
 
-extern dispatch_queue_attr_t GPUImageDefaultQueueAttribute(void);
-
 @interface GPUImageContext() {
     EAGLSharegroup *_sharegroup;
 }
@@ -28,8 +26,7 @@ static void *openGLESContextQueueKey;
     if(self = [super init]) {
         openGLESContextQueueKey = &openGLESContextQueueKey;
         
-        _contextQueue = dispatch_queue_create("com.sunsetlakesoftware.GPUImage.openGLESContextQueue", GPUImageDefaultQueueAttribute());
-        
+        _contextQueue = dispatch_queue_create("com.sunsetlakesoftware.GPUImage.openGLESContextQueue", DISPATCH_QUEUE_SERIAL);
         dispatch_queue_set_specific(_contextQueue, openGLESContextQueueKey, (__bridge void *)self, NULL);
         
     }

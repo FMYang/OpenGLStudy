@@ -25,25 +25,21 @@
         framebufferCache = @{}.mutableCopy;
         framebufferTypeCounts = @{}.mutableCopy;
         activeImageCaptureList = @[].mutableCopy;
-        framebufferCacheQueue = dispatch_queue_create("com.sunsetlakesoftware.GPUImage.framebufferCacheQueue", GPUImageDefaultQueueAttribute());
+        framebufferCacheQueue = dispatch_queue_create("com.sunsetlakesoftware.GPUImage.framebufferCacheQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
 
 #pragma mark - 管理帧缓存
-- (NSString *)hashForSize:(CGSize)size textureOptions:(GPUTextureOptions)textureOptions onlyTexture:(BOOL)onlyTexture;
-{
-    if (onlyTexture)
-    {
+- (NSString *)hashForSize:(CGSize)size textureOptions:(GPUTextureOptions)textureOptions onlyTexture:(BOOL)onlyTexture {
+    if (onlyTexture) {
         return [NSString stringWithFormat:@"%.1fx%.1f-%d:%d:%d:%d:%d:%d:%d-NOFB", size.width, size.height, textureOptions.minFilter, textureOptions.magFilter, textureOptions.wrapS, textureOptions.wrapT, textureOptions.internalFormat, textureOptions.format, textureOptions.type];
-    }
-    else
-    {
+    } else {
         return [NSString stringWithFormat:@"%.1fx%.1f-%d:%d:%d:%d:%d:%d:%d", size.width, size.height, textureOptions.minFilter, textureOptions.magFilter, textureOptions.wrapS, textureOptions.wrapT, textureOptions.internalFormat, textureOptions.format, textureOptions.type];
     }
 }
 
-// 从缓存查找纹理
+// 查找帧缓存，没有就创建一个新的
 - (GPUImageFramebuffer *)fetchFramebufferForSize:(CGSize)framebufferSize textureOptions:(GPUTextureOptions)textureOptions onlyTexture:(BOOL)onlyTexture {
     __block GPUImageFramebuffer *framebufferFromCache = nil;
 
@@ -89,8 +85,6 @@
 
 - (void)returnFramebufferToCache:(GPUImageFramebuffer *)framebuffer {
     [framebuffer clearAllLocks];
-    
-//    dispatch_async(framebufferCacheQueue, ^{
     runAsynchronouslyOnVideoProcessingQueue(^{
         CGSize framebufferSize = framebuffer.size;
         GPUTextureOptions framebufferTextureOptions = framebuffer.textureOptions;
