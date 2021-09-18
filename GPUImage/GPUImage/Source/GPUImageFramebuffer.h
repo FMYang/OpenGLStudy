@@ -35,11 +35,9 @@ typedef struct GPUTextureOptions {
 @property(readonly) GPUTextureOptions textureOptions;
 // 纹理唯一标识
 @property(readonly) GLuint texture;
-// 是否仅生成生成纹理没有帧缓存
-@property(readonly) BOOL missingFramebuffer;
 
 // 初始化帧缓存对象
-- (id)initWithSize:(CGSize)framebufferSize textureOptions:(GPUTextureOptions)fboTextureOptions onlyTexture:(BOOL)onlyGenerateTexture;
+- (id)initWithSize:(CGSize)framebufferSize textureOptions:(GPUTextureOptions)fboTextureOptions;
 
 // 激活帧缓存
 - (void)activateFramebuffer;
@@ -49,15 +47,7 @@ typedef struct GPUTextureOptions {
 - (void)unlock;
 - (void)clearAllLocks;
 
-// 图像捕捉
-- (CGImageRef)newCGImageFromFramebufferContents;
-- (void)restoreRenderTarget;
-
 // 原始数据
-- (void)lockForReading;
-- (void)unlockAfterReading;
-- (NSUInteger)bytesPerRow;
-- (GLubyte *)byteBuffer;
 - (CVPixelBufferRef)pixelBuffer;
 
 @end

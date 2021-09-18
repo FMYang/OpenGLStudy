@@ -7,7 +7,6 @@
 
 #import "GPUImageFilter.h"
 
-// Hardcode the vertex shader for standard filters, but this can be overridden
 NSString *const kGPUImageVertexShaderString = SHADER_STRING
 (
  attribute vec4 position;
@@ -22,8 +21,6 @@ NSString *const kGPUImageVertexShaderString = SHADER_STRING
  }
  );
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-
 NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
 (
  varying highp vec2 textureCoordinate;
@@ -36,20 +33,6 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
  }
 );
 
-#else
-
-NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
-(
- varying vec2 textureCoordinate;
- 
- uniform sampler2D inputImageTexture;
- 
- void main()
- {
-     gl_FragColor = texture2D(inputImageTexture, textureCoordinate);
- }
-);
-#endif
 
 
 @implementation GPUImageFilter
@@ -103,24 +86,19 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
 
 
 - (id)initWithFragmentShaderFromString:(NSString *)fragmentShaderString {
-    if (!(self = [self initWithVertexShaderFromString:kGPUImageVertexShaderString fragmentShaderFromString:fragmentShaderString]))
-    {
+    if (!(self = [self initWithVertexShaderFromString:kGPUImageVertexShaderString fragmentShaderFromString:fragmentShaderString])) {
         return nil;
     }
     
     return self;
 }
 
-- (void)initializeAttributes;
-{
+- (void)initializeAttributes; {
     [filterProgram addAttribute:@"position"];
     [filterProgram addAttribute:@"inputTextureCoordinate"];
-
-    // Override this, calling back to this super method, in order to add new attributes to your vertex shader
 }
 
-+ (const GLfloat *)textureCoordinatesForRotation:(GPUImageRotationMode)rotationMode;
-{
++ (const GLfloat *)textureCoordinatesForRotation:(GPUImageRotationMode)rotationMode {
     static const GLfloat noRotationTextureCoordinates[] = {
         0.0f, 0.0f,
         1.0f, 0.0f,
@@ -177,8 +155,7 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
         0.0f, 0.0f,
     };
 
-    switch(rotationMode)
-    {
+    switch(rotationMode) {
         case kGPUImageNoRotation: return noRotationTextureCoordinates;
         case kGPUImageRotateLeft: return rotateLeftTextureCoordinates;
         case kGPUImageRotateRight: return rotateRightTextureCoordinates;
@@ -210,8 +187,7 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
 
 #pragma mark - GPUImageInput
 
-- (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex;
-{
+- (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex {
     static const GLfloat imageVertices[] = {
         -1.0f, -1.0f,
         1.0f, -1.0f,
@@ -237,13 +213,12 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
 - (void)renderToTextureWithVertices:(const GLfloat *)vertices textureCoordinates:(const GLfloat *)textureCoordinates {
     [GPUImageContext setActiveShaderProgram:filterProgram];
 
-    outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:[self sizeOfFBO] textureOptions:self.outputTextureOptions onlyTexture:NO];
+    outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:[self sizeOfFBO] textureOptions:self.outputTextureOptions];
     [outputFramebuffer activateFramebuffer];
 
     [self setUniformsForProgramAtIndex:0];
 
-    glClearColor(backgroundColorRed, backgroundColorGreen, backgroundColorBlue, backgroundColorAlpha);
-    glClearColor(1.0, 0.0, 0.0, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glActiveTexture(GL_TEXTURE2);
@@ -328,8 +303,7 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
     });
 }
 
-- (void)setMatrix4f:(GPUMatrix4x4)matrix forUniform:(GLint)uniform program:(GLProgram *)shaderProgram;
-{
+- (void)setMatrix4f:(GPUMatrix4x4)matrix forUniform:(GLint)uniform program:(GLProgram *)shaderProgram {
     runAsynchronouslyOnVideoProcessingQueue(^{
         [GPUImageContext setActiveShaderProgram:shaderProgram];
         [self setAndExecuteUniformStateCallbackAtIndex:uniform forProgram:shaderProgram toBlock:^{

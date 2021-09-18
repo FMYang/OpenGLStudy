@@ -61,10 +61,7 @@ typedef NS_ENUM(NSUInteger, GPUImageRotationMode) {
 - (void)setInputRotation:(GPUImageRotationMode)newInputRotation atIndex:(NSInteger)textureIndex;
 - (CGSize)maximumOutputSize;
 - (void)endProcessing;
-- (BOOL)shouldIgnoreUpdatesToThisTarget;
 - (BOOL)enabled;
-- (BOOL)wantsMonochromeInput;
-- (void)setCurrentlyReceivingMonochromeInput:(BOOL)newValue;
 @end
 
 NS_ASSUME_NONNULL_END

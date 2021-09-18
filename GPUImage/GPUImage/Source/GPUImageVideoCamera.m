@@ -67,15 +67,8 @@
         
         videoOutput = [[AVCaptureVideoDataOutput alloc] init];
         videoOutput.alwaysDiscardsLateVideoFrames = NO;
-        
-        if(captureAsYUV && [GPUImageContext supportsFastTextureUpload]) {
-            // 使用yuv格式图像
-            [videoOutput setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
-        } else {
-            // 使用rgb格式图像
-            [videoOutput setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
-
-        }
+        // 使用yuv格式图像
+        [videoOutput setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
         
         runSynchronouslyOnVideoProcessingQueue(^{
             if(captureAsYUV) {
@@ -142,25 +135,24 @@
 
 #define INITIALFRAMESTOIGNOREFORBENCHMARK 5
 - (void)updateTargetsForVideoCameraUsingCacheTextureAtWidth:(int)bufferWidth height:(int)bufferHeight time:(CMTime)currentTime {
-    
     for(id<GPUImageInput> currentTarget in targets) {
-            NSInteger indexOfObject = [targets indexOfObject:currentTarget];
-            NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
-            
-            [currentTarget setInputRotation:outputRotation atIndex:textureIndexOfTarget];
-            [currentTarget setInputSize:CGSizeMake(bufferWidth, bufferHeight) atIndex:textureIndexOfTarget];
-            
-            [currentTarget setInputFramebuffer:outputFramebuffer atIndex:textureIndexOfTarget];
+        NSInteger indexOfObject = [targets indexOfObject:currentTarget];
+        NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
+        
+        [currentTarget setInputRotation:outputRotation atIndex:textureIndexOfTarget];
+        [currentTarget setInputSize:CGSizeMake(bufferWidth, bufferHeight) atIndex:textureIndexOfTarget];
+        
+        [currentTarget setInputFramebuffer:outputFramebuffer atIndex:textureIndexOfTarget];
     }
     
     [outputFramebuffer unlock];
     outputFramebuffer = nil;
-
+    
     // filter start
     for(id<GPUImageInput> currentTarget in targets) {
-            NSInteger indexOfObject = [targets indexOfObject:currentTarget];
-            NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
-            [currentTarget newFrameReadyAtTime:currentTime atIndex:textureIndexOfTarget];
+        NSInteger indexOfObject = [targets indexOfObject:currentTarget];
+        NSInteger textureIndexOfTarget = [[targetTextureIndices objectAtIndex:indexOfObject] integerValue];
+        [currentTarget newFrameReadyAtTime:currentTime atIndex:textureIndexOfTarget];
     }
     // filter end
 }
@@ -183,60 +175,59 @@
     
     [GPUImageContext useImageProcessingContext];
     
-    if([GPUImageContext supportsFastTextureUpload] && captureAsYUV) {
-        CVOpenGLESTextureRef luminanceTextureRef = NULL;
-        CVOpenGLESTextureRef chrominanceTextureRef = NULL;
+    CVOpenGLESTextureRef luminanceTextureRef = NULL;
+    CVOpenGLESTextureRef chrominanceTextureRef = NULL;
 
-        if(CVPixelBufferGetPlaneCount(cameraFrame) > 0) {
-            CVPixelBufferLockBaseAddress(cameraFrame, 0);
-            
-            if(imageBufferWidth != bufferWidth && imageBufferHeight != bufferHeight) {
-                imageBufferWidth = bufferWidth;
-                imageBufferHeight = bufferHeight;
-            }
-            
-            glActiveTexture(GL_TEXTURE4);
-            // 创建亮度纹理 Y-plane
-            CVReturn err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache], cameraFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE, bufferWidth, bufferHeight, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0, &luminanceTextureRef);
-            if(err) {
-                NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
-            }
-            
-            luminanceTexture = CVOpenGLESTextureGetName(luminanceTextureRef);
-            glBindTexture(GL_TEXTURE_2D, luminanceTexture);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-            // 创建色度纹理 UV-plane
-            glActiveTexture(GL_TEXTURE5);
-            err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache], cameraFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, bufferWidth/2, bufferHeight/2, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 1, &chrominanceTextureRef);
-
-            if (err)
-            {
-                NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
-            }
-
-            chrominanceTexture = CVOpenGLESTextureGetName(chrominanceTextureRef);
-            glBindTexture(GL_TEXTURE_2D, chrominanceTexture);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-            [self convertYUVToRGBOutput];
-            
-            int rotatedImageBufferWidth = bufferWidth, rotatedImageBufferHeight = bufferHeight;
-            
-            if (GPUImageRotationSwapsWidthAndHeight(internalRotation))
-            {
-                rotatedImageBufferWidth = bufferHeight;
-                rotatedImageBufferHeight = bufferWidth;
-            }
-            
-            [self updateTargetsForVideoCameraUsingCacheTextureAtWidth:rotatedImageBufferWidth height:rotatedImageBufferHeight time:currentTime];
-            
-            CVPixelBufferUnlockBaseAddress(cameraFrame, 0);
-            CFRelease(luminanceTextureRef);
-            CFRelease(chrominanceTextureRef);
+    // YUV格式
+    if(CVPixelBufferGetPlaneCount(cameraFrame) > 0) {
+        CVPixelBufferLockBaseAddress(cameraFrame, 0);
+        
+        if(imageBufferWidth != bufferWidth && imageBufferHeight != bufferHeight) {
+            imageBufferWidth = bufferWidth;
+            imageBufferHeight = bufferHeight;
         }
+        
+        glActiveTexture(GL_TEXTURE4);
+        // 创建亮度纹理 Y-plane
+        CVReturn err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache], cameraFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE, bufferWidth, bufferHeight, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0, &luminanceTextureRef);
+        if(err) {
+            NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+        }
+        
+        luminanceTexture = CVOpenGLESTextureGetName(luminanceTextureRef);
+        glBindTexture(GL_TEXTURE_2D, luminanceTexture);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+        // 创建色度纹理 UV-plane
+        glActiveTexture(GL_TEXTURE5);
+        err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache], cameraFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, bufferWidth/2, bufferHeight/2, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 1, &chrominanceTextureRef);
+
+        if (err)
+        {
+            NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+        }
+
+        chrominanceTexture = CVOpenGLESTextureGetName(chrominanceTextureRef);
+        glBindTexture(GL_TEXTURE_2D, chrominanceTexture);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+        [self convertYUVToRGBOutput];
+        
+        int rotatedImageBufferWidth = bufferWidth, rotatedImageBufferHeight = bufferHeight;
+        
+        if (GPUImageRotationSwapsWidthAndHeight(internalRotation))
+        {
+            rotatedImageBufferWidth = bufferHeight;
+            rotatedImageBufferHeight = bufferWidth;
+        }
+        
+        [self updateTargetsForVideoCameraUsingCacheTextureAtWidth:rotatedImageBufferWidth height:rotatedImageBufferHeight time:currentTime];
+        
+        CVPixelBufferUnlockBaseAddress(cameraFrame, 0);
+        CFRelease(luminanceTextureRef);
+        CFRelease(chrominanceTextureRef);
     }
 }
 
@@ -246,13 +237,12 @@
     
     int rotatedImageBufferWidth = imageBufferWidth, rotatedImageBufferHeight = imageBufferHeight;
 
-    if (GPUImageRotationSwapsWidthAndHeight(internalRotation))
-    {
+    if (GPUImageRotationSwapsWidthAndHeight(internalRotation)) {
         rotatedImageBufferWidth = imageBufferHeight;
         rotatedImageBufferHeight = imageBufferWidth;
     }
 
-    outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:CGSizeMake(rotatedImageBufferWidth, rotatedImageBufferHeight) textureOptions:self.outputTextureOptions onlyTexture:NO];
+    outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:CGSizeMake(rotatedImageBufferWidth, rotatedImageBufferHeight) textureOptions:self.outputTextureOptions];
     [outputFramebuffer activateFramebuffer];
 
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);

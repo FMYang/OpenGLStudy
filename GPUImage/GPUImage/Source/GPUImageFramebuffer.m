@@ -40,7 +40,7 @@
 }
 
 // 初始化方法
-- (id)initWithSize:(CGSize)framebufferSize textureOptions:(GPUTextureOptions)fboTextureOptions onlyTexture:(BOOL)onlyGenerateTexture {
+- (id)initWithSize:(CGSize)framebufferSize textureOptions:(GPUTextureOptions)fboTextureOptions {
     if(self = [super init]) {
         NSLog(@"fm create framebuffer");
         _size = framebufferSize;
@@ -48,34 +48,12 @@
         _textureOptions = fboTextureOptions;
         framebufferReferenceCount = 0;
         referenceCountingDisabled = NO;
-        _missingFramebuffer = onlyGenerateTexture;
-        
-        if(_missingFramebuffer) {
-            runSynchronouslyOnVideoProcessingQueue(^{
-                [GPUImageContext useImageProcessingContext];
-                [self generateTexture];
-                framebuffer = 0;
-            });
-        } else {
-            [self generateFramebuffer];
-        }
+        [self generateFramebuffer];
     }
     return self;
 }
 
-// 生成纹理
-- (void)generateTexture {
-    glActiveTexture(GL_TEXTURE1);
-    // 1表示生成的纹理数量，_texture表示纹理唯一ID
-    glGenTextures(1, &_texture);
-    glBindTexture(GL_TEXTURE_2D, _texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _textureOptions.minFilter);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _textureOptions.magFilter);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _textureOptions.wrapS);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _textureOptions.wrapT);
-}
-
-// 生成帧缓存
+// 生成帧缓存和纹理
 - (void)generateFramebuffer {
     runSynchronouslyOnVideoProcessingQueue(^{
         [GPUImageContext useImageProcessingContext];
@@ -83,59 +61,51 @@
         glGenFramebuffers(1, &framebuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
         
-        if ([GPUImageContext supportsFastTextureUpload]) {
-            CVOpenGLESTextureCacheRef coreVideoTextureCache = [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache];
-            
-            // Code originally sourced from http://allmybrain.com/2011/12/08/rendering-to-a-texture-with-ios-5-texture-cache-api/
-            
-            CFDictionaryRef empty; // empty value for attr value.
-            CFMutableDictionaryRef attrs;
-            empty = CFDictionaryCreate(kCFAllocatorDefault, NULL, NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks); // our empty IOSurface properties dictionary
-            attrs = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-            CFDictionarySetValue(attrs, kCVPixelBufferIOSurfacePropertiesKey, empty);
+        CVOpenGLESTextureCacheRef coreVideoTextureCache = [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache];
+        
+        // Code originally sourced from http://allmybrain.com/2011/12/08/rendering-to-a-texture-with-ios-5-texture-cache-api/
+        
+        CFDictionaryRef empty; // empty value for attr value.
+        CFMutableDictionaryRef attrs;
+        empty = CFDictionaryCreate(kCFAllocatorDefault, NULL, NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks); // our empty IOSurface properties dictionary
+        attrs = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        CFDictionarySetValue(attrs, kCVPixelBufferIOSurfacePropertiesKey, empty);
 
-            CVReturn err = CVPixelBufferCreate(kCFAllocatorDefault, (int)_size.width, (int)_size.height, kCVPixelFormatType_32BGRA, attrs, &renderTarget);
-            if(err) {
-                NSLog(@"FBO size: %f, %f", _size.width, _size.height);
-                NSAssert(NO, @"Error at CVPixelBufferCreate %d", err);
-            }
-            
-            // 通过原始图像renderTarget生成纹理对象renderTexture
-            err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
-                                                               coreVideoTextureCache,
-                                                               renderTarget,
-                                                               NULL,
-                                                               GL_TEXTURE_2D,
-                                                               _textureOptions.internalFormat,
-                                                               (int)_size.width,
-                                                               (int)_size.height,
-                                                               _textureOptions.format,
-                                                               _textureOptions.type,
-                                                               0,
-                                                               &renderTexture);
-            
-            if(err) {
-                NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
-            }
-            
-            CFRelease(attrs);
-            CFRelease(empty);
-            
-            glBindTexture(CVOpenGLESTextureGetTarget(renderTexture), CVOpenGLESTextureGetName(renderTexture));
-            _texture = CVOpenGLESTextureGetName(renderTexture);
-            
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _textureOptions.wrapS);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _textureOptions.wrapT);
-            
-            // 将纹理附加到帧缓存
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, CVOpenGLESTextureGetName(renderTexture), 0);
-        } else {
-            [self generateTexture];
-
-            glBindTexture(GL_TEXTURE_2D, _texture);
-            glTexImage2D(GL_TEXTURE_2D, 0, _textureOptions.internalFormat, (int)_size.width, (int)_size.height, 0, _textureOptions.format, _textureOptions.type, 0);
-            glFramebufferTexture2D(GL_TEXTURE_2D, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _texture, 0);
+        CVReturn err = CVPixelBufferCreate(kCFAllocatorDefault, (int)_size.width, (int)_size.height, kCVPixelFormatType_32BGRA, attrs, &renderTarget);
+        if(err) {
+            NSLog(@"FBO size: %f, %f", _size.width, _size.height);
+            NSAssert(NO, @"Error at CVPixelBufferCreate %d", err);
         }
+        
+        // 通过原始图像renderTarget生成纹理对象renderTexture
+        err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                           coreVideoTextureCache,
+                                                           renderTarget,
+                                                           NULL,
+                                                           GL_TEXTURE_2D,
+                                                           _textureOptions.internalFormat,
+                                                           (int)_size.width,
+                                                           (int)_size.height,
+                                                           _textureOptions.format,
+                                                           _textureOptions.type,
+                                                           0,
+                                                           &renderTexture);
+        
+        if(err) {
+            NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+        }
+        
+        CFRelease(attrs);
+        CFRelease(empty);
+        
+        glBindTexture(CVOpenGLESTextureGetTarget(renderTexture), CVOpenGLESTextureGetName(renderTexture));
+        _texture = CVOpenGLESTextureGetName(renderTexture);
+        
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _textureOptions.wrapS);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _textureOptions.wrapT);
+        
+        // 将纹理附加到帧缓存
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, CVOpenGLESTextureGetName(renderTexture), 0);
         
         #ifndef NS_BLOCK_ASSERTIONS
         GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
