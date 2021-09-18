@@ -7,12 +7,13 @@
 
 #import "ViewController.h"
 #import "FMOpenGLVC.h"
+#import "FMCameraFilterVC.h"
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) FMCameraFilterVC *cameraVC;
 @end
 
 @implementation ViewController
@@ -32,12 +33,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSDictionary *dic = self.datasource[indexPath.row];
     cell.textLabel.text = dic.allKeys[0];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row == self.datasource.count - 1) {
+        _cameraVC = [[FMCameraFilterVC alloc] init];
+        _cameraVC.modalPresentationStyle = UIModalPresentationFullScreen;
+        [self.navigationController presentViewController:_cameraVC animated:YES completion:nil];
+        return;
+    }
+    
     NSDictionary *dic = self.datasource[indexPath.row];
     NSString *className = dic.allValues[0];
     FMOpenGLVC *vc = [[FMOpenGLVC alloc] initWithClassName:className];
@@ -60,7 +69,8 @@
              @{@"三角形": NSStringFromClass(FMOpenGLTriangle.class)},
              @{@"着色器": NSStringFromClass(FMOpenGLShaderFinal.class)},
              @{@"纹理": NSStringFromClass(FMOpenGLTexture.class)},
-             @{@"Lut": NSStringFromClass(FMOpenGLLutView.class)}];
+             @{@"Lut": NSStringFromClass(FMOpenGLLutView.class)},
+             @{@"相机": @""}];
 }
 
 @end

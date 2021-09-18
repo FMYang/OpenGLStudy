@@ -187,14 +187,17 @@ NSString *const triangleFragmentShaderSource = SHADER_STRING(
         0.0, 0.5, 0.0
     };
     
-    // 生成顶点缓冲对象和对象的唯一ID（VBO）
-    glGenBuffers(1, &_VBO);
-    // 缓冲绑定到GL_ARRAY_BUFFER目标上，OpenGL有很多缓冲对象类型，顶点缓冲对象的缓冲类型是GL_ARRAY_BUFFER
-    glBindBuffer(GL_ARRAY_BUFFER, _VBO);
-    // 将顶点数据复制到顶点缓冲的内存中
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+//    // 生成顶点缓冲对象和对象的唯一ID（VBO）
+//    glGenBuffers(1, &_VBO);
+//    // 缓冲绑定到GL_ARRAY_BUFFER目标上，OpenGL有很多缓冲对象类型，顶点缓冲对象的缓冲类型是GL_ARRAY_BUFFER
+//    glBindBuffer(GL_ARRAY_BUFFER, _VBO);
+//    // 将顶点数据复制到顶点缓冲的内存中
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+//
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
+//    glEnableVertexAttribArray(0);
     
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, 0, 0, vertices);
     glEnableVertexAttribArray(0);
     
     [self createProgramWithVertexShader:triangleVertexShaderSource fragmentShader:triangleFragmentShaderSource];

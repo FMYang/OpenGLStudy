@@ -107,6 +107,8 @@
 		E44A4D9526D7896000BDB0A3 /* 4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E44A4D9326D7896000BDB0A3 /* 4.jpeg */; };
 		E44A4D9926D79EED00BDB0A3 /* FMOpenGLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */; };
 		E44A4D9D26D891B200BDB0A3 /* matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D9C26D891B200BDB0A3 /* matrix.c */; };
+		E49275B026F58B2500834D03 /* FMCameraFilterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E49275AF26F58B2500834D03 /* FMCameraFilterVC.m */; };
+		E49275B326F592B000834D03 /* FMCameraOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = E49275B226F592B000834D03 /* FMCameraOpenGLView.m */; };
 		E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E126D334390033F2EB /* AppDelegate.m */; };
 		E4BED5E826D334390033F2EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E726D334390033F2EB /* ViewController.m */; };
 		E4BED5EB26D3343A0033F2EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4BED5E926D3343A0033F2EB /* Main.storyboard */; };
@@ -231,6 +233,10 @@
 		E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLVC.m; sourceTree = "<group>"; };
 		E44A4D9B26D891B200BDB0A3 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
 		E44A4D9C26D891B200BDB0A3 /* matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = matrix.c; sourceTree = "<group>"; };
+		E49275AE26F58B2500834D03 /* FMCameraFilterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraFilterVC.h; sourceTree = "<group>"; };
+		E49275AF26F58B2500834D03 /* FMCameraFilterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraFilterVC.m; sourceTree = "<group>"; };
+		E49275B126F592B000834D03 /* FMCameraOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraOpenGLView.h; sourceTree = "<group>"; };
+		E49275B226F592B000834D03 /* FMCameraOpenGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraOpenGLView.m; sourceTree = "<group>"; };
 		E4BED5DD26D334390033F2EB /* LearnOpenGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnOpenGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BED5E026D334390033F2EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4BED5E126D334390033F2EB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -491,6 +497,10 @@
 				E4BED5E726D334390033F2EB /* ViewController.m */,
 				E44A4D9726D79EED00BDB0A3 /* FMOpenGLVC.h */,
 				E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */,
+				E49275AE26F58B2500834D03 /* FMCameraFilterVC.h */,
+				E49275AF26F58B2500834D03 /* FMCameraFilterVC.m */,
+				E49275B126F592B000834D03 /* FMCameraOpenGLView.h */,
+				E49275B226F592B000834D03 /* FMCameraOpenGLView.m */,
 				E4BED5F926D3346D0033F2EB /* Source */,
 				E44A4D9126D7894F00BDB0A3 /* Resources */,
 				E44A4D9626D79E0C00BDB0A3 /* SupportingFiles */,
@@ -719,12 +729,14 @@
 				E4BED6AD26D3AFB10033F2EB /* FMOpenGLTriangleView.m in Sources */,
 				E406E72526E2188300C35047 /* FMOpenGLLutView.m in Sources */,
 				E44A4D8C26D779B200BDB0A3 /* FMOpenGLTexture.m in Sources */,
+				E49275B026F58B2500834D03 /* FMCameraFilterVC.m in Sources */,
 				E4BED5E826D334390033F2EB /* ViewController.m in Sources */,
 				E44A4D9926D79EED00BDB0A3 /* FMOpenGLVC.m in Sources */,
 				E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */,
 				E44A4D8926D6363F00BDB0A3 /* FMOpenGLShaderFinal.m in Sources */,
 				E44A4D8226D5F56400BDB0A3 /* FMOpenGLTriangle.m in Sources */,
 				E44A4D8626D61D0700BDB0A3 /* FMOpenGLShader.m in Sources */,
+				E49275B326F592B000834D03 /* FMCameraOpenGLView.m in Sources */,
 				E44A4D7F26D5D8B700BDB0A3 /* FMOpenGLWindow.m in Sources */,
 				E4BED5FC26D33B400033F2EB /* FMTriangleView.m in Sources */,
 				E4BED5F326D334400033F2EB /* main.m in Sources */,

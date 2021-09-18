@@ -31,9 +31,11 @@
 
     videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:AVCaptureDevicePositionBack];
     videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
-    [videoCamera addTarget:filter];
-    [filter addTarget:_glView];
+//    [videoCamera addTarget:filter];
+//    [filter addTarget:_glView];
     
+    [videoCamera addTarget:_glView];
+
     [videoCamera startCameraCapture];
 }
 

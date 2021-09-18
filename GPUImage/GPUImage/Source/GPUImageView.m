@@ -271,16 +271,16 @@
         [GPUImageContext setActiveShaderProgram:displayProgram];
         [self setDisplayFramebuffer];
         
-        glClearColor(0.0, 0.0, 0.0, 1.0);
+        glClearColor(1.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         glActiveTexture(GL_TEXTURE4);
         glBindTexture(GL_TEXTURE_2D, [inputFramebufferForDisplay texture]);
         glUniform1i(displayInputTextureUniform, 4);
-        
+
         glVertexAttribPointer(displayPositionAttribute, 2, GL_FLOAT, 0, 0, imageVertices);
         glVertexAttribPointer(displayTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, [GPUImageView textureCoordinatesForRotation:inputRotation]);
-        
+
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         
         [self presentFramebuffer];

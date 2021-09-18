@@ -97,14 +97,14 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     
     // 顶点
     GLuint positionLocation = glGetAttribLocation(self.program, "aPos");
-    glEnableVertexAttribArray(positionLocation);
     glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (void *)0);
+    glEnableVertexAttribArray(positionLocation);
 
     // 颜色
     GLuint colorLocation = glGetAttribLocation(self.program, "aColor");
-    glEnableVertexAttribArray(colorLocation);
     glVertexAttribPointer(colorLocation, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLfloat *)NULL + 3);
-    
+    glEnableVertexAttribArray(colorLocation);
+
     // 纹理坐标
     GLuint texLoc = glGetAttribLocation(self.program, "aTexCoord");
     glEnableVertexAttribArray(texLoc);

@@ -58,20 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
     GLint filterPositionAttribute, filterTextureCoordinateAttribute;
     GLint filterInputTextureUniform;
     
-    BOOL isEndProcessing;
-
-    CGSize currentFilterSize;
     GPUImageRotationMode inputRotation;
-    
-    BOOL currentlyReceivingMonochromeInput;
-    
+        
     NSMutableDictionary *uniformStateRestorationBlocks;
     dispatch_semaphore_t imageCaptureSemaphore;
 
 }
-
-@property(readonly) CVPixelBufferRef renderTarget;
-@property(readwrite, nonatomic) BOOL preventRendering;
 
 - (id)initWithFragmentShaderFromString:(NSString *)fragmentShaderString;
 + (const GLfloat *)textureCoordinatesForRotation:(GPUImageRotationMode)rotationMode;
