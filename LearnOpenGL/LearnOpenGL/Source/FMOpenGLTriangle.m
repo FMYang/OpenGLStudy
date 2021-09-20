@@ -197,11 +197,11 @@ NSString *const triangleFragmentShaderSource = SHADER_STRING(
 //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void *)0);
 //    glEnableVertexAttribArray(0);
     
-    glVertexAttribPointer(0, 3, GL_FLOAT, 0, 0, vertices);
-    glEnableVertexAttribArray(0);
-    
     [self createProgramWithVertexShader:triangleVertexShaderSource fragmentShader:triangleFragmentShaderSource];
     glUseProgram(self.program);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, 0, 0, vertices);
+    glEnableVertexAttribArray(0);
     
     glDrawArrays(GL_TRIANGLES, 0, 3);
     

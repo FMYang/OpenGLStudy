@@ -6,6 +6,7 @@
 //
 
 #import "FMCameraOpenGLView.h"
+#import "FMCameraContext.h"
 
 GLfloat kColorConversion601FullRangeDefault[] = {
     1.0,    1.0,    1.0,
@@ -13,94 +14,45 @@ GLfloat kColorConversion601FullRangeDefault[] = {
     1.4,    -0.711, 0.0,
 };
 
-// yuv to rgb 着色器
+// yuv to rgb 片段着色器
 NSString *const fragmentShaderString = SHADER_STRING(
-// varying highp vec2 textureCoordinate;
-//
-// uniform sampler2D luminanceTexture;
-// uniform sampler2D chrominanceTexture;
-// uniform mediump mat3 colorConversionMatrix;
+ varying highp vec2 textureCoordinate;
+
+ uniform sampler2D luminanceTexture;
+ uniform sampler2D chrominanceTexture;
+ uniform mediump mat3 colorConversionMatrix;
  
  void main()
  {
-//     mediump vec3 yuv;
-//     lowp vec3 rgb;
-//
-//     yuv.x = texture2D(luminanceTexture, textureCoordinate).r;
-//     yuv.yz = texture2D(chrominanceTexture, textureCoordinate).ra - vec2(0.5, 0.5);
-//     rgb = colorConversionMatrix * yuv;
-     
-     gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);//vec4(rgb, 1);
+     mediump vec3 yuv;
+     lowp vec3 rgb;
+
+     yuv.x = texture2D(luminanceTexture, textureCoordinate).r;
+     yuv.yz = texture2D(chrominanceTexture, textureCoordinate).ra - vec2(0.5, 0.5);
+     rgb = colorConversionMatrix * yuv;
+         
+     gl_FragColor = vec4(rgb, 1);
+    
+    // 只加载Y平面数据，亮度数据（黑白）
+//    gl_FragColor = texture2D(luminanceTexture, textureCoordinate);
+    // 只加载UV平面数据，色度数据
+//    gl_FragColor = texture2D(chrominanceTexture, textureCoordinate);
  }
  );
 
-
-// 通用着色器
+// 顶点着色器
 NSString *const vertexShaderString = SHADER_STRING(
  attribute vec4 position;
-// attribute vec4 inputTextureCoordinate;
+ attribute vec4 inputTextureCoordinate;
  
  varying vec2 textureCoordinate;
  
  void main()
  {
      gl_Position = position;
-//     textureCoordinate = inputTextureCoordinate.xy;
+     textureCoordinate = inputTextureCoordinate.xy;
  }
  );
-
-//NSString *const fragmentShaderString = SHADER_STRING(
-// varying highp vec2 textureCoordinate;
-//
-// uniform sampler2D inputImageTexture;
-//
-// void main()
-// {
-//     gl_FragColor = texture2D(inputImageTexture, textureCoordinate);
-// }
-//);
-
-/////////////////////////////////////////
-@interface FMCameraContext: NSObject
-
-@property (nonatomic, class, readonly) FMCameraContext *shared;
-@property (nonatomic) EAGLContext *context;
-@property (nonatomic) CVOpenGLESTextureCacheRef textureCache;
-
-@end
-
-@implementation FMCameraContext
-
-+ (FMCameraContext *)shared {
-    static FMCameraContext *instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[[self class] alloc] init];
-    });
-    return instance;
-}
-
-- (EAGLContext *)context {
-    if(!_context) {
-        _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-        [EAGLContext setCurrentContext:_context];
-
-        glDisable(GL_DEPTH_TEST);
-    }
-    return _context;
-}
-
-- (CVOpenGLESTextureCacheRef)textureCache {
-    if(!_textureCache) {
-        CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, FMCameraContext.shared.context, NULL, &_textureCache);
-    }
-    return _textureCache;
-}
-
-@end
-
-/////////////////////////////////////////
-
 
 @interface FMCameraOpenGLView() {
     GLuint _frameBuffer;
@@ -111,7 +63,6 @@ NSString *const vertexShaderString = SHADER_STRING(
 
     GLuint luminanceTexture;
     GLuint chrominanceTexture;
-    CVOpenGLESTextureCacheRef textureCache;
     GLint w, h;
 }
 
@@ -126,8 +77,6 @@ NSString *const vertexShaderString = SHADER_STRING(
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
         [self setupLayer];
-        // 设置当前上下文
-        [EAGLContext setCurrentContext:FMCameraContext.shared.context];
         [self createProgram];
         [self createFrameBuffer];
     }
@@ -155,16 +104,18 @@ NSString *const vertexShaderString = SHADER_STRING(
     glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
 
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _renderBuffer);
+    
+    glViewport(0, 0, w, h);
 }
 
 - (void)createProgram {
-    _program = glCreateProgram();
-    
+    [FMCameraContext useImageProcessingContext]; // 一定要
+
     _vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    const char *vertexSource = [vertexShaderString UTF8String];
+    const char *vertexSource = (GLchar *)[vertexShaderString UTF8String];
     glShaderSource(_vertexShader, 1, &vertexSource, NULL);
     glCompileShader(_vertexShader);
-    
+
     GLint logLength = 0;
     glGetShaderiv(_vertexShader, GL_INFO_LOG_LENGTH, &logLength);
     if(logLength > 0) {
@@ -173,12 +124,12 @@ NSString *const vertexShaderString = SHADER_STRING(
         NSLog(@"vertexShader compile log:\n%s", log);
         free(log);
     }
-    
+
     _fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    const char *fragmentSource = [fragmentShaderString UTF8String];
+    const char *fragmentSource = (GLchar *)[fragmentShaderString UTF8String];
     glShaderSource(_fragmentShader, 1, &fragmentSource, NULL);
     glCompileShader(_fragmentShader);
-    
+
     GLint alogLength = 0;
     glGetShaderiv(_fragmentShader, GL_INFO_LOG_LENGTH, &alogLength);
     if(logLength > 0) {
@@ -187,35 +138,38 @@ NSString *const vertexShaderString = SHADER_STRING(
         NSLog(@"fragmentShader compile log:\n%s", log);
         free(log);
     }
-    
-    /////
-//    glBindAttribLocation(_program, 0, "position");
-//    glBindAttribLocation(_program, 1, "inputTextureCoordinate");
-    /////
-    
+
+    _program = glCreateProgram();
     glAttachShader(_program, _vertexShader);
     glAttachShader(_program, _fragmentShader);
     glLinkProgram(_program);
-    
+
     GLint status;
     glGetProgramiv(_program, GL_LINK_STATUS, &status);
-    
+
     glDeleteShader(_vertexShader);
     glDeleteShader(_fragmentShader);
 }
 
 - (void)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer {
-    [EAGLContext setCurrentContext:FMCameraContext.shared.context];
+    [FMCameraContext useImageProcessingContext];
 
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // 顶点坐标
     GLfloat vertex[] = {
-//        -1.0, -1.0,
+        -1.0, -1.0,
         1.0, -1.0,
         -1.0, 1.0,
         1.0, 1.0
+    };
+    
+    static const GLfloat rotateRightTextureCoordinates[] = {
+        1.0f, 1.0f,
+        1.0f, 0.0f,
+        0.0f, 1.0f,
+        0.0f, 0.0f,
     };
 
     // 纹理坐标
@@ -225,45 +179,39 @@ NSString *const vertexShaderString = SHADER_STRING(
         0.0f, 0.0f,
         1.0f, 0.0f,
     };
-    
-//    [self generateTexture:pixelBuffer];
 
-    [self createProgram];
-    
+    [self generateTexture:pixelBuffer];
+
+    glUseProgram(_program);
+
     GLuint positionLoc = glGetAttribLocation(_program, "position");
     glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertex);
     glEnableVertexAttribArray(positionLoc);
 
-//    GLuint textureCoordLoc = glGetAttribLocation(_program, "inputTextureCoordinate");
-//    glEnableVertexAttribArray(textureCoordLoc);
-//    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoordinates);
+    GLuint textureCoordLoc = glGetAttribLocation(_program, "inputTextureCoordinate");
+    glEnableVertexAttribArray(textureCoordLoc);
+    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, rotateRightTextureCoordinates);
 
-    glUseProgram(_program);
+    glActiveTexture(GL_TEXTURE4);
+    glBindTexture(GL_TEXTURE_2D, luminanceTexture);
+    glUniform1i(glGetUniformLocation(_program, "luminanceTexture"), 4);
 
-//    glActiveTexture(GL_TEXTURE4);
-//    glBindTexture(GL_TEXTURE_2D, luminanceTexture);
-//    glUniform1i(glGetUniformLocation(_program, "luminanceTexture"), 4);
-//
-//    glActiveTexture(GL_TEXTURE5);
-//    glBindTexture(GL_TEXTURE_2D, chrominanceTexture);
-//    glUniform1i(glGetUniformLocation(_program, "chrominanceTexture"), 5);
-//
-//    glUniformMatrix3fv(glGetUniformLocation(_program, "colorConversionMatrix"), 1, GL_FALSE, kColorConversion601FullRangeDefault);
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_2D, chrominanceTexture);
+    glUniform1i(glGetUniformLocation(_program, "chrominanceTexture"), 5);
 
-//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    
-//    glBindRenderbuffer(GL_RENDERER, _renderBuffer);
-    [FMCameraContext.shared.context presentRenderbuffer:GL_RENDERBUFFER];
+    glUniformMatrix3fv(glGetUniformLocation(_program, "colorConversionMatrix"), 1, GL_FALSE, kColorConversion601FullRangeDefault);
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    glBindRenderbuffer(GL_RENDERER, _renderBuffer);
+    [FMCameraContext.shared presentBufferForDisplay];
 }
 
 - (void)generateTexture:(CVImageBufferRef)videoFrame {
-    [EAGLContext setCurrentContext:FMCameraContext.shared.context];
-
     int bufferWidth = (int)CVPixelBufferGetWidth(videoFrame);
     int bufferHeight = (int)CVPixelBufferGetHeight(videoFrame);
-        
+
     CVOpenGLESTextureRef luminanceTextureRef = NULL;
     CVOpenGLESTextureRef chrominanceTextureRef = NULL;
 
@@ -273,11 +221,12 @@ NSString *const vertexShaderString = SHADER_STRING(
 
         glActiveTexture(GL_TEXTURE4);
         // 创建亮度纹理 Y-plane
-        CVReturn err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, FMCameraContext.shared.textureCache, videoFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE, bufferWidth, bufferHeight, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0, &luminanceTextureRef);
+        CVReturn err;
+        err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, FMCameraContext.shared.coreVideoTextureCache, videoFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE, bufferWidth, bufferHeight, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0, &luminanceTextureRef);
         if(err) {
             NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
         }
-        
+
         luminanceTexture = CVOpenGLESTextureGetName(luminanceTextureRef);
         glBindTexture(GL_TEXTURE_2D, luminanceTexture);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -285,7 +234,7 @@ NSString *const vertexShaderString = SHADER_STRING(
 
         // 创建色度纹理 UV-plane
         glActiveTexture(GL_TEXTURE5);
-        err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, FMCameraContext.shared.textureCache, videoFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, bufferWidth/2, bufferHeight/2, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 1, &chrominanceTextureRef);
+        err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, FMCameraContext.shared.coreVideoTextureCache, videoFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, bufferWidth/2, bufferHeight/2, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 1, &chrominanceTextureRef);
 
         if (err)
         {
@@ -301,38 +250,6 @@ NSString *const vertexShaderString = SHADER_STRING(
         CFRelease(luminanceTextureRef);
         CFRelease(chrominanceTextureRef);
     }
-
 }
-
-//- (void)convertYUVToRGBOutput {
-//
-//    int rotatedImageBufferWidth = w, rotatedImageBufferHeight = h;
-//
-//    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//
-//    static const GLfloat squareVertices[] = {
-//        -1.0f, -1.0f,
-//        1.0f, -1.0f,
-//        -1.0f,  1.0f,
-//        1.0f,  1.0f,
-//    };
-//
-//    glActiveTexture(GL_TEXTURE4);
-//    glBindTexture(GL_TEXTURE_2D, luminanceTexture);
-//    glUniform1i(yuvConversionLuminanceTextureUniform, 4);
-//
-//    glActiveTexture(GL_TEXTURE5);
-//    glBindTexture(GL_TEXTURE_2D, chrominanceTexture);
-//    glUniform1i(yuvConversionChrominanceTextureUniform, 5);
-//
-//    glUniformMatrix3fv(yuvConversionMatrixUniform, 1, GL_FALSE, _preferredConversion);
-//
-//    glVertexAttribPointer(yuvConversionPositionAttribute, 2, GL_FLOAT, 0, 0, squareVertices);
-//    glVertexAttribPointer(yuvConversionTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, [GPUImageFilter textureCoordinatesForRotation:internalRotation]);
-//
-//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-//}
-
 
 @end

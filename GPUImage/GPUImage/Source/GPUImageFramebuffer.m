@@ -12,9 +12,9 @@
     // 帧缓存的唯一ID
     GLuint framebuffer;
     
-    // 原始图像
+    // 渲染的目标
     CVPixelBufferRef renderTarget;
-    // 生成的纹理
+    // 渲染的纹理
     CVOpenGLESTextureRef renderTexture;
     NSUInteger readLockCount;
     
@@ -77,7 +77,6 @@
             NSAssert(NO, @"Error at CVPixelBufferCreate %d", err);
         }
         
-        // 通过原始图像renderTarget生成纹理对象renderTexture
         err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
                                                            coreVideoTextureCache,
                                                            renderTarget,

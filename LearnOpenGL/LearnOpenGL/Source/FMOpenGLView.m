@@ -65,7 +65,7 @@
 //    NSLog(@"w = %d h = %d", w, h);
     
     // 创建帧缓存
-    glGenRenderbuffers(1, &_frameBuffer);
+    glGenFramebuffers(1, &_frameBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
     
     // 将渲染缓存附加到帧缓存

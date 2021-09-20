@@ -3,11 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE586CAE016A1B2B49F8B952 /* libPods-LearnOpenGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB170A91AB84CF3EACA3C1B5 /* libPods-LearnOpenGL.a */; };
+		260892096C6FCF96118B0BFF /* Pods_LearnOpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE84A36989D8BD717CCF62B /* Pods_LearnOpenGL.framework */; };
+		880C26AB26F62B95009140CC /* FMCameraContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C26AA26F62B95009140CC /* FMCameraContext.m */; };
+		880C26AF26F632F5009140CC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 880C26AE26F632F5009140CC /* CoreVideo.framework */; };
+		880C26BD26F71696009140CC /* FMCameraOpenGLRGBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C26BC26F71696009140CC /* FMCameraOpenGLRGBView.m */; };
+		880C26C126F7454A009140CC /* FMCameraLutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C26C026F7454A009140CC /* FMCameraLutView.m */; };
 		E406E72526E2188300C35047 /* FMOpenGLLutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E406E72426E2188300C35047 /* FMOpenGLLutView.m */; };
 		E406E72726E218B800C35047 /* lookup.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E72626E218B800C35047 /* lookup.png */; };
 		E406E74C26E2210A00C35047 /* F01.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E72A26E2210A00C35047 /* F01.png */; };
@@ -121,9 +125,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0BE84A36989D8BD717CCF62B /* Pods_LearnOpenGL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearnOpenGL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74D965FBC4E43AD6F4CE8E1C /* Pods-LearnOpenGL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnOpenGL.debug.xcconfig"; path = "Target Support Files/Pods-LearnOpenGL/Pods-LearnOpenGL.debug.xcconfig"; sourceTree = "<group>"; };
+		880C26A926F62B95009140CC /* FMCameraContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraContext.h; sourceTree = "<group>"; };
+		880C26AA26F62B95009140CC /* FMCameraContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraContext.m; sourceTree = "<group>"; };
+		880C26AE26F632F5009140CC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		880C26BB26F71696009140CC /* FMCameraOpenGLRGBView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraOpenGLRGBView.h; sourceTree = "<group>"; };
+		880C26BC26F71696009140CC /* FMCameraOpenGLRGBView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraOpenGLRGBView.m; sourceTree = "<group>"; };
+		880C26BF26F7454A009140CC /* FMCameraLutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraLutView.h; sourceTree = "<group>"; };
+		880C26C026F7454A009140CC /* FMCameraLutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraLutView.m; sourceTree = "<group>"; };
 		ABF1E9628FD39D92374D8DB6 /* Pods-LearnOpenGL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnOpenGL.release.xcconfig"; path = "Target Support Files/Pods-LearnOpenGL/Pods-LearnOpenGL.release.xcconfig"; sourceTree = "<group>"; };
-		DB170A91AB84CF3EACA3C1B5 /* libPods-LearnOpenGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LearnOpenGL.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E406E72326E2188300C35047 /* FMOpenGLLutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLLutView.h; sourceTree = "<group>"; };
 		E406E72426E2188300C35047 /* FMOpenGLLutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLLutView.m; sourceTree = "<group>"; };
 		E406E72626E218B800C35047 /* lookup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup.png; sourceTree = "<group>"; };
@@ -259,14 +270,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880C26AF26F632F5009140CC /* CoreVideo.framework in Frameworks */,
 				E4BED5FF26D33CC20033F2EB /* OpenGLES.framework in Frameworks */,
-				BE586CAE016A1B2B49F8B952 /* libPods-LearnOpenGL.a in Frameworks */,
+				260892096C6FCF96118B0BFF /* Pods_LearnOpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		880C26BA26F71664009140CC /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				E49275AE26F58B2500834D03 /* FMCameraFilterVC.h */,
+				E49275AF26F58B2500834D03 /* FMCameraFilterVC.m */,
+				E49275B126F592B000834D03 /* FMCameraOpenGLView.h */,
+				E49275B226F592B000834D03 /* FMCameraOpenGLView.m */,
+				880C26A926F62B95009140CC /* FMCameraContext.h */,
+				880C26AA26F62B95009140CC /* FMCameraContext.m */,
+				880C26BB26F71696009140CC /* FMCameraOpenGLRGBView.h */,
+				880C26BC26F71696009140CC /* FMCameraOpenGLRGBView.m */,
+				880C26BF26F7454A009140CC /* FMCameraLutView.h */,
+				880C26C026F7454A009140CC /* FMCameraLutView.m */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		CF57A69DD5413014FD49607A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -497,10 +526,6 @@
 				E4BED5E726D334390033F2EB /* ViewController.m */,
 				E44A4D9726D79EED00BDB0A3 /* FMOpenGLVC.h */,
 				E44A4D9826D79EED00BDB0A3 /* FMOpenGLVC.m */,
-				E49275AE26F58B2500834D03 /* FMCameraFilterVC.h */,
-				E49275AF26F58B2500834D03 /* FMCameraFilterVC.m */,
-				E49275B126F592B000834D03 /* FMCameraOpenGLView.h */,
-				E49275B226F592B000834D03 /* FMCameraOpenGLView.m */,
 				E4BED5F926D3346D0033F2EB /* Source */,
 				E44A4D9126D7894F00BDB0A3 /* Resources */,
 				E44A4D9626D79E0C00BDB0A3 /* SupportingFiles */,
@@ -525,6 +550,7 @@
 				E44A4D8B26D779B200BDB0A3 /* FMOpenGLTexture.m */,
 				E406E72326E2188300C35047 /* FMOpenGLLutView.h */,
 				E406E72426E2188300C35047 /* FMOpenGLLutView.m */,
+				880C26BA26F71664009140CC /* Camera */,
 				E44A4D8326D5F56B00BDB0A3 /* remain */,
 				E44A4D9A26D891AA00BDB0A3 /* Matrix */,
 			);
@@ -534,8 +560,9 @@
 		E4BED5FD26D33CC20033F2EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				880C26AE26F632F5009140CC /* CoreVideo.framework */,
 				E4BED5FE26D33CC20033F2EB /* OpenGLES.framework */,
-				DB170A91AB84CF3EACA3C1B5 /* libPods-LearnOpenGL.a */,
+				0BE84A36989D8BD717CCF62B /* Pods_LearnOpenGL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -551,6 +578,7 @@
 				E4BED5D926D334390033F2EB /* Sources */,
 				E4BED5DA26D334390033F2EB /* Frameworks */,
 				E4BED5DB26D334390033F2EB /* Resources */,
+				8809C2CC31759392C4D2D2D6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -696,6 +724,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		8809C2CC31759392C4D2D2D6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LearnOpenGL/Pods-LearnOpenGL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LearnOpenGL/Pods-LearnOpenGL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LearnOpenGL/Pods-LearnOpenGL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CD9C9A4B6662C7CEE7DAD21E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -728,6 +773,7 @@
 				E44A4D9026D77AAC00BDB0A3 /* FMOpenGLView.m in Sources */,
 				E4BED6AD26D3AFB10033F2EB /* FMOpenGLTriangleView.m in Sources */,
 				E406E72526E2188300C35047 /* FMOpenGLLutView.m in Sources */,
+				880C26C126F7454A009140CC /* FMCameraLutView.m in Sources */,
 				E44A4D8C26D779B200BDB0A3 /* FMOpenGLTexture.m in Sources */,
 				E49275B026F58B2500834D03 /* FMCameraFilterVC.m in Sources */,
 				E4BED5E826D334390033F2EB /* ViewController.m in Sources */,
@@ -739,8 +785,10 @@
 				E49275B326F592B000834D03 /* FMCameraOpenGLView.m in Sources */,
 				E44A4D7F26D5D8B700BDB0A3 /* FMOpenGLWindow.m in Sources */,
 				E4BED5FC26D33B400033F2EB /* FMTriangleView.m in Sources */,
+				880C26AB26F62B95009140CC /* FMCameraContext.m in Sources */,
 				E4BED5F326D334400033F2EB /* main.m in Sources */,
 				E44A4D9D26D891B200BDB0A3 /* matrix.c in Sources */,
+				880C26BD26F71696009140CC /* FMCameraOpenGLRGBView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
