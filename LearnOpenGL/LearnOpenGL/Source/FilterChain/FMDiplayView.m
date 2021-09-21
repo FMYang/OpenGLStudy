@@ -1,16 +1,16 @@
 //
-//  FMCameraOpenGLRGBView.m
+//  FMDiplayView.m
 //  LearnOpenGL
 //
-//  Created by yfm on 2021/9/19.
+//  Created by yfm on 2021/9/21.
 //
-//  渲染RGB图像视图
 
-#import "FMCameraOpenGLRGBView.h"
+#import "FMDiplayView.h"
 #import "FMCameraContext.h"
 
 // 通用着色器
-NSString *const baseVertexShaderString = SHADER_STRING(
+NSString *const displayVertexShaderString = SHADER_STRING(
+ precision lowp float;
  attribute vec4 position;
  attribute vec4 inputTextureCoordinate;
  
@@ -23,32 +23,33 @@ NSString *const baseVertexShaderString = SHADER_STRING(
  }
  );
 
-NSString *const baseFragmentShaderString = SHADER_STRING
-(
+NSString *const displayFragmentShaderString = SHADER_STRING(
+ precision lowp float;
  varying highp vec2 textureCoordinate;
  
  uniform sampler2D inputImageTexture;
  
  void main()
  {
-     gl_FragColor = texture2D(inputImageTexture, textureCoordinate);
+    gl_FragColor = texture2D(inputImageTexture, textureCoordinate);
  }
 );
 
-@interface FMCameraOpenGLRGBView() {
-    GLuint _frameBuffer;
-    GLuint _renderBuffer;
+
+@interface FMDiplayView() {
+    FMFrameBuffer *inputFrameBuffer;
+    
+    GLuint displayRenderbuffer, displayFramebuffer;
     GLuint _program;
     GLuint _vertexShader;
     GLuint _fragmentShader;
     
-    GLint w, h;
-    GLuint _texture; // 纹理id
+    GLint backingWidth, backingHeight;
 }
 
 @end
 
-@implementation FMCameraOpenGLRGBView
+@implementation FMDiplayView
 
 + (Class)layerClass {
     return [CAEAGLLayer class];
@@ -58,7 +59,7 @@ NSString *const baseFragmentShaderString = SHADER_STRING
     if(self = [super initWithFrame:frame]) {
         [self setupLayer];
         [self createProgram];
-        [self createFrameBuffer];
+        [self createDisplayFramebuffer];
     }
     return self;
 }
@@ -71,28 +72,11 @@ NSString *const baseFragmentShaderString = SHADER_STRING
                                      kEAGLDrawablePropertyColorFormat: kEAGLColorFormatRGBA8};
 }
 
-- (void)createFrameBuffer {
-    glGenRenderbuffers(1, &_renderBuffer);
-    glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
-    [FMCameraContext.shared.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer *)self.layer];
-
-    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &w);
-    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &h);
-    NSLog(@"w = %d h = %d", w, h);
-
-    glGenFramebuffers(1, &_frameBuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
-
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _renderBuffer);
-    
-    glViewport(0, 0, w, h);
-}
-
 - (void)createProgram {
-    [FMCameraContext useImageProcessingContext]; // 一定要
+    [FMCameraContext useImageProcessingContext];
 
     _vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    const char *vertexSource = (GLchar *)[baseVertexShaderString UTF8String];
+    const char *vertexSource = (GLchar *)[displayVertexShaderString UTF8String];
     glShaderSource(_vertexShader, 1, &vertexSource, NULL);
     glCompileShader(_vertexShader);
 
@@ -106,7 +90,7 @@ NSString *const baseFragmentShaderString = SHADER_STRING
     }
 
     _fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    const char *fragmentSource = (GLchar *)[baseFragmentShaderString UTF8String];
+    const char *fragmentSource = (GLchar *)[displayFragmentShaderString UTF8String];
     glShaderSource(_fragmentShader, 1, &fragmentSource, NULL);
     glCompileShader(_fragmentShader);
 
@@ -131,27 +115,58 @@ NSString *const baseFragmentShaderString = SHADER_STRING
     glDeleteShader(_fragmentShader);
 }
 
-- (void)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer {
+- (void)createDisplayFramebuffer {
+    [FMCameraContext useImageProcessingContext];
+    
+    glGenFramebuffers(1, &displayFramebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, displayFramebuffer);
+    
+    glGenRenderbuffers(1, &displayRenderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, displayRenderbuffer);
+    
+    [[[FMCameraContext shared] context] renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)self.layer];
+    
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backingWidth);
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &backingHeight);
+    
+    NSLog(@"Backing width: %d, height: %d", backingWidth, backingHeight);
+
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, displayRenderbuffer);
+}
+
+- (void)setDisplayFramebuffer {
+    if(!displayFramebuffer) {
+        [self createDisplayFramebuffer];
+    }
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, displayFramebuffer);
+    glViewport(0, 0, backingWidth, backingHeight);
+}
+
+#pragma mark --
+- (void)setInputFrameBuffer:(FMFrameBuffer *)frameBuffer {
+    inputFrameBuffer = frameBuffer;
+    
+    [self render];
+}
+
+- (void)render {
     [FMCameraContext useImageProcessingContext];
 
-    glClearColor(0.0, 0.0, 0.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    // 顶点坐标
     GLfloat vertex[] = {
         -1.0, -1.0,
         1.0, -1.0,
         -1.0, 1.0,
         1.0, 1.0
     };
-    
+
     static const GLfloat rotateRightTextureCoordinates[] = {
-        1.0f, 1.0f,
-        1.0f, 0.0f,
         0.0f, 1.0f,
         0.0f, 0.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f,
     };
-
+    
     // 纹理坐标
     static const GLfloat textureCoordinates[] = {
         0.0f, 1.0f,
@@ -160,9 +175,14 @@ NSString *const baseFragmentShaderString = SHADER_STRING
         1.0f, 0.0f,
     };
 
-    [self generateTexture:pixelBuffer];
-
     glUseProgram(_program);
+    [self setDisplayFramebuffer];
+    
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    glActiveTexture(GL_TEXTURE4);
+    glBindTexture(GL_TEXTURE_2D, [inputFrameBuffer texture]);
 
     GLuint positionLoc = glGetAttribLocation(_program, "position");
     glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertex);
@@ -170,40 +190,14 @@ NSString *const baseFragmentShaderString = SHADER_STRING
 
     GLuint textureCoordLoc = glGetAttribLocation(_program, "inputTextureCoordinate");
     glEnableVertexAttribArray(textureCoordLoc);
-    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, rotateRightTextureCoordinates);
+    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoordinates);
 
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, _texture);
-    glUniform1i(glGetUniformLocation(_program, "inputImageTexture"), 1);
+    glUniform1i(glGetUniformLocation(_program, "inputImageTexture"), 4);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glBindRenderbuffer(GL_RENDERER, _renderBuffer);
+    
     [FMCameraContext.shared presentBufferForDisplay];
-}
 
-- (void)generateTexture:(CVPixelBufferRef)pixelBuffer {
-    int bufferWidth = (int) CVPixelBufferGetWidth(pixelBuffer);
-    int bufferHeight = (int) CVPixelBufferGetHeight(pixelBuffer);
-    
-    glActiveTexture(GL_TEXTURE1);
-    if(!_texture) {
-        glGenTextures(1, &_texture);
-    }
-    glBindTexture(GL_TEXTURE_2D, _texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
-    CVPixelBufferLockBaseAddress(pixelBuffer, 0);
-    
-    int bytesPerRow = (int)CVPixelBufferGetBytesPerRow(pixelBuffer);
-    
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bytesPerRow / 4, bufferHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, CVPixelBufferGetBaseAddress(pixelBuffer));
-    
-    CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 }
 
 @end

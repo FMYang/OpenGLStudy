@@ -54,7 +54,7 @@
         _videoOutput = [[AVCaptureVideoDataOutput alloc] init];
         _videoOutput.alwaysDiscardsLateVideoFrames = NO;
         if(_captureAsYUV) {
-            [_videoOutput setVideoSettings:@{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)}]; // yuv 420f fullRange
+            [_videoOutput setVideoSettings:@{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)}]; // y uv 420f fullRange
         } else {
             [_videoOutput setVideoSettings:@{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)}]; // 32RGBA不支持，
         }

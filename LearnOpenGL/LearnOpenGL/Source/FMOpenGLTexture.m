@@ -150,7 +150,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     GLuint texture;
     glGenTextures(1, &texture);
     // 在绑定纹理之前先激活纹理单元，OpenGL ES中最多可以激活8个通道。通道0是默认激活的，所以本例中这一句也可以不写
-    glActiveTexture(texture);
+    glActiveTexture(GL_TEXTURE0);
     // 绑定纹理
     glBindTexture(GL_TEXTURE_2D, texture);
     

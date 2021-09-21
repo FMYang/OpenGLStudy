@@ -12,6 +12,9 @@
 		880C26AF26F632F5009140CC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 880C26AE26F632F5009140CC /* CoreVideo.framework */; };
 		880C26BD26F71696009140CC /* FMCameraOpenGLRGBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C26BC26F71696009140CC /* FMCameraOpenGLRGBView.m */; };
 		880C26C126F7454A009140CC /* FMCameraLutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C26C026F7454A009140CC /* FMCameraLutView.m */; };
+		880C26D026F89529009140CC /* FMFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C26CF26F89529009140CC /* FMFrameBuffer.m */; };
+		880C26D826F8A132009140CC /* FMFilterChainTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C26D726F8A132009140CC /* FMFilterChainTestVC.m */; };
+		880C26DD26F98C49009140CC /* FMDiplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 880C26DC26F98C49009140CC /* FMDiplayView.m */; };
 		E406E72526E2188300C35047 /* FMOpenGLLutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E406E72426E2188300C35047 /* FMOpenGLLutView.m */; };
 		E406E72726E218B800C35047 /* lookup.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E72626E218B800C35047 /* lookup.png */; };
 		E406E74C26E2210A00C35047 /* F01.png in Resources */ = {isa = PBXBuildFile; fileRef = E406E72A26E2210A00C35047 /* F01.png */; };
@@ -134,6 +137,12 @@
 		880C26BC26F71696009140CC /* FMCameraOpenGLRGBView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraOpenGLRGBView.m; sourceTree = "<group>"; };
 		880C26BF26F7454A009140CC /* FMCameraLutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraLutView.h; sourceTree = "<group>"; };
 		880C26C026F7454A009140CC /* FMCameraLutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraLutView.m; sourceTree = "<group>"; };
+		880C26CE26F89529009140CC /* FMFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMFrameBuffer.h; sourceTree = "<group>"; };
+		880C26CF26F89529009140CC /* FMFrameBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMFrameBuffer.m; sourceTree = "<group>"; };
+		880C26D626F8A132009140CC /* FMFilterChainTestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMFilterChainTestVC.h; sourceTree = "<group>"; };
+		880C26D726F8A132009140CC /* FMFilterChainTestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMFilterChainTestVC.m; sourceTree = "<group>"; };
+		880C26DB26F98C49009140CC /* FMDiplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDiplayView.h; sourceTree = "<group>"; };
+		880C26DC26F98C49009140CC /* FMDiplayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDiplayView.m; sourceTree = "<group>"; };
 		ABF1E9628FD39D92374D8DB6 /* Pods-LearnOpenGL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnOpenGL.release.xcconfig"; path = "Target Support Files/Pods-LearnOpenGL/Pods-LearnOpenGL.release.xcconfig"; sourceTree = "<group>"; };
 		E406E72326E2188300C35047 /* FMOpenGLLutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMOpenGLLutView.h; sourceTree = "<group>"; };
 		E406E72426E2188300C35047 /* FMOpenGLLutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMOpenGLLutView.m; sourceTree = "<group>"; };
@@ -294,6 +303,19 @@
 				880C26C026F7454A009140CC /* FMCameraLutView.m */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		880C26CD26F892C8009140CC /* FilterChain */ = {
+			isa = PBXGroup;
+			children = (
+				880C26D626F8A132009140CC /* FMFilterChainTestVC.h */,
+				880C26D726F8A132009140CC /* FMFilterChainTestVC.m */,
+				880C26CE26F89529009140CC /* FMFrameBuffer.h */,
+				880C26CF26F89529009140CC /* FMFrameBuffer.m */,
+				880C26DB26F98C49009140CC /* FMDiplayView.h */,
+				880C26DC26F98C49009140CC /* FMDiplayView.m */,
+			);
+			path = FilterChain;
 			sourceTree = "<group>";
 		};
 		CF57A69DD5413014FD49607A /* Pods */ = {
@@ -550,6 +572,7 @@
 				E44A4D8B26D779B200BDB0A3 /* FMOpenGLTexture.m */,
 				E406E72326E2188300C35047 /* FMOpenGLLutView.h */,
 				E406E72426E2188300C35047 /* FMOpenGLLutView.m */,
+				880C26CD26F892C8009140CC /* FilterChain */,
 				880C26BA26F71664009140CC /* Camera */,
 				E44A4D8326D5F56B00BDB0A3 /* remain */,
 				E44A4D9A26D891AA00BDB0A3 /* Matrix */,
@@ -595,7 +618,7 @@
 		E4BED5D526D334390033F2EB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					E4BED5DC26D334390033F2EB = {
 						CreatedOnToolsVersion = 12.5;
@@ -776,10 +799,13 @@
 				880C26C126F7454A009140CC /* FMCameraLutView.m in Sources */,
 				E44A4D8C26D779B200BDB0A3 /* FMOpenGLTexture.m in Sources */,
 				E49275B026F58B2500834D03 /* FMCameraFilterVC.m in Sources */,
+				880C26D026F89529009140CC /* FMFrameBuffer.m in Sources */,
 				E4BED5E826D334390033F2EB /* ViewController.m in Sources */,
 				E44A4D9926D79EED00BDB0A3 /* FMOpenGLVC.m in Sources */,
+				880C26D826F8A132009140CC /* FMFilterChainTestVC.m in Sources */,
 				E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */,
 				E44A4D8926D6363F00BDB0A3 /* FMOpenGLShaderFinal.m in Sources */,
+				880C26DD26F98C49009140CC /* FMDiplayView.m in Sources */,
 				E44A4D8226D5F56400BDB0A3 /* FMOpenGLTriangle.m in Sources */,
 				E44A4D8626D61D0700BDB0A3 /* FMOpenGLShader.m in Sources */,
 				E49275B326F592B000834D03 /* FMCameraOpenGLView.m in Sources */,
