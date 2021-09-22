@@ -144,54 +144,44 @@
 #pragma mark - Handling fill mode
 
 - (void)recalculateViewGeometry {
-//    runSynchronouslyOnVideoProcessingQueue(^{
-//        CGFloat heightScaling, widthScaling;
-//
-//        CGSize currentViewSize = self.bounds.size;
-//
-//        //    CGFloat imageAspectRatio = inputImageSize.width / inputImageSize.height;
-//        //    CGFloat viewAspectRatio = currentViewSize.width / currentViewSize.height;
-//
-//        CGRect insetRect = AVMakeRectWithAspectRatioInsideRect(inputImageSize, self.bounds);
-//
-//        switch(_fillMode)
-//        {
-//            case kGPUImageFillModeStretch:
-//            {
-//                widthScaling = 1.0;
-//                heightScaling = 1.0;
-//            }; break;
-//            case kGPUImageFillModePreserveAspectRatio:
-//            {
-//                widthScaling = insetRect.size.width / currentViewSize.width;
-//                heightScaling = insetRect.size.height / currentViewSize.height;
-//            }; break;
-//            case kGPUImageFillModePreserveAspectRatioAndFill:
-//            {
-//                //            CGFloat widthHolder = insetRect.size.width / currentViewSize.width;
-//                widthScaling = currentViewSize.height / insetRect.size.height;
-//                heightScaling = currentViewSize.width / insetRect.size.width;
-//            }; break;
-//        }
-//
-//        imageVertices[0] = -widthScaling;
-//        imageVertices[1] = -heightScaling;
-//        imageVertices[2] = widthScaling;
-//        imageVertices[3] = -heightScaling;
-//        imageVertices[4] = -widthScaling;
-//        imageVertices[5] = heightScaling;
-//        imageVertices[6] = widthScaling;
-//        imageVertices[7] = heightScaling;
-//    });
+    runSynchronouslyOnVideoProcessingQueue(^{
+        CGFloat heightScaling, widthScaling;
+        CGSize currentViewSize = CGSizeMake(_sizeInPixels.width, _sizeInPixels.height);//self.bounds.size;
+        CGRect insetRect = AVMakeRectWithAspectRatioInsideRect(inputImageSize, CGRectMake(0, 0, _sizeInPixels.width, _sizeInPixels.height));
 
-    imageVertices[0] = -1.0;
-    imageVertices[1] = -1.0;
-    imageVertices[2] = 1.0;
-    imageVertices[3] = -1.0;
-    imageVertices[4] = -1.0;
-    imageVertices[5] = 1.0;
-    imageVertices[6] = 1.0;
-    imageVertices[7] = 1.0;
+        switch(_fillMode) {
+            case kGPUImageFillModeStretch: {
+                widthScaling = 1.0;
+                heightScaling = 1.0;
+            }; break;
+            case kGPUImageFillModePreserveAspectRatio: {
+                widthScaling = insetRect.size.width / currentViewSize.width;
+                heightScaling = insetRect.size.height / currentViewSize.height;
+            }; break;
+            case kGPUImageFillModePreserveAspectRatioAndFill: {
+                widthScaling = currentViewSize.height / insetRect.size.height;
+                heightScaling = currentViewSize.width / insetRect.size.width;
+            }; break;
+        }
+
+        imageVertices[0] = -widthScaling;
+        imageVertices[1] = -heightScaling;
+        imageVertices[2] = widthScaling;
+        imageVertices[3] = -heightScaling;
+        imageVertices[4] = -widthScaling;
+        imageVertices[5] = heightScaling;
+        imageVertices[6] = widthScaling;
+        imageVertices[7] = heightScaling;
+    });
+
+//    imageVertices[0] = -1.0;
+//    imageVertices[1] = -1.0;
+//    imageVertices[2] = 1.0;
+//    imageVertices[3] = -1.0;
+//    imageVertices[4] = -1.0;
+//    imageVertices[5] = 1.0;
+//    imageVertices[6] = 1.0;
+//    imageVertices[7] = 1.0;
 }
 
 + (const GLfloat *)textureCoordinatesForRotation:(GPUImageRotationMode)rotationMode {
@@ -271,7 +261,7 @@
         [GPUImageContext setActiveShaderProgram:displayProgram];
         [self setDisplayFramebuffer];
         
-        glClearColor(1.0, 0.0, 0.0, 1.0);
+        glClearColor(0.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         glActiveTexture(GL_TEXTURE4);

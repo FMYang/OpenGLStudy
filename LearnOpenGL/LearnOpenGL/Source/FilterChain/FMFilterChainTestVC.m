@@ -172,6 +172,7 @@ NSString *const testFragmentShaderString = SHADER_STRING(
     [FMCameraContext useImageProcessingContext];
 
     if(!outputFramebuffer2) {
+        // 创建离屏帧缓存
         outputFramebuffer2 = [[FMFrameBuffer alloc] initWithSize:CGSizeMake(bufferSize.width, bufferSize.height) onlyTexture:NO];
     }
     [outputFramebuffer2 activateFramebuffer];
@@ -213,6 +214,7 @@ NSString *const testFragmentShaderString = SHADER_STRING(
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
+    // 显示绘制的内容
     [displayView setInputFrameBuffer:outputFramebuffer2];
 }
 

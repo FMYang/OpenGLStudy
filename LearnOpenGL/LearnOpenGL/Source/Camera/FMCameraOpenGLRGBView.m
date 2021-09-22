@@ -201,6 +201,7 @@ NSString *const baseFragmentShaderString = SHADER_STRING
     
     int bytesPerRow = (int)CVPixelBufferGetBytesPerRow(pixelBuffer);
     
+    // 复制图片像素的颜色数据到绑定的纹理缓存中。
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bytesPerRow / 4, bufferHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, CVPixelBufferGetBaseAddress(pixelBuffer));
     
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
