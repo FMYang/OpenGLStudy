@@ -75,6 +75,10 @@
     }
 
     // 创建目标纹理，并与目标pixelBuffer关联起来，pixelBuffer和纹理共享缓存，纹理上绘制的内容，通过pixelBuffer可以获取到
+    /**
+     https://allmybrain.com/2011/12/08/rendering-to-a-texture-with-ios-5-texture-cache-api/
+     相比glReadPixels（读取速度慢，性能瓶颈），CVOpenGLESTextureCache可以更快速的获取到纹理上的原始数据
+     */
     err = CVOpenGLESTextureCacheCreateTextureFromImage (kCFAllocatorDefault,
                                                         coreVideoTextureCache,
                                                         renderTarget,
@@ -87,8 +91,7 @@
                                                         GL_UNSIGNED_BYTE,
                                                         0,
                                                         &renderTexture);
-    if (err)
-    {
+    if (err) {
         NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
     }
     
@@ -100,7 +103,7 @@
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
-    // 使用帧缓冲对象渲染到纹理
+    // 将纹理附加到帧缓冲区
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, CVOpenGLESTextureGetName(renderTexture), 0);
 
     glBindTexture(GL_TEXTURE_2D, 0);
