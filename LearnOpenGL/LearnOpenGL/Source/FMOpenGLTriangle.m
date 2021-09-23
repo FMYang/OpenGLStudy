@@ -200,7 +200,16 @@ NSString *const triangleFragmentShaderSource = SHADER_STRING(
     [self createProgramWithVertexShader:triangleVertexShaderSource fragmentShader:triangleFragmentShaderSource];
     glUseProgram(self.program);
 
+    /**
+     参数1：顶点属性的位置
+     参数2：顶点属性的大小
+     参数3：顶点数据的类型
+     参数4：否希望数据被标准化(Normalize)。如果我们设置为GL_TRUE，所有数据都会被映射到0（对于有符号型signed数据是-1）到1之间。我们把它设置为GL_FALSE。
+     参数5：连续顶点属性间的偏移量，如果为0，相邻顶点属性间紧紧相邻
+     参数6：顶点数组
+     */
     glVertexAttribPointer(0, 3, GL_FLOAT, 0, 0, vertices);
+    // 启用索引为指定的顶点属性数组
     glEnableVertexAttribArray(0);
     
     glDrawArrays(GL_TRIANGLES, 0, 3);

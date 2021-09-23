@@ -106,7 +106,7 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
     // 清除帧缓存附加的渲染缓存信息，下一次绘制不需要上一次的内容，清除以避免将先前的内容加载到内存中
     glClear(GL_COLOR_BUFFER_BIT);
     
-    //  设置视口，将屏幕坐标变为标准化设备坐标（范围-1 ～ 1）
+    //  设置视口，将openGL的坐标（-1，1）
     CGFloat scale = UIScreen.mainScreen.scale;
     glViewport(self.frame.origin.x * scale, self.frame.origin.y * scale, self.frame.size.width * scale, self.frame.size.height  * scale);
     
@@ -153,7 +153,7 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
     [self createProgramWithVertexShader:shaderVertexShaderSource fragmentShader:shaderFragmentShaderSource];
     glUseProgram(self.program);
 
-    // 链接程序后设置颜色才生效
+    // 使用程序后设置颜色才生效
     float greenValue = arc4random() % 10 * 1.0 / 10;
     // 获取ourColor的位置，如果返回-1表示没有找到
     int vertexColorLocation = glGetUniformLocation(self.program, "ourColor");

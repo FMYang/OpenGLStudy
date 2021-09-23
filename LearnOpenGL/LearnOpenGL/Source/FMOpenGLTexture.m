@@ -133,7 +133,15 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
     NSUInteger bytesPerRow = bytesPerPixel * width;
     NSUInteger bitsPerComponent = 8;
     
-    // 根据图片宽高和颜色空间生成位图
+    /*
+     根据图片宽高和颜色空间生成位图
+     参数1：指向要渲染的绘制内存的地址
+     参数2：bitmap的宽度,单位为像素
+     参数3：bitmap的高度,单位为像素
+     参数4：内存中像素的每个组件的位数.例如，对于32位像素格式和RGB 颜色空间，你应该将这个值设为8.
+     参数5：bitmap的每一行在内存所占的字节数
+     参数6：指定bitmap是否包含alpha通道，像素中alpha通道的相对位置，像素组件是整形还是浮点型等信息的字符串。
+    */
     CGContextRef context = CGBitmapContextCreate(textureData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     
     CGColorSpaceRelease(colorSpace);

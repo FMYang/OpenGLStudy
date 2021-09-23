@@ -68,8 +68,9 @@
 
 // 3、配置渲染缓存和帧缓存
 - (void)createRenderBufferAndFrameBuffer {
-    // 创建渲染缓存对象
+    // 创建渲染缓存对象，并生成一个独一无二的表示_renderBuffer，第一个参数表示缓存的数量
     glGenRenderbuffers(1, &_renderBuffer);
+    // 把创建的缓存_renderBuffer绑定到GL_RENDERBUFFER目标上
     glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
     // 为图层对象分配存储空间。宽度、高度和像素格式取自layer，用于为渲染缓存分配存储空间。
     [self.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:self.eagLayer];
@@ -80,7 +81,6 @@
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &h);
     NSLog(@"w = %d h = %d", w, h);
     
-    // 创建帧缓存
     glGenRenderbuffers(1, &_frameBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
     
@@ -90,8 +90,9 @@
 
 // 4、清屏并显示
 - (void)render {
+    // 设置清屏的颜色
     glClearColor(1.0, 1.0, 0.0, 1.0);
-    // 清除帧缓存附加的渲染缓存信息，下一次绘制不需要上一次的内容，清除以避免将先前的内容加载到内存中
+    // 清除帧缓存附加的渲染缓存信息，下一次绘制不需要上一次的内容，清除以避免将先前的内容加载到内存中。清除的同时，整个颜色缓存都会被填充为glClearColor设置的颜色
     glClear(GL_COLOR_BUFFER_BIT);
     // 渲染缓存（颜色渲染缓存）保存完成的帧，将渲染缓存绑定到上下文并呈现它。这会将完成的帧交给Core Animation绘制。
     [self.context presentRenderbuffer:GL_RENDERBUFFER];
