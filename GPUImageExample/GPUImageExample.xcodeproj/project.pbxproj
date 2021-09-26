@@ -14,6 +14,7 @@
 		E49275D326FDC7D300834D03 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E49275D226FDC7D300834D03 /* main.m */; };
 		E49275DC26FDCAB300834D03 /* FMFilterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E49275DB26FDCAB300834D03 /* FMFilterVC.m */; };
 		E49275DF26FDCD3A00834D03 /* FMCameraVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E49275DE26FDCD3A00834D03 /* FMCameraVC.m */; };
+		E49275E227001B1300834D03 /* GPUImageHistogramFilterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E49275E127001B1300834D03 /* GPUImageHistogramFilterVC.m */; };
 		F991FA6E8B3DEBDD30FD7194 /* libPods-GPUImageExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4786379CFB5ABC022621013 /* libPods-GPUImageExample.a */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,8 @@
 		E49275DB26FDCAB300834D03 /* FMFilterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMFilterVC.m; sourceTree = "<group>"; };
 		E49275DD26FDCD3A00834D03 /* FMCameraVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraVC.h; sourceTree = "<group>"; };
 		E49275DE26FDCD3A00834D03 /* FMCameraVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraVC.m; sourceTree = "<group>"; };
+		E49275E027001B1300834D03 /* GPUImageHistogramFilterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUImageHistogramFilterVC.h; sourceTree = "<group>"; };
+		E49275E127001B1300834D03 /* GPUImageHistogramFilterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUImageHistogramFilterVC.m; sourceTree = "<group>"; };
 		F4786379CFB5ABC022621013 /* libPods-GPUImageExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GPUImageExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -91,6 +94,8 @@
 				E49275DB26FDCAB300834D03 /* FMFilterVC.m */,
 				E49275DD26FDCD3A00834D03 /* FMCameraVC.h */,
 				E49275DE26FDCD3A00834D03 /* FMCameraVC.m */,
+				E49275E027001B1300834D03 /* GPUImageHistogramFilterVC.h */,
+				E49275E127001B1300834D03 /* GPUImageHistogramFilterVC.m */,
 				E49275D926FDC7EF00834D03 /* SupporttingFiles */,
 			);
 			path = GPUImageExample;
@@ -222,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E49275DC26FDCAB300834D03 /* FMFilterVC.m in Sources */,
+				E49275E227001B1300834D03 /* GPUImageHistogramFilterVC.m in Sources */,
 				E49275C226FDC7CC00834D03 /* AppDelegate.m in Sources */,
 				E49275D326FDC7D300834D03 /* main.m in Sources */,
 				E49275DF26FDCD3A00834D03 /* FMCameraVC.m in Sources */,

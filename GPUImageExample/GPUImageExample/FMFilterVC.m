@@ -53,12 +53,20 @@
 
 - (NSArray *)datasource {
     if(!_datasource) {
-        _datasource = @[@"GPUImageBrightnessFilter",
-                        @"GPUImageExposureFilter",
-                        @"GPUImageContrastFilter",
-                        @"GPUImageSaturationFilter",
-                        @"GPUImageGammaFilter",
-                        @"GPUImageEmbossFilter"];
+        _datasource = @[@"GPUImageBrightnessFilter", // 亮度
+                        @"GPUImageExposureFilter", // 曝光度
+                        @"GPUImageContrastFilter", // 对比度
+                        @"GPUImageSaturationFilter", // 饱和度
+                        @"GPUImageGammaFilter", // 伽玛
+                        @"GPUImageEmbossFilter", // 浮雕
+                        @"GPUImageKuwaharaFilter", // 油画风格
+                        @"GPUImageToonFilter", // 卡通画风格
+                        @"GPUImageSketchFilter", // 草图，像素化
+                        @"GPUImageHighlightShadowFilter", // 阴影和高光
+                        @"GPUImageMonochromeFilter", // 单色
+                        @"GPUImageColorInvertFilter", // 反转图像的颜色
+                        @"GPUImageGrayscaleFilter", // 将图像转换为灰度
+        ];
     }
     return _datasource;
 }

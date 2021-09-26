@@ -65,6 +65,31 @@
     } else if([self.filterName isEqualToString:@"GPUImageEmbossFilter"]) {
         GPUImageEmbossFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
         return filter;
+    } else if([self.filterName isEqualToString:@"GPUImageEmbossFilter"]) {
+        GPUImageEmbossFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        return filter;
+    } else if([self.filterName isEqualToString:@"GPUImageKuwaharaFilter"]) {
+        GPUImageKuwaharaFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        return filter;
+    } else if([self.filterName isEqualToString:@"GPUImageToonFilter"]) {
+        GPUImageToonFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        return filter;
+    } else if([self.filterName isEqualToString:@"GPUImageSketchFilter"]) {
+        GPUImageSketchFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        return filter;
+    } else if([self.filterName isEqualToString:@"GPUImageHighlightShadowFilter"]) {
+        GPUImageHighlightShadowFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        return filter;
+    } else if([self.filterName isEqualToString:@"GPUImageMonochromeFilter"]) {
+        GPUImageMonochromeFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        [filter setColorRed:1.0 green:0.0 blue:0.0];
+        return filter;
+    } else if([self.filterName isEqualToString:@"GPUImageColorInvertFilter"]) {
+        GPUImageColorInvertFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        return filter;
+    } else if([self.filterName isEqualToString:@"GPUImageGrayscaleFilter"]) {
+        GPUImageGrayscaleFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        return filter;
     } else {
         return nil;
     }
@@ -87,6 +112,24 @@
     } else if([self.curFilter isKindOfClass:GPUImageEmbossFilter.class]) {
         CGFloat value = slider.value * 4.0;
         ((GPUImageEmbossFilter *)self.curFilter).intensity = value;
+    } else if([self.curFilter isKindOfClass:GPUImageKuwaharaFilter.class]) {
+        CGFloat value = slider.value * 3 + 3;
+        ((GPUImageKuwaharaFilter *)self.curFilter).radius = value;
+    } else if([self.curFilter isKindOfClass:GPUImageToonFilter.class]) {
+        CGFloat value = slider.value * 5 + 10;
+        ((GPUImageToonFilter *)self.curFilter).quantizationLevels = value;
+    } else if([self.curFilter isKindOfClass:GPUImageSketchFilter.class]) {
+        CGFloat value = slider.value;
+        ((GPUImageSketchFilter *)self.curFilter).edgeStrength = value;
+    } else if([self.curFilter isKindOfClass:GPUImageHighlightShadowFilter.class]) {
+        CGFloat value = slider.value;
+        ((GPUImageHighlightShadowFilter *)self.curFilter).shadows = value;
+        ((GPUImageHighlightShadowFilter *)self.curFilter).highlights = value;
+    } else if([self.curFilter isKindOfClass:GPUImageMonochromeFilter.class]) {
+        CGFloat value = slider.value;
+        ((GPUImageMonochromeFilter *)self.curFilter).intensity = value;
+    } else if([self.curFilter isKindOfClass:GPUImageColorInvertFilter.class]) {
+    } else if([self.curFilter isKindOfClass:GPUImageGrayscaleFilter.class]) {
     }
 }
 
