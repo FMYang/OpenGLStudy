@@ -66,6 +66,7 @@
                         @"GPUImageMonochromeFilter", // 单色
                         @"GPUImageColorInvertFilter", // 反转图像的颜色
                         @"GPUImageGrayscaleFilter", // 将图像转换为灰度
+                        @"GPUImagePixellateFilter" // 马赛克
         ];
     }
     return _datasource;

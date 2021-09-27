@@ -48,8 +48,6 @@ typedef NS_ENUM(NSUInteger, GPUImageRotationMode) {
 - (void)presentBufferForDisplay;
 - (GLProgram *)programForVertexShaderString:(NSString *)vertexShaderString fragmentShaderString:(NSString *)fragmentShaderString;
 
-+ (BOOL)supportsFastTextureUpload;
-
 @end
 
 // input协议

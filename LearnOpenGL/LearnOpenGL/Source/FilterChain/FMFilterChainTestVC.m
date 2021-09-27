@@ -154,7 +154,6 @@ NSString *const testFragmentShaderString = SHADER_STRING(
         outputFramebuffer1 = [[FMFrameBuffer alloc] initWithSize:CGSizeMake(bytesPerRow / 4, bufferHeight) onlyTexture:YES];
     }
     
-    [outputFramebuffer1 activateFramebuffer];
     glBindTexture(GL_TEXTURE_2D, [outputFramebuffer1 texture]);
     
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bytesPerRow / 4, bufferHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, CVPixelBufferGetBaseAddress(cameraFrame));

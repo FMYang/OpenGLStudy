@@ -34,7 +34,7 @@
 
 - (instancetype)init {
     if(self = [super init]) {
-        _captureAsYUV = NO;
+        _captureAsYUV = YES;
         frameRenderingSemaphore = dispatch_semaphore_create(1);
 
         _cameraOutputQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
@@ -72,17 +72,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    if(_captureAsYUV) {
-//        _glView = [[FMCameraOpenGLView alloc] initWithFrame:self.view.bounds];
-//        [self.view addSubview:_glView];
-//    } else {
-//        _rgbGlView = [[FMCameraOpenGLRGBView alloc] initWithFrame:self.view.bounds];
-//        [self.view addSubview:_rgbGlView];
-//    }
+    if(_captureAsYUV) {
+        _glView = [[FMCameraOpenGLView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:_glView];
+    } else {
+        _rgbGlView = [[FMCameraOpenGLRGBView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:_rgbGlView];
+    }
     
-    // 基于RGB的数据
-    _lutView = [[FMCameraLutView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:_lutView];
+//    // 基于RGB的数据的lut实现
+//    _lutView = [[FMCameraLutView alloc] initWithFrame:self.view.bounds];
+//    [self.view addSubview:_lutView];
     
     [self startRunning];
 }
@@ -121,13 +121,13 @@
 #pragma mark - process sampleBuffer
 - (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer {
     CVPixelBufferRef videoFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
-//    if(_captureAsYUV) {
-//        [self.glView renderPixelBuffer:videoFrame];
-//    } else {
-//        [self.rgbGlView renderPixelBuffer:videoFrame];
-//    }
+    if(_captureAsYUV) {
+        [self.glView renderPixelBuffer:videoFrame];
+    } else {
+        [self.rgbGlView renderPixelBuffer:videoFrame];
+    }
     
-    [_lutView renderPixelBuffer:videoFrame];
+//    [_lutView renderPixelBuffer:videoFrame];
 }
 
 #pragma mark -

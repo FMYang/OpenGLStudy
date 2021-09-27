@@ -31,7 +31,7 @@ NSString *const fragmentShaderString = SHADER_STRING(
      yuv.x = texture2D(luminanceTexture, textureCoordinate).r;
      yuv.yz = texture2D(chrominanceTexture, textureCoordinate).ra - vec2(0.5, 0.5);
      rgb = colorConversionMatrix * yuv;
-         
+
      gl_FragColor = vec4(rgb, 1);
     
     // 只加载Y平面数据，亮度数据（黑白）

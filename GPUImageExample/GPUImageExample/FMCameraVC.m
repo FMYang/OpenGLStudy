@@ -90,6 +90,9 @@
     } else if([self.filterName isEqualToString:@"GPUImageGrayscaleFilter"]) {
         GPUImageGrayscaleFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
         return filter;
+    } else if([self.filterName isEqualToString:@"GPUImagePixellateFilter"]) {
+        GPUImagePixellateFilter *filter = [[NSClassFromString(self.filterName) alloc] init];
+        return filter;
     } else {
         return nil;
     }
@@ -130,6 +133,9 @@
         ((GPUImageMonochromeFilter *)self.curFilter).intensity = value;
     } else if([self.curFilter isKindOfClass:GPUImageColorInvertFilter.class]) {
     } else if([self.curFilter isKindOfClass:GPUImageGrayscaleFilter.class]) {
+    } else if([self.curFilter isKindOfClass:GPUImagePixellateFilter.class]) {
+        CGFloat value = slider.value;
+        ((GPUImagePixellateFilter *)self.curFilter).fractionalWidthOfAPixel = value;
     }
 }
 

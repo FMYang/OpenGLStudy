@@ -14,7 +14,7 @@
 
 - (instancetype)init {
     if(self = [super init]) {
-        _contextQueue = dispatch_queue_create("com.sunsetlakesoftware.GPUImage.openGLESContextQueue", DISPATCH_QUEUE_SERIAL);
+        _contextQueue = dispatch_queue_create("com.yfm.openGLESContextQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }

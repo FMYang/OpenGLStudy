@@ -38,15 +38,15 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
 
     void main()
     {
-        gl_FragColor = vec4(vec3(1.0 - texture2D(ourTexture, TexCoord)), 1.0); // 对纹理应用反色
-//        gl_FragColor = texture2D(ourTexture, TexCoord);
+//        gl_FragColor = vec4(vec3(1.0 - texture2D(ourTexture, TexCoord)), 1.0); // 对纹理应用反色
+        gl_FragColor = texture2D(ourTexture, TexCoord);
     
         // 灰度，取平均
-//        float average = (gl_FragColor.r + gl_FragColor.g + gl_FragColor.b) / 3.0;
+        float average = (gl_FragColor.r + gl_FragColor.g + gl_FragColor.b) / 3.0;
     
         // 更精确的灰度，人眼对绿色更加敏感些，对蓝色不那么敏感
 //        float average = 0.2126 * gl_FragColor.r + 0.7152 * gl_FragColor.g + 0.0722 * gl_FragColor.b;
-//        gl_FragColor = vec4(average, average, average, 1.0);
+        gl_FragColor = vec4(average, average, average, 1.0);
     }
 );
 

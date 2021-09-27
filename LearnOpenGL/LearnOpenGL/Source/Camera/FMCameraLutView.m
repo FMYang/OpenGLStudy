@@ -23,7 +23,7 @@ NSString *const lutBaseVertexShaderString = SHADER_STRING(
  );
 
 NSString *const cameraLutFragmentShaderSource = SHADER_STRING(
-    precision lowp float; // 被坑加1
+    precision lowp float;
     varying highp vec2 textureCoordinate;
     uniform sampler2D inputImageTexture;
     uniform sampler2D lutImageTexture;

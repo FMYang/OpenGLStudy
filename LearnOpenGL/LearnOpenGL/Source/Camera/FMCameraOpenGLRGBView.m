@@ -6,8 +6,15 @@
 //
 //  渲染RGB图像视图
 
+#define STRINGIZE(x) #x
+#define STRINGIZE2(x) STRINGIZE(x)
+#define SHADER_STRING(text) @ STRINGIZE2(text)
+
 #import "FMCameraOpenGLRGBView.h"
 #import "FMCameraContext.h"
+
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 
 // 通用着色器
 NSString *const baseVertexShaderString = SHADER_STRING(

@@ -124,13 +124,9 @@
             framebuffer = 0;
         }
         
-        if([GPUImageContext supportsFastTextureUpload]) {
-            if(renderTarget) {
-                CFRelease(renderTarget);
-                renderTarget = NULL;
-            }
-        } else {
-            glDeleteTextures(1, &_texture);
+        if(renderTarget) {
+            CFRelease(renderTarget);
+            renderTarget = NULL;
         }
     });
 }

@@ -74,7 +74,7 @@
         NSAssert(NO, @"Error at CVPixelBufferCreate %d", err);
     }
 
-    // 创建目标纹理，并与目标pixelBuffer关联起来，pixelBuffer和纹理共享缓存，纹理上绘制的内容，通过pixelBuffer可以获取到
+    // 创建目标纹理，并与目标pixelBuffer绑定，pixelBuffer和纹理共享缓存，纹理上绘制的内容，通过pixelBuffer可以获取到
     /**
      https://allmybrain.com/2011/12/08/rendering-to-a-texture-with-ios-5-texture-cache-api/
      相比glReadPixels（读取速度慢，性能瓶颈），CVOpenGLESTextureCache可以更快速的获取到纹理上的原始数据

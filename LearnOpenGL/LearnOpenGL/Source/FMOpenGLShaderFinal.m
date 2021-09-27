@@ -106,7 +106,7 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
     // 清除帧缓存附加的渲染缓存信息，下一次绘制不需要上一次的内容，清除以避免将先前的内容加载到内存中
     glClear(GL_COLOR_BUFFER_BIT);
     
-    //  设置视口，将openGL的坐标（-1，1）
+    //  设置视口
     CGFloat scale = UIScreen.mainScreen.scale;
     glViewport(self.frame.origin.x * scale, self.frame.origin.y * scale, self.frame.size.width * scale, self.frame.size.height  * scale);
     
@@ -130,7 +130,6 @@ NSString *const shaderFragmentShaderSource = SHADER_STRING(
     // 把用户定义的数据复制到顶点缓冲中
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
-    // VAO是OpenGL 3.0的特性，2.0无法使用这个特效
     /*
      创建顶点数组对象
      

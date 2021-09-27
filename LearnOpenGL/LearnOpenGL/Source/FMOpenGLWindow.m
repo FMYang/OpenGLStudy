@@ -90,8 +90,11 @@
 
 // 4、清屏并显示
 - (void)render {
+    glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
+    glViewport(0, 0, self.frame.size.width * 0.5 * UIScreen.mainScreen.scale, self.frame.size.height * 0.5 * UIScreen.mainScreen.scale);
+
     // 设置清屏的颜色
-    glClearColor(1.0, 1.0, 0.0, 1.0);
+    glClearColor(1.0, 0.0, 0.0, 1.0);
     // 清除帧缓存附加的渲染缓存信息，下一次绘制不需要上一次的内容，清除以避免将先前的内容加载到内存中。清除的同时，整个颜色缓存都会被填充为glClearColor设置的颜色
     glClear(GL_COLOR_BUFFER_BIT);
     // 渲染缓存（颜色渲染缓存）保存完成的帧，将渲染缓存绑定到上下文并呈现它。这会将完成的帧交给Core Animation绘制。
