@@ -116,6 +116,7 @@
 		E44A4D9D26D891B200BDB0A3 /* matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = E44A4D9C26D891B200BDB0A3 /* matrix.c */; };
 		E49275B026F58B2500834D03 /* FMCameraFilterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E49275AF26F58B2500834D03 /* FMCameraFilterVC.m */; };
 		E49275B326F592B000834D03 /* FMCameraOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = E49275B226F592B000834D03 /* FMCameraOpenGLView.m */; };
+		E49F03862703250600F00A34 /* FMMultiTextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F03852703250600F00A34 /* FMMultiTextureView.m */; };
 		E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E126D334390033F2EB /* AppDelegate.m */; };
 		E4BED5E826D334390033F2EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BED5E726D334390033F2EB /* ViewController.m */; };
 		E4BED5EB26D3343A0033F2EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4BED5E926D3343A0033F2EB /* Main.storyboard */; };
@@ -257,6 +258,8 @@
 		E49275AF26F58B2500834D03 /* FMCameraFilterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraFilterVC.m; sourceTree = "<group>"; };
 		E49275B126F592B000834D03 /* FMCameraOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraOpenGLView.h; sourceTree = "<group>"; };
 		E49275B226F592B000834D03 /* FMCameraOpenGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraOpenGLView.m; sourceTree = "<group>"; };
+		E49F03842703250600F00A34 /* FMMultiTextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMMultiTextureView.h; sourceTree = "<group>"; };
+		E49F03852703250600F00A34 /* FMMultiTextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMMultiTextureView.m; sourceTree = "<group>"; };
 		E4BED5DD26D334390033F2EB /* LearnOpenGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnOpenGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BED5E026D334390033F2EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4BED5E126D334390033F2EB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -572,6 +575,8 @@
 				E44A4D8B26D779B200BDB0A3 /* FMOpenGLTexture.m */,
 				E406E72326E2188300C35047 /* FMOpenGLLutView.h */,
 				E406E72426E2188300C35047 /* FMOpenGLLutView.m */,
+				E49F03842703250600F00A34 /* FMMultiTextureView.h */,
+				E49F03852703250600F00A34 /* FMMultiTextureView.m */,
 				880C26CD26F892C8009140CC /* FilterChain */,
 				880C26BA26F71664009140CC /* Camera */,
 				E44A4D8326D5F56B00BDB0A3 /* remain */,
@@ -805,6 +810,7 @@
 				880C26D826F8A132009140CC /* FMFilterChainTestVC.m in Sources */,
 				E4BED5E226D334390033F2EB /* AppDelegate.m in Sources */,
 				E44A4D8926D6363F00BDB0A3 /* FMOpenGLShaderFinal.m in Sources */,
+				E49F03862703250600F00A34 /* FMMultiTextureView.m in Sources */,
 				880C26DD26F98C49009140CC /* FMDiplayView.m in Sources */,
 				E44A4D8226D5F56400BDB0A3 /* FMOpenGLTriangle.m in Sources */,
 				E44A4D8626D61D0700BDB0A3 /* FMOpenGLShader.m in Sources */,
