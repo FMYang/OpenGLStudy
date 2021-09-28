@@ -9,6 +9,7 @@
 #import "FMOpenGLVC.h"
 #import "FMCameraFilterVC.h"
 #import "FMFilterChainTestVC.h"
+#import "FMMultiTextureView.h"
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -79,6 +80,7 @@
              @{@"着色器": NSStringFromClass(FMOpenGLShaderFinal.class)},
              @{@"纹理": NSStringFromClass(FMOpenGLTexture.class)},
              @{@"Lut": NSStringFromClass(FMOpenGLLutView.class)},
+             @{@"多纹理": NSStringFromClass(FMMultiTextureView.class)},
              @{@"相机": @""},
              @{@"滤镜链": @""}];
 }
