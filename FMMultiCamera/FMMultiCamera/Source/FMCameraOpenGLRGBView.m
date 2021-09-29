@@ -21,25 +21,28 @@ NSString *const baseVertexShaderString = SHADER_STRING(
    attribute vec2 textureCoord;
 
    varying vec2 aTextureCoord;
+   varying vec2 aPosition;
                                                          
    void main()
    {
       gl_Position = vec4(position, 0.0, 1.0);
    
       aTextureCoord = textureCoord;
+      aPosition = position;
    }
 );
 
 NSString *const baseFragmentShaderString = SHADER_STRING(
     precision mediump float;
     varying vec2 aTextureCoord;
-
+    varying vec2 aPosition;
+    
     uniform sampler2D textureIndex1;
     uniform sampler2D textureIndex2;
 
     void main()
     {
-        if(aTextureCoord.y >= 0.5) {
+        if(aPosition.y >= 0.0) {
             gl_FragColor = texture2D(textureIndex1, aTextureCoord);
         } else {
             gl_FragColor = texture2D(textureIndex2, aTextureCoord);
@@ -146,61 +149,39 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
 
 - (void)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer index:(int)index {
     [FMCameraContext useImageProcessingContext];
-
+    
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    float vertices[] = {
-        -0.60869, -1,
-        0.60869, -1,
-        -0.60869, 0,
-        0.60869, 0,
-        
-        -0.60869, 0,
-        0.60869, 0,
-        -0.60869, 1,
-        0.60869, 1
+    
+    float vertices1[] = {
+        -0.6, 0.0,
+        0.6, 0.0,
+        -0.6, 1.0,
+        0.6, 1.0
     };
     
-//    float textureCoord[] = {
-//        0, 0,
-//        1, 0,
-//        0, 0.5,
-//        1, 0.5,
-//
-//        0, 0.5,
-//        1, 0.5,
-//        0, 1,
-//        1, 1
-//    };
+    float vertices2[] = {
+        -0.6, -1.0,
+        0.6, -1.0,
+        -0.6, 0.0,
+        0.6, 0.0
+    };
     
     float textureCoord[] = {
-        1, 1,
-        1, 0.5,
-        0, 1,
-        0, 0.5,
-        
-//        1, 0.5,
-//        1, 0,
-//        0, 0.5,
-//        0, 0
-        1, 0,
-        1, 0.5,
-        0, 0,
-        0, 0.5
+        1.0, 1.0,
+        1.0, 0.0,
+        0.0, 1.0,
+        0.0, 0.0,
+//
+//        1.0, 1.0,
+//        1.0, 0.0,
+//        0.0, 1.0,
+//        0.0, 0.0
     };
 
     [self generateTexture:pixelBuffer index:index];
 
     glUseProgram(_program);
-
-    GLuint positionLoc = glGetAttribLocation(_program, "position");
-    glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices);
-    glEnableVertexAttribArray(positionLoc);
-
-    GLuint textureCoordLoc = glGetAttribLocation(_program, "textureCoord");
-    glEnableVertexAttribArray(textureCoordLoc);
-    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord);
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, _texture1);
@@ -210,7 +191,21 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
     glBindTexture(GL_TEXTURE_2D, _texture2);
     glUniform1i(glGetUniformLocation(_program, "textureIndex2"), 2);
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 8);
+    GLuint textureCoordLoc = glGetAttribLocation(_program, "textureCoord");
+    glEnableVertexAttribArray(textureCoordLoc);
+    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord);
+    
+    GLuint positionLoc = glGetAttribLocation(_program, "position");
+    glEnableVertexAttribArray(positionLoc);
+    if(index == 1) {
+        glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices1);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    } else {
+        glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices2);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    }
+
+//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     glBindRenderbuffer(GL_RENDERER, _renderBuffer);
     [FMCameraContext.shared presentBufferForDisplay];
@@ -219,16 +214,14 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
 - (void)generateTexture:(CVPixelBufferRef)pixelBuffer index:(int)index {
     int bufferWidth = (int) CVPixelBufferGetWidth(pixelBuffer);
     int bufferHeight = (int) CVPixelBufferGetHeight(pixelBuffer);
-    
-    // 1920x1080
-    
+
     if(index == 1) {
         if(!_texture1) {
             glGenTextures(1, &_texture1);
         }
         glBindTexture(GL_TEXTURE_2D, _texture1);
     } else {
-        if(!_texture1) {
+        if(!_texture2) {
             glGenTextures(1, &_texture2);
         }
         glBindTexture(GL_TEXTURE_2D, _texture2);
