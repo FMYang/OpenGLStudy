@@ -172,11 +172,13 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
         1.0, 0.0,
         0.0, 1.0,
         0.0, 0.0,
-//
-//        1.0, 1.0,
-//        1.0, 0.0,
-//        0.0, 1.0,
-//        0.0, 0.0
+    };
+    
+    float textureCoord1[] = {
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 0.0,
+        0.0, 1.0,
     };
 
     [self generateTexture:pixelBuffer index:index];
@@ -193,26 +195,25 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
 
     GLuint textureCoordLoc = glGetAttribLocation(_program, "textureCoord");
     glEnableVertexAttribArray(textureCoordLoc);
+    
     glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord);
     
     GLuint positionLoc = glGetAttribLocation(_program, "position");
     glEnableVertexAttribArray(positionLoc);
-    if(index == 1) {
-        glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices1);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    } else {
-        glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices2);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    }
-
-//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices1);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord1);
+    
+    glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices2);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     glBindRenderbuffer(GL_RENDERER, _renderBuffer);
     [FMCameraContext.shared presentBufferForDisplay];
 }
 
 - (void)generateTexture:(CVPixelBufferRef)pixelBuffer index:(int)index {
-    int bufferWidth = (int) CVPixelBufferGetWidth(pixelBuffer);
     int bufferHeight = (int) CVPixelBufferGetHeight(pixelBuffer);
 
     if(index == 1) {
