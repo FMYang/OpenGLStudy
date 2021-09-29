@@ -58,8 +58,8 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
     GLuint _fragmentShader;
     
     GLint w, h;
-    GLuint _texture1; // 纹理id
-    GLuint _texture2; // 纹理id
+    GLuint _texture1;
+    GLuint _texture2;
 }
 
 @end
@@ -153,6 +153,7 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
+    // 上面矩形
     float vertices1[] = {
         -0.6, 0.0,
         0.6, 0.0,
@@ -160,6 +161,7 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
         0.6, 1.0
     };
     
+    // 下面矩形
     float vertices2[] = {
         -0.6, -1.0,
         0.6, -1.0,
@@ -167,6 +169,7 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
         0.6, 0.0
     };
     
+    // 旋转
     float textureCoord[] = {
         1.0, 1.0,
         1.0, 0.0,
@@ -174,6 +177,7 @@ NSString *const baseFragmentShaderString = SHADER_STRING(
         0.0, 0.0,
     };
     
+    // 镜像
     float textureCoord1[] = {
         1.0, 0.0,
         1.0, 1.0,

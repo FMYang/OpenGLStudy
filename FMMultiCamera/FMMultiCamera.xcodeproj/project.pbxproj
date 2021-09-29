@@ -14,6 +14,10 @@
 		E46ECB302701A1B20056ACB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E46ECB2E2701A1B20056ACB6 /* LaunchScreen.storyboard */; };
 		E46ECB332701A1B20056ACB6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E46ECB322701A1B20056ACB6 /* main.m */; };
 		E46ECB3C2701A1D70056ACB6 /* FMCameraVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E46ECB3B2701A1D70056ACB6 /* FMCameraVC.m */; };
+		E494404027043E8100E3ABC4 /* FMFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E494403F27043E8100E3ABC4 /* FMFrameBuffer.m */; };
+		E494404327043FFB00E3ABC4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494404227043FFB00E3ABC4 /* CoreVideo.framework */; };
+		E494404C27045FDE00E3ABC4 /* FMDiplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E494404B27045FDE00E3ABC4 /* FMDiplayView.m */; };
+		E494405327046C5500E3ABC4 /* ZYProCameraMovieRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E494405127046C5400E3ABC4 /* ZYProCameraMovieRecorder.m */; };
 		E49F03822703205A00F00A34 /* FMCameraOpenGLRGBView.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F037E2703205900F00A34 /* FMCameraOpenGLRGBView.m */; };
 		E49F03832703205A00F00A34 /* FMCameraContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E49F03802703205900F00A34 /* FMCameraContext.m */; };
 /* End PBXBuildFile section */
@@ -31,6 +35,13 @@
 		E46ECB322701A1B20056ACB6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E46ECB3A2701A1D70056ACB6 /* FMCameraVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraVC.h; sourceTree = "<group>"; };
 		E46ECB3B2701A1D70056ACB6 /* FMCameraVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraVC.m; sourceTree = "<group>"; };
+		E494403E27043E8100E3ABC4 /* FMFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMFrameBuffer.h; sourceTree = "<group>"; };
+		E494403F27043E8100E3ABC4 /* FMFrameBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMFrameBuffer.m; sourceTree = "<group>"; };
+		E494404227043FFB00E3ABC4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		E494404A27045FDE00E3ABC4 /* FMDiplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDiplayView.h; sourceTree = "<group>"; };
+		E494404B27045FDE00E3ABC4 /* FMDiplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDiplayView.m; sourceTree = "<group>"; };
+		E494405127046C5400E3ABC4 /* ZYProCameraMovieRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYProCameraMovieRecorder.m; sourceTree = "<group>"; };
+		E494405227046C5400E3ABC4 /* ZYProCameraMovieRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYProCameraMovieRecorder.h; sourceTree = "<group>"; };
 		E49F037E2703205900F00A34 /* FMCameraOpenGLRGBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMCameraOpenGLRGBView.m; sourceTree = "<group>"; };
 		E49F037F2703205900F00A34 /* FMCameraOpenGLRGBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMCameraOpenGLRGBView.h; sourceTree = "<group>"; };
 		E49F03802703205900F00A34 /* FMCameraContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMCameraContext.m; sourceTree = "<group>"; };
@@ -42,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E494404327043FFB00E3ABC4 /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +65,7 @@
 			children = (
 				E46ECB1F2701A1AB0056ACB6 /* FMMultiCamera */,
 				E46ECB1E2701A1AB0056ACB6 /* Products */,
+				E494404127043FFB00E3ABC4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,8 +103,22 @@
 				E49F03802703205900F00A34 /* FMCameraContext.m */,
 				E49F037F2703205900F00A34 /* FMCameraOpenGLRGBView.h */,
 				E49F037E2703205900F00A34 /* FMCameraOpenGLRGBView.m */,
+				E494403E27043E8100E3ABC4 /* FMFrameBuffer.h */,
+				E494403F27043E8100E3ABC4 /* FMFrameBuffer.m */,
+				E494404A27045FDE00E3ABC4 /* FMDiplayView.h */,
+				E494404B27045FDE00E3ABC4 /* FMDiplayView.m */,
+				E494405227046C5400E3ABC4 /* ZYProCameraMovieRecorder.h */,
+				E494405127046C5400E3ABC4 /* ZYProCameraMovieRecorder.m */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		E494404127043FFB00E3ABC4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E494404227043FFB00E3ABC4 /* CoreVideo.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,7 +190,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E494404027043E8100E3ABC4 /* FMFrameBuffer.m in Sources */,
 				E49F03822703205A00F00A34 /* FMCameraOpenGLRGBView.m in Sources */,
+				E494404C27045FDE00E3ABC4 /* FMDiplayView.m in Sources */,
+				E494405327046C5500E3ABC4 /* ZYProCameraMovieRecorder.m in Sources */,
 				E49F03832703205A00F00A34 /* FMCameraContext.m in Sources */,
 				E46ECB3C2701A1D70056ACB6 /* FMCameraVC.m in Sources */,
 				E46ECB282701A1AB0056ACB6 /* ViewController.m in Sources */,
