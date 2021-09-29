@@ -16,6 +16,7 @@
 #import "FMCameraContext.h"
 #import "FMDiplayView.h"
 #import "ZYProCameraMovieRecorder.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 // 通用着色器
 NSString *const ttVertexShaderString = SHADER_STRING(
@@ -240,7 +241,8 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 
     if(!frameBuffer) {
         // 创建离屏帧缓存
-        frameBuffer = [[FMFrameBuffer alloc] initWithSize:CGSizeMake(bufferSize.width, bufferSize.height)];
+//        frameBuffer = [[FMFrameBuffer alloc] initWithSize:CGSizeMake(bufferSize.width, bufferSize.height)];
+        frameBuffer = [[FMFrameBuffer alloc] initWithSize:CGSizeMake(bufferSize.height, bufferSize.width)];
     }
     [frameBuffer activateFramebuffer];
     
@@ -311,14 +313,19 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
     CVPixelBufferRef ref = frameBuffer.pixelBuffer;
+    CGFloat w = CVPixelBufferGetWidth(ref);
+    CGFloat h = CVPixelBufferGetHeight(ref);
+    NSLog(@"w = %f, h =%f", w, h);
     
     [ttDisplayView setInputFrameBuffer:frameBuffer];
 
-    @synchronized (self) {
+//    @synchronized (self) {
         if(self.movieRecorder.recordStatus == ZYProCameraRecordingStatusRecording) {
-            [self.movieRecorder appendVideoPixelBuffer:frameBuffer.pixelBuffer withPresentationTime:currentTime];
+            if(frameBuffer.pixelBuffer != NULL) {
+                [self.movieRecorder appendVideoPixelBuffer:frameBuffer.pixelBuffer withPresentationTime:currentTime];
+            }
         };
-    };
+//    };
 }
 
 - (void)generateTexture:(CVPixelBufferRef)pixelBuffer index:(int)index {
@@ -404,6 +411,7 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     } else {
         NSURL *recordUrl = [[NSURL alloc] initFileURLWithPath:[NSString pathWithComponents:@[NSTemporaryDirectory(), @"Movie.MOV"]]];
         _movieRecorder = [[ZYProCameraMovieRecorder alloc] initWithUrl:recordUrl delegate:self callBackQueue:self.recordDelegateQueue];
+//        [_movieRecorder addVideoTrackWithSourceFormatDescription:self.outputVideoFormatDescription transform:CGAffineTransformRotate( CGAffineTransformIdentity, -M_PI_2) settings:nil];
         [_movieRecorder addVideoTrackWithSourceFormatDescription:self.outputVideoFormatDescription transform:CGAffineTransformIdentity settings:nil];
         [_movieRecorder prepareToRecord];
     }
@@ -419,6 +427,10 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 
 - (void)movieRecorder:(ZYProCameraMovieRecorder *)recorder didFailWithError:(NSError *)error {
     NSLog(@"error %@", error);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.recording = NO;
+        [self.recordBtn setTitle:@"Record" forState:UIControlStateNormal];
+    });
 }
 
 - (void)movieRecorderWillStopRecording:(ZYProCameraMovieRecorder *)recorder {
@@ -427,6 +439,15 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 
 - (void)movieRecorderDidStopRecording:(ZYProCameraMovieRecorder *)recorder url:(NSURL *)url {
     NSLog(@"%@", url);
+    
+    [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:url completionBlock:^(NSURL *assetURL, NSError *error) {
+        if(error) {
+            NSLog(@"error %@", error);
+        } else {
+            NSLog(@"保存成功");
+        }
+    }];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         self.recording = NO;
         [self.recordBtn setTitle:@"Record" forState:UIControlStateNormal];
