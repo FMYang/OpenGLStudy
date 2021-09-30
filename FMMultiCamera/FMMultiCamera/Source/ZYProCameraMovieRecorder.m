@@ -181,6 +181,7 @@ static NSUInteger uniqueId = 1;
 // 添加视频帧
 - (void)appendVideoPixelBuffer:(CVPixelBufferRef)pixelBuffer
           withPresentationTime:(CMTime)presentationTime {
+    NSLog(@"%f", CMTimeGetSeconds(presentationTime));
     CMSampleBufferRef sampleBuffer = NULL;
     
     CMSampleTimingInfo timingInfo = {0,};
@@ -205,45 +206,6 @@ static NSUInteger uniqueId = 1;
         CFRelease(sampleBuffer);
     } else {
         NSLog(@"sample buffer create failed (%i)", (int)err);
-    }
-}
-
-- (void)writePixelBuffer:(CVPixelBufferRef)pixelBufferRef presentationTime:(CMTime)presentationTime input:(AVAssetWriterInput *)input {
-    @autoreleasepool {
-        CMSampleBufferRef newSampleBuffer = NULL;
-        
-        CMSampleTimingInfo timingInfo = {0,};
-        timingInfo.duration = kCMTimeInvalid;
-        timingInfo.decodeTimeStamp = kCMTimeInvalid;
-        timingInfo.presentationTimeStamp = presentationTime;
-        
-        CMFormatDescriptionRef outputFormatDescription = NULL;
-        CMVideoFormatDescriptionCreateForImageBuffer(kCFAllocatorDefault, pixelBufferRef, &outputFormatDescription);
-
-        // CVPixelBufferRef to CMSampleBufferRef
-        OSStatus err = CMSampleBufferCreateForImageBuffer(kCFAllocatorDefault,
-                                                          pixelBufferRef,
-                                                          true,
-                                                          NULL,
-                                                          NULL,
-                                                          outputFormatDescription,
-                                                          &timingInfo,
-                                                          &newSampleBuffer);
-
-        if(newSampleBuffer) {
-            BOOL success = [input appendSampleBuffer:newSampleBuffer];
-            if(!success) {
-                NSError *error = self.assetWritter.error;
-                NSLog(@"error %@", error);
-                
-                @synchronized (self) {
-                    [self transitionToStatus:ZYProCameraRecordingStatusFailed error:error];
-                }
-            }
-            CFRelease(newSampleBuffer);
-        } else {
-            NSLog(@"timelapse sample buffer create failed (%i)", (int)err);
-        }
     }
 }
 
@@ -285,15 +247,11 @@ static NSUInteger uniqueId = 1;
             AVAssetWriterInput *input = (mediaType == AVMediaTypeVideo) ? self.videoInput : self.audioInput;
             
             @synchronized (self) {
-                // 普通录像、快/慢动作，慢动作不能手动设置每一帧的时间，只能当前帧的实际时间，否则240fps写的时候掉帧
                 if(input.readyForMoreMediaData) {
-                    // 普通录像
                     BOOL success = [input appendSampleBuffer:sampleBuffer];
-                    
                     if(!success) {
                         NSError *error = self.assetWritter.error;
-                        NSLog(@"error %@", error);
-                        
+                        NSLog(@"appendSampleBuffer error %@", error);
                         @synchronized (self) {
                             [self transitionToStatus:ZYProCameraRecordingStatusFailed error:error];
                         }
@@ -369,7 +327,7 @@ static NSUInteger uniqueId = 1;
                                                          outputSettings:videoSettings
                                                        sourceFormatHint:videoFormatDescription];
         self.videoInput.expectsMediaDataInRealTime = YES;
-        self.videoInput.transform = transform;
+//        self.videoInput.transform = transform;
                 
         if([self.assetWritter canAddInput:self.videoInput]) {
             [self.assetWritter addInput:self.videoInput];

@@ -87,6 +87,8 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 @property (nonatomic) UIButton *recordBtn;
 
 @property (nonatomic) ZYProCameraMovieRecorder *movieRecorder;
+@property (nonatomic) CMTime videoRunningTime;
+@property (nonatomic) CFTimeInterval baseTime;
 
 @property (nonatomic) BOOL recording;
 @property (nonatomic, strong) __attribute__((NSObject)) CMFormatDescriptionRef outputVideoFormatDescription;
@@ -205,6 +207,12 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 }
 
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    
+    if(!CMTIME_IS_VALID(self.videoRunningTime)) {
+        self.videoRunningTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+        self.baseTime = CACurrentMediaTime();
+    }
+    
     if(dispatch_semaphore_wait(frameRenderingSemaphore, DISPATCH_TIME_NOW) != 0) {
         return;
     }
@@ -229,14 +237,12 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 - (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer index:(int)index {
     CVImageBufferRef cameraFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
     int bufferHeight = (int) CVPixelBufferGetHeight(cameraFrame);
-    CMTime currentTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
-    self.outputVideoFormatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);
 
     int bytesPerRow = (int) CVPixelBufferGetBytesPerRow(cameraFrame);
-    [self renderToTexture:CGSizeMake(bytesPerRow / 4, bufferHeight) pixelBuffer:cameraFrame index:index currentTime:currentTime];
+    [self renderToTexture:CGSizeMake(bytesPerRow / 4, bufferHeight) pixelBuffer:cameraFrame index:index];
 }
 
-- (void)renderToTexture:(CGSize)bufferSize pixelBuffer:(CVPixelBufferRef)cameraFrame index:(int)index currentTime:(CMTime)currentTime {
+- (void)renderToTexture:(CGSize)bufferSize pixelBuffer:(CVPixelBufferRef)cameraFrame index:(int)index {
     [FMCameraContext useImageProcessingContext];
 
     if(!frameBuffer) {
@@ -285,7 +291,7 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 
     [self generateTexture:cameraFrame index:index];
     
-    glClearColor(1.0, 1.0, 0.0, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
     glActiveTexture(GL_TEXTURE1);
@@ -311,21 +317,27 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord1);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    
-    CVPixelBufferRef ref = frameBuffer.pixelBuffer;
-    CGFloat w = CVPixelBufferGetWidth(ref);
-    CGFloat h = CVPixelBufferGetHeight(ref);
-    NSLog(@"w = %f, h =%f", w, h);
-    
+        
+    CMFormatDescriptionRef outputFormatDescription = NULL;
+    CMVideoFormatDescriptionCreateForImageBuffer(kCFAllocatorDefault, frameBuffer.pixelBuffer, &outputFormatDescription);
+    // 使用合成的帧生成视频帧描述信息
+    self.outputVideoFormatDescription = outputFormatDescription;
+
     [ttDisplayView setInputFrameBuffer:frameBuffer];
 
-//    @synchronized (self) {
+    @synchronized (self) {
         if(self.movieRecorder.recordStatus == ZYProCameraRecordingStatusRecording) {
             if(frameBuffer.pixelBuffer != NULL) {
-                [self.movieRecorder appendVideoPixelBuffer:frameBuffer.pixelBuffer withPresentationTime:currentTime];
+                [self.movieRecorder appendVideoPixelBuffer:frameBuffer.pixelBuffer withPresentationTime:[self frameTime]];
             }
         };
-//    };
+    };
+}
+
+- (CMTime)frameTime {
+    CFTimeInterval interval = CACurrentMediaTime() - self.baseTime;
+    CMTime intervalTime = CMTimeMake(interval * 600, 600);
+    return CMTimeAdd(self.videoRunningTime, intervalTime);
 }
 
 - (void)generateTexture:(CVPixelBufferRef)pixelBuffer index:(int)index {
@@ -411,7 +423,7 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     } else {
         NSURL *recordUrl = [[NSURL alloc] initFileURLWithPath:[NSString pathWithComponents:@[NSTemporaryDirectory(), @"Movie.MOV"]]];
         _movieRecorder = [[ZYProCameraMovieRecorder alloc] initWithUrl:recordUrl delegate:self callBackQueue:self.recordDelegateQueue];
-//        [_movieRecorder addVideoTrackWithSourceFormatDescription:self.outputVideoFormatDescription transform:CGAffineTransformRotate( CGAffineTransformIdentity, -M_PI_2) settings:nil];
+        [_movieRecorder addVideoTrackWithSourceFormatDescription:self.outputVideoFormatDescription transform:CGAffineTransformIdentity settings:nil];
         [_movieRecorder addVideoTrackWithSourceFormatDescription:self.outputVideoFormatDescription transform:CGAffineTransformIdentity settings:nil];
         [_movieRecorder prepareToRecord];
     }
