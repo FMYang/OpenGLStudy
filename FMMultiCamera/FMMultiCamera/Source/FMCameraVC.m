@@ -67,7 +67,7 @@ NSString *const picFragmentShaderString = SHADER_STRING(
 
     void main()
     {
-        if((aPosition.y >= 0.25 && aPosition.y <= 0.75) && (aPosition.x >= 0.3 && aPosition.x <= 0.9)) {
+        if((aPosition.y >= 0.27 && aPosition.y <= 0.9) && (aPosition.x >= 0.27 && aPosition.x <= 0.9)) {
             gl_FragColor = texture2D(textureIndex2, aTextureCoord);
         } else {
             gl_FragColor = texture2D(textureIndex1, aTextureCoord);
@@ -163,14 +163,14 @@ NSString *const picFragmentShaderString = SHADER_STRING(
     
     _recordBtn = [[UIButton alloc] init];
     _recordBtn.frame = CGRectMake(90, 34, 60, 44);
-    [_recordBtn setTitle:@"Record" forState:UIControlStateNormal];
+    [_recordBtn setTitle:@"录像" forState:UIControlStateNormal];
     [_recordBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [_recordBtn addTarget:self action:@selector(recordAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_recordBtn];
     
     _typeSwitchBtn = [[UIButton alloc] init];
-    _typeSwitchBtn.frame = CGRectMake(170, 34, 60, 44);
-    [_typeSwitchBtn setTitle:@"switch" forState:UIControlStateNormal];
+    _typeSwitchBtn.frame = CGRectMake(170, 34, 80, 44);
+    [_typeSwitchBtn setTitle:@"布局切换" forState:UIControlStateNormal];
     [_typeSwitchBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [_typeSwitchBtn addTarget:self action:@selector(displayTypeSwitchAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_typeSwitchBtn];
@@ -327,10 +327,10 @@ NSString *const picFragmentShaderString = SHADER_STRING(
     
     // 画中画矩形
     float vertices3[] = {
-        0.9, 0.75,
-        0.3, 0.75,
-        0.9, 0.25,
-        0.3, 0.25
+        0.9, 0.9,
+        0.27, 0.9,
+        0.9, 0.27,
+        0.27, 0.27
     };
     
     // 旋转
@@ -524,10 +524,10 @@ NSString *const picFragmentShaderString = SHADER_STRING(
     _recording = recording;
     
     if(_recording) {
-        [self.recordBtn setTitle:@"Stop" forState:UIControlStateNormal];
+        [self.recordBtn setTitle:@"停止" forState:UIControlStateNormal];
         self.typeSwitchBtn.enabled = NO;
     } else {
-        [self.recordBtn setTitle:@"Record" forState:UIControlStateNormal];
+        [self.recordBtn setTitle:@"录像" forState:UIControlStateNormal];
         self.typeSwitchBtn.enabled = YES;
     }
 }

@@ -181,7 +181,6 @@ static NSUInteger uniqueId = 1;
 // 添加视频帧
 - (void)appendVideoPixelBuffer:(CVPixelBufferRef)pixelBuffer
           withPresentationTime:(CMTime)presentationTime {
-    NSLog(@"%f", CMTimeGetSeconds(presentationTime));
     CMSampleBufferRef sampleBuffer = NULL;
     
     CMSampleTimingInfo timingInfo = {0,};
