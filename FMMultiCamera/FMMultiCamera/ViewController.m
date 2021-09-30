@@ -28,7 +28,9 @@
 - (void)btnClick {
     _camera = [[FMCameraVC alloc] init];
     _camera.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:_camera animated:YES completion:nil];
+    [self presentViewController:_camera animated:YES completion:^{
+        self->_camera = nil;
+    }];
 }
 
 @end

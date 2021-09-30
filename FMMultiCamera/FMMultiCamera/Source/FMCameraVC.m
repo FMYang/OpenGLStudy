@@ -5,9 +5,6 @@
 //  Created by yfm on 2021/9/27.
 //
 
-#define STRINGIZE(x) #x
-#define STRINGIZE2(x) STRINGIZE(x)
-#define SHADER_STRING(text) @ STRINGIZE2(text)
 
 #import "FMCameraVC.h"
 #import <AVFoundation/AVFoundation.h>
@@ -17,6 +14,10 @@
 #import "FMDiplayView.h"
 #import "ZYProCameraMovieRecorder.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+
+#define STRINGIZE(x) #x
+#define STRINGIZE2(x) STRINGIZE(x)
+#define SHADER_STRING(text) @ STRINGIZE2(text)
 
 // 通用着色器
 NSString *const ttVertexShaderString = SHADER_STRING(
@@ -36,6 +37,7 @@ NSString *const ttVertexShaderString = SHADER_STRING(
    }
 );
 
+// 上下平分
 NSString *const ttFragmentShaderString = SHADER_STRING(
     precision mediump float;
     varying vec2 aTextureCoord;
@@ -54,6 +56,24 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     }
 );
 
+// 画中画
+NSString *const picFragmentShaderString = SHADER_STRING(
+    precision mediump float;
+    varying vec2 aTextureCoord;
+    varying vec2 aPosition;
+    
+    uniform sampler2D textureIndex1;
+    uniform sampler2D textureIndex2;
+
+    void main()
+    {
+        if((aPosition.y >= 0.25 && aPosition.y <= 0.75) && (aPosition.x >= 0.3 && aPosition.x <= 0.9)) {
+            gl_FragColor = texture2D(textureIndex2, aTextureCoord);
+        } else {
+            gl_FragColor = texture2D(textureIndex1, aTextureCoord);
+        }
+    }
+);
 
 @interface FMCameraVC () <AVCaptureVideoDataOutputSampleBufferDelegate, ZYProCameraMovieRecorderDelegate> {
     dispatch_semaphore_t frameRenderingSemaphore;
@@ -82,9 +102,9 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 @property (nonatomic) AVCaptureVideoDataOutput *backVideoOutput;
 @property (nonatomic) AVCaptureVideoDataOutput *frontVideoOutput;
 
-@property (nonatomic) FMCameraOpenGLRGBView *displayView;
 @property (nonatomic) UIButton *backBtn;
 @property (nonatomic) UIButton *recordBtn;
+@property (nonatomic) UIButton *typeSwitchBtn;
 
 @property (nonatomic) ZYProCameraMovieRecorder *movieRecorder;
 @property (nonatomic) CMTime videoRunningTime;
@@ -93,12 +113,33 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 @property (nonatomic) BOOL recording;
 @property (nonatomic, strong) __attribute__((NSObject)) CMFormatDescriptionRef outputVideoFormatDescription;
 
+@property (nonatomic) FMDisplayType displayType;
+
 @end
 
 @implementation FMCameraVC
 
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+    if(_program) {
+        glDeleteProgram(_program);
+        _program = 0;
+    }
+    if(_texture1) {
+        glDeleteTextures(1, &_texture1);
+        _texture1 = 0;
+    }
+    if(_texture2) {
+        glDeleteTextures(1, &_texture2);
+        _texture2 = 0;
+    }
+    frameBuffer = nil;
+}
+
 - (instancetype)init {
     if(self = [super init]) {
+        _displayType = FMDisplayType_upAndDownSplit; // 上下分割
+//        _displayType = FMDisplayType_picInPic; // 画中画
         frameRenderingSemaphore = dispatch_semaphore_create(1);
         _videoProcessQueue = dispatch_queue_create("com.yfm.videoProcessQueue", DISPATCH_QUEUE_SERIAL);
         _recordDelegateQueue = dispatch_queue_create("com.yfm.recordDelegateQueue", DISPATCH_QUEUE_SERIAL);
@@ -110,25 +151,29 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _displayView = [[FMCameraOpenGLRGBView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:_displayView];
-    
-    ttDisplayView = [[FMDiplayView alloc] initWithFrame:self.view.bounds];
+    ttDisplayView = [[FMDiplayView alloc] initWithFrame:self.view.bounds type:self.displayType];
     [self.view addSubview:ttDisplayView];
     
     _backBtn = [[UIButton alloc] init];
-    _backBtn.frame = CGRectMake(10, 40, 60, 44);
-    [_backBtn setTitle:@"back" forState:UIControlStateNormal];
+    _backBtn.frame = CGRectMake(10, 34, 60, 44);
+    [_backBtn setTitle:@"关闭" forState:UIControlStateNormal];
     [_backBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     
     _recordBtn = [[UIButton alloc] init];
-    _recordBtn.frame = CGRectMake(10, 140, 60, 44);
+    _recordBtn.frame = CGRectMake(90, 34, 60, 44);
     [_recordBtn setTitle:@"Record" forState:UIControlStateNormal];
     [_recordBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     [_recordBtn addTarget:self action:@selector(recordAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_recordBtn];
+    
+    _typeSwitchBtn = [[UIButton alloc] init];
+    _typeSwitchBtn.frame = CGRectMake(170, 34, 60, 44);
+    [_typeSwitchBtn setTitle:@"switch" forState:UIControlStateNormal];
+    [_typeSwitchBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    [_typeSwitchBtn addTarget:self action:@selector(displayTypeSwitchAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_typeSwitchBtn];
     
     [self.session startRunning];
 }
@@ -179,11 +224,9 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
         self.frontVideoInput = frontVideoDeviceInput;
     }
     
-//    AVCaptureInputPort *backPort = [self.backVideoInput portsWithMediaType:AVMediaTypeVideo sourceDeviceType:backVideoDevice.deviceType sourceDevicePosition:AVCaptureDevicePositionBack].firstObject;
     AVCaptureInputPort *backPort = [self.backVideoInput ports].firstObject;
     self.backVideoPort = backPort;
     
-//    AVCaptureInputPort *frontPort = [self.frontVideoInput portsWithMediaType:AVMediaTypeVideo sourceDeviceType:frontVideoDevice.deviceType sourceDevicePosition:AVCaptureDevicePositionFront].firstObject;
     AVCaptureInputPort *frontPort = [self.frontVideoInput ports].firstObject;
     self.frontVideoPort = frontPort;
     
@@ -259,18 +302,35 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
 
     // 上面矩形
     float vertices1[] = {
-        -0.6, 1.0,
-        0.6, 1.0,
-        -0.6, 0.0,
-        0.6, 0.0
+        -0.5, 1.0,
+        0.5, 1.0,
+        -0.5, 0.0,
+        0.5, 0.0
     };
     
     // 下面矩形
     float vertices2[] = {
-        -0.6, 0.0,
-        0.6, 0.0,
-        -0.6, -1.0,
-        0.6, -1.0
+        -0.5, 0.0,
+        0.5, 0.0,
+        -0.5, -1.0,
+        0.5, -1.0
+    };
+    
+    // 全屏矩形
+    float vertices4[] = {
+        -1.0, 1.0,
+        1.0, 1.0,
+        -1.0, -1.0,
+        1.0, -1.0
+    };
+
+    
+    // 画中画矩形
+    float vertices3[] = {
+        0.9, 0.75,
+        0.3, 0.75,
+        0.9, 0.25,
+        0.3, 0.25
     };
     
     // 旋转
@@ -307,21 +367,33 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
         
     GLuint positionLoc = glGetAttribLocation(_program, "position");
     glEnableVertexAttribArray(positionLoc);
+    
+    if(self.displayType == FMDisplayType_upAndDownSplit) {
+        glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices1);
+        glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord1);
+    } else {
+        glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices4);
+        glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord1);
+    }
 
-    glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices2);
-    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    if(self.displayType == FMDisplayType_upAndDownSplit) {
+        glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices2);
+        glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord);
+    } else {
+        glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices3);
+        glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord);
+    }
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
-    glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertices1);
-    glVertexAttribPointer(textureCoordLoc, 2, GL_FLOAT, 0, 0, textureCoord1);
-
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        
-    CMFormatDescriptionRef outputFormatDescription = NULL;
-    CMVideoFormatDescriptionCreateForImageBuffer(kCFAllocatorDefault, frameBuffer.pixelBuffer, &outputFormatDescription);
-    // 使用合成的帧生成视频帧描述信息
-    self.outputVideoFormatDescription = outputFormatDescription;
+    if(!self.outputVideoFormatDescription) {
+        CMFormatDescriptionRef outputFormatDescription = NULL;
+        CMVideoFormatDescriptionCreateForImageBuffer(kCFAllocatorDefault, frameBuffer.pixelBuffer, &outputFormatDescription);
+        // 使用合成的帧生成视频帧描述信息
+        self.outputVideoFormatDescription = outputFormatDescription;
+    }
 
     [ttDisplayView setInputFrameBuffer:frameBuffer];
 
@@ -387,7 +459,12 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     }
 
     _fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    const char *fragmentSource = (GLchar *)[ttFragmentShaderString UTF8String];
+    const char *fragmentSource;
+    if(self.displayType == FMDisplayType_upAndDownSplit) {
+        fragmentSource = (GLchar *)[ttFragmentShaderString UTF8String];
+    } else {
+        fragmentSource = (GLchar *)[picFragmentShaderString UTF8String];
+    }
     glShaderSource(_fragmentShader, 1, &fragmentSource, NULL);
     glCompileShader(_fragmentShader);
 
@@ -429,11 +506,36 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     }
 }
 
+- (void)displayTypeSwitchAction {
+    if(self.displayType == FMDisplayType_upAndDownSplit) {
+        self.displayType = FMDisplayType_picInPic;
+    } else {
+        self.displayType = FMDisplayType_upAndDownSplit;
+    }
+    
+    if(_program) {
+        [FMCameraContext useImageProcessingContext];
+        glDeleteProgram(_program);
+        _program = 0;
+    }
+}
+
+- (void)setRecording:(BOOL)recording {
+    _recording = recording;
+    
+    if(_recording) {
+        [self.recordBtn setTitle:@"Stop" forState:UIControlStateNormal];
+        self.typeSwitchBtn.enabled = NO;
+    } else {
+        [self.recordBtn setTitle:@"Record" forState:UIControlStateNormal];
+        self.typeSwitchBtn.enabled = YES;
+    }
+}
+
 #pragma mark -
 - (void)movieRecorderDidStartRecording:(ZYProCameraMovieRecorder *)recorder {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.recording = YES;
-        [self.recordBtn setTitle:@"Stop" forState:UIControlStateNormal];
     });
 }
 
@@ -441,7 +543,6 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     NSLog(@"error %@", error);
     dispatch_async(dispatch_get_main_queue(), ^{
         self.recording = NO;
-        [self.recordBtn setTitle:@"Record" forState:UIControlStateNormal];
     });
 }
 
@@ -462,7 +563,6 @@ NSString *const ttFragmentShaderString = SHADER_STRING(
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.recording = NO;
-        [self.recordBtn setTitle:@"Record" forState:UIControlStateNormal];
     });
 }
 

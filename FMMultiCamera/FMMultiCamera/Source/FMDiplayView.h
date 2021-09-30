@@ -10,8 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, FMDisplayType) {
+    FMDisplayType_upAndDownSplit, // 上下分割
+    FMDisplayType_picInPic, // 画中画
+};
+
 @interface FMDiplayView : UIView
 
+- (instancetype)initWithFrame:(CGRect)frame type:(FMDisplayType)type;
 - (void)setInputFrameBuffer:(FMFrameBuffer *)frameBuffer;
 
 @end

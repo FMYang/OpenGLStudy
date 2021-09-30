@@ -16,6 +16,23 @@
     CGSize bufferSize;
 }
 
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+    [FMCameraContext useImageProcessingContext];
+    if(framebuffer) {
+        glDeleteFramebuffers(1, &framebuffer);
+        framebuffer = 0;
+    }
+    if(renderTarget) {
+        CVPixelBufferRelease(renderTarget);
+        renderTarget = NULL;
+    }
+    if(renderTexture) {
+        CFRelease(renderTexture);
+        renderTexture = NULL;
+    }
+}
+
 - (instancetype)initWithSize:(CGSize)frameBufferSize {
     if(self = [super init]) {
         bufferSize = frameBufferSize;

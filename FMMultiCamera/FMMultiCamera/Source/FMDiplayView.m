@@ -51,16 +51,35 @@ NSString *const displayFragmentShaderString = SHADER_STRING(
     GLint backingWidth, backingHeight;
 }
 
+@property (nonatomic) FMDisplayType displayType;
+
 @end
 
 @implementation FMDiplayView
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+    if(_program) {
+        glDeleteProgram(_program);
+        _program = 0;
+    }
+    if(displayFramebuffer) {
+        glDeleteFramebuffers(1, &displayFramebuffer);
+        displayFramebuffer = 0;
+    }
+    if(displayRenderbuffer) {
+        glDeleteRenderbuffers(1, &displayRenderbuffer);
+        displayRenderbuffer = 0;
+    }
+}
 
 + (Class)layerClass {
     return [CAEAGLLayer class];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame type:(FMDisplayType)type {
     if(self = [super initWithFrame:frame]) {
+        _displayType = type;
         [self setupLayer];
         [self createProgram];
         [self createDisplayFramebuffer];
@@ -158,10 +177,10 @@ NSString *const displayFragmentShaderString = SHADER_STRING(
     [FMCameraContext useImageProcessingContext];
 
     GLfloat vertex[] = {
-        -1.0, -1.0,
-        1.0, -1.0,
-        -1.0, 1.0,
-        1.0, 1.0
+        -1.0, -0.82,
+        1.0, -0.82,
+        -1.0, 0.82,
+        1.0, 0.82
     };
     
     // 纹理坐标
@@ -182,8 +201,8 @@ NSString *const displayFragmentShaderString = SHADER_STRING(
     glBindTexture(GL_TEXTURE_2D, [inputFrameBuffer texture]);
 
     GLuint positionLoc = glGetAttribLocation(_program, "position");
-    glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertex);
     glEnableVertexAttribArray(positionLoc);
+    glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, vertex);
 
     GLuint textureCoordLoc = glGetAttribLocation(_program, "inputTextureCoordinate");
     glEnableVertexAttribArray(textureCoordLoc);
