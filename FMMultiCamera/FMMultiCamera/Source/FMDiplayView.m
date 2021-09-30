@@ -58,7 +58,6 @@ NSString *const displayFragmentShaderString = SHADER_STRING(
 @implementation FMDiplayView
 
 - (void)dealloc {
-    NSLog(@"%s", __func__);
     if(_program) {
         glDeleteProgram(_program);
         _program = 0;

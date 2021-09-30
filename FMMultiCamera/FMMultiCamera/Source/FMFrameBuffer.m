@@ -17,7 +17,6 @@
 }
 
 - (void)dealloc {
-    NSLog(@"%s", __func__);
     [FMCameraContext useImageProcessingContext];
     if(framebuffer) {
         glDeleteFramebuffers(1, &framebuffer);

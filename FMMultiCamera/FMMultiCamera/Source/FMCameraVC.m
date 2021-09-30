@@ -120,7 +120,6 @@ NSString *const picFragmentShaderString = SHADER_STRING(
 @implementation FMCameraVC
 
 - (void)dealloc {
-    NSLog(@"%s", __func__);
     if(_program) {
         glDeleteProgram(_program);
         _program = 0;
@@ -138,8 +137,7 @@ NSString *const picFragmentShaderString = SHADER_STRING(
 
 - (instancetype)init {
     if(self = [super init]) {
-        _displayType = FMDisplayType_upAndDownSplit; // 上下分割
-//        _displayType = FMDisplayType_picInPic; // 画中画
+        _displayType = FMDisplayType_upAndDownSplit; // 默认上下分割
         frameRenderingSemaphore = dispatch_semaphore_create(1);
         _videoProcessQueue = dispatch_queue_create("com.yfm.videoProcessQueue", DISPATCH_QUEUE_SERIAL);
         _recordDelegateQueue = dispatch_queue_create("com.yfm.recordDelegateQueue", DISPATCH_QUEUE_SERIAL);
@@ -322,7 +320,6 @@ NSString *const picFragmentShaderString = SHADER_STRING(
         -1.0, 1.0,
         1.0, -1.0,
         -1.0, -1.0
-        
     };
 
     
