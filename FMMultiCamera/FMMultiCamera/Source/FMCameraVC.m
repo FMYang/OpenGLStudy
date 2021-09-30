@@ -318,10 +318,11 @@ NSString *const picFragmentShaderString = SHADER_STRING(
     
     // 全屏矩形
     float vertices4[] = {
-        -1.0, 1.0,
         1.0, 1.0,
-        -1.0, -1.0,
-        1.0, -1.0
+        -1.0, 1.0,
+        1.0, -1.0,
+        -1.0, -1.0
+        
     };
 
     
