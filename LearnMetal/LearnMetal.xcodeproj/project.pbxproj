@@ -19,6 +19,8 @@
 		E4BBFA252716DA2700D19F38 /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E4BBFA242716DA2700D19F38 /* 1.jpeg */; };
 		E4BBFA292716DC6800D19F38 /* FMTextureShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA282716DC6800D19F38 /* FMTextureShaders.metal */; };
 		E4BBFA2B2716DECF00D19F38 /* MFTriangleShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA2A2716DECF00D19F38 /* MFTriangleShaders.metal */; };
+		E4BBFA312719325C00D19F38 /* FMMetalHelloTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA302719325C00D19F38 /* FMMetalHelloTriangle.m */; };
+		E4BBFA33271935DB00D19F38 /* FMHelloTriangleShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA32271935DB00D19F38 /* FMHelloTriangleShaders.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,9 @@
 		E4BBFA282716DC6800D19F38 /* FMTextureShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = FMTextureShaders.metal; sourceTree = "<group>"; };
 		E4BBFA2A2716DECF00D19F38 /* MFTriangleShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MFTriangleShaders.metal; sourceTree = "<group>"; };
 		E4BBFA2C2716DEDF00D19F38 /* FMTriangleShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMTriangleShaderTypes.h; sourceTree = "<group>"; };
+		E4BBFA2F2719325C00D19F38 /* FMMetalHelloTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMMetalHelloTriangle.h; sourceTree = "<group>"; };
+		E4BBFA302719325C00D19F38 /* FMMetalHelloTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMMetalHelloTriangle.m; sourceTree = "<group>"; };
+		E4BBFA32271935DB00D19F38 /* FMHelloTriangleShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = FMHelloTriangleShaders.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +96,7 @@
 		E4BBFA0F2716746A00D19F38 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
+				E4BBFA2E2719323300D19F38 /* HelloTriangle */,
 				E4BBFA272716DA4400D19F38 /* Texture */,
 				E4BBFA262716DA3600D19F38 /* Triangle */,
 			);
@@ -119,6 +125,16 @@
 				E4BBFA142716850A00D19F38 /* FMShaderTypes.h */,
 			);
 			path = Texture;
+			sourceTree = "<group>";
+		};
+		E4BBFA2E2719323300D19F38 /* HelloTriangle */ = {
+			isa = PBXGroup;
+			children = (
+				E4BBFA2F2719325C00D19F38 /* FMMetalHelloTriangle.h */,
+				E4BBFA302719325C00D19F38 /* FMMetalHelloTriangle.m */,
+				E4BBFA32271935DB00D19F38 /* FMHelloTriangleShaders.metal */,
+			);
+			path = HelloTriangle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +209,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4363EC22715765B00AEB692 /* ViewController.m in Sources */,
+				E4BBFA33271935DB00D19F38 /* FMHelloTriangleShaders.metal in Sources */,
+				E4BBFA312719325C00D19F38 /* FMMetalHelloTriangle.m in Sources */,
 				E4BBFA2B2716DECF00D19F38 /* MFTriangleShaders.metal in Sources */,
 				E4363EBC2715765B00AEB692 /* AppDelegate.m in Sources */,
 				E4363ECD2715766200AEB692 /* main.m in Sources */,

@@ -3,6 +3,8 @@ See LICENSE folder for this sample’s licensing information.
 
 Abstract:
 Metal shaders used for this sample
+ 
+所有使用了 Metal 函数修饰符的函数 (vertex, fragment,或 kernel) 可以在 MTLLibrary 中被表示为一个 MTLFunction 对象
 */
 
 #include <metal_stdlib>
@@ -17,11 +19,10 @@ struct RasterizerData {
     float2 textureCoordinate;
 };
 
-// 顶点着色器
+// vertex修饰的函数textureVertexShader表示顶点着色器
 vertex RasterizerData
 textureVertexShader(uint vertexID [[ vertex_id ]],
-             constant FMVertex *vertexArray [[ buffer(FMVertexInputIndexVertices) ]],
-             constant vector_uint2 *viewportSizePointer  [[ buffer(FMVertexInputIndexViewportSize) ]]) {
+             constant FMVertex *vertexArray [[ buffer(FMVertexInputIndexVertices) ]]) {
 
     RasterizerData out;
 
@@ -32,7 +33,7 @@ textureVertexShader(uint vertexID [[ vertex_id ]],
     return out;
 }
 
-// 片元着色器
+// fragment修饰的函数textureSamplingShader表示片元着色器
 fragment float4
 textureSamplingShader(RasterizerData in [[stage_in]],
                texture2d<half> colorTexture [[ texture(FMTextureIndexBaseColor) ]]) {

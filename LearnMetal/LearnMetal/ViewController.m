@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import "FMMetalTriangleView.h"
 #import "FMMetalTextureView.h"
+#import "FMMetalHelloTriangle.h"
 
 @interface ViewController () {
     FMMetalTriangleView *triangleView;
@@ -21,11 +22,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    FMMetalHelloTriangle *vv = [[FMMetalHelloTriangle alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:vv];
+    
 //    triangleView = [[FMMetalTriangleView alloc] initWithFrame:self.view.bounds];
 //    [self.view addSubview:triangleView];
     
-    textureView = [[FMMetalTextureView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:textureView];
+//    textureView = [[FMMetalTextureView alloc] initWithFrame:self.view.bounds];
+//    [self.view addSubview:textureView];
 }
 
 - (void)viewWillLayoutSubviews {

@@ -5,6 +5,13 @@
 //  Created by yfm on 2021/10/13.
 //
 
+/**
+ 渲染三角形的基础过程：
+ 1、创建一个MTLCommandQueue对象，然后用它来创建一个MTLCommandBuffer对象
+ 2、创建一个MTLRenderPassDescriptor对象，它代表一系列attachment，attachment将作为command buffer中被编码的渲染指令的最终产出目标
+ 3、创建两个MTLBuffer对，
+ */
+
 #import "FMMetalTriangleView.h"
 #import "FMTriangleShaderTypes.h"
 
@@ -95,6 +102,9 @@
         [renderEncoder setViewport:(MTLViewport){0.0, 0.0, _viewportSize.x, _viewportSize.y, 0.0, 1.0 }];
         
         [renderEncoder setRenderPipelineState:_pipelineState];
+
+        // MTLTriangleFillModeFill MTLTriangleFillModeLines
+        [renderEncoder setTriangleFillMode:MTLTriangleFillModeFill];
 
         // Pass in the parameter data.
         [renderEncoder setVertexBytes:triangleVertices

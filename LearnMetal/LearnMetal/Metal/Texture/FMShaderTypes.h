@@ -13,7 +13,6 @@ Header containing types and enum constants shared between Metal shaders and C/Ob
 typedef enum FMVertexInputIndex
 {
     FMVertexInputIndexVertices     = 0,
-    FMVertexInputIndexViewportSize = 1,
 } FMVertexInputIndex;
 
 typedef enum FMTextureIndex

@@ -3,7 +3,31 @@
 //  LearnMetal
 //
 //  Created by yfm on 2021/10/13.
-//
+
+/**
+ 纹理坐标系
+ 原点在左上角
+ 0.0, 0.0    1.0,0.0
+ -------------------
+ |                 |
+ |                 |
+ |                 |
+ |                 |
+ -------------------
+ 0.0, 1.0    1.0,1.0
+ 
+ metal坐标系
+ 原点在左上角
+ -1.0, 1.0   1.0,1.0
+ -------------------
+ |                 |
+ |                 |
+ |                 |
+ |                 |
+ -------------------
+ -1.0, -1.0  1.0,-1.0
+ */
+
 
 #import "FMMetalTextureView.h"
 #import "FMShaderTypes.h"
@@ -38,6 +62,15 @@
             { {  1.0,  1.0 },  { 1.0, 0.0 } },
             { { -1.0,   -1.0 },  { 0.0, 1.0 } },
             { {  1.0,   -1.0 },  { 1.1, 1.1 } },
+            
+//            // 右旋转90度，3.jpeg
+//            { {  -1.0,  1.0 },  { 0.0, 1.0 } },
+//            { { 1.0,  1.0 },  { 0.0, 0.0 } },
+//            { { -1.0,   -1.0 },  { 1.0, 1.0 } },
+//
+//            { {  1.0,  1.0 },  { 0.0, 0.0 } },
+//            { { -1.0,   -1.0 },  { 1.0, 1.0 } },
+//            { {  1.0,   -1.0 },  { 1.0, 0.0 } },
         };
         
         _vertices = [_device newBufferWithBytes:quadVertices
@@ -73,63 +106,49 @@
 
 #pragma mark - MTKViewDelegate
 - (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
-    // Save the size of the drawable to pass to the vertex shader.
     _viewportSize.x = size.width;
     _viewportSize.y = size.height;
 }
 
-- (void)drawInMTKView:(nonnull MTKView *)view
-{
-    // Create a new command buffer for each render pass to the current drawable
+- (void)drawInMTKView:(nonnull MTKView *)view {
     id<MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
     commandBuffer.label = @"MyCommand";
 
-    // Obtain a renderPassDescriptor generated from the view's drawable textures
     MTLRenderPassDescriptor *renderPassDescriptor = view.currentRenderPassDescriptor;
 
-    if(renderPassDescriptor != nil)
-    {
+    if(renderPassDescriptor != nil) {
         id<MTLRenderCommandEncoder> renderEncoder =
         [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         renderEncoder.label = @"MyRenderEncoder";
 
-        // Set the region of the drawable to draw into.
         [renderEncoder setViewport:(MTLViewport){0.0, 0.0, _viewportSize.x, _viewportSize.y, -1.0, 1.0 }];
 
+        // 使用这个渲染管线state对象来进行图元绘制
         [renderEncoder setRenderPipelineState:_pipelineState];
 
         [renderEncoder setVertexBuffer:_vertices
                                 offset:0
                               atIndex:FMVertexInputIndexVertices];
 
-        [renderEncoder setVertexBytes:&_viewportSize
-                               length:sizeof(_viewportSize)
-                              atIndex:FMVertexInputIndexViewportSize];
-
-        // Set the texture object.  The FMTextureIndexBaseColor enum value corresponds
-        ///  to the 'colorMap' argument in the 'samplingShader' function because its
-        //   texture attribute qualifier also uses FMTextureIndexBaseColor for its index.
         [renderEncoder setFragmentTexture:_texture
                                   atIndex:FMTextureIndexBaseColor];
-
-        // Draw the triangles.
+        
+        // 绘制顶点构成的图元
         [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle
                           vertexStart:0
                           vertexCount:_numVertices];
 
         [renderEncoder endEncoding];
 
-        // Schedule a present once the framebuffer is complete using the current drawable
         [commandBuffer presentDrawable:view.currentDrawable];
     }
 
-    // Finalize rendering here & push the command buffer to the GPU
     [commandBuffer commit];
 }
 
 
-#pragma mark -
-// 加载纹理
+#pragma mark - 加载纹理
+// 通过MTKTextureLoader加载纹理
 - (id<MTLTexture>)loadTexture {
     UIImage *image = [UIImage imageNamed:@"1.jpeg"];
     CGImageRef imageRef = image.CGImage;
@@ -139,5 +158,42 @@
     return texture;
 }
 
+// 通过位图加载纹理
+- (id<MTLTexture>)loadTexture1 {
+    UIImage *image = [UIImage imageNamed:@"3.jpeg"];
+    
+    CGImageRef imageRef = image.CGImage;
+    
+    size_t width = CGImageGetWidth(imageRef);
+    size_t height = CGImageGetHeight(imageRef);
+    
+    GLubyte *textureData = (GLubyte *)malloc(width * height * 4);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    NSUInteger bytesPerPixel = 4;
+    NSUInteger bytesPerRow = bytesPerPixel * width;
+    NSUInteger bitsPerComponent = 8;
+    CGContextRef context = CGBitmapContextCreate(textureData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    
+    CGColorSpaceRelease(colorSpace);
+
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
+    CGContextRelease(context);
+
+    MTLTextureDescriptor *textureDescriptor = [[MTLTextureDescriptor alloc] init];
+    textureDescriptor.pixelFormat = MTLPixelFormatRGBA8Unorm;
+    textureDescriptor.width = width;
+    textureDescriptor.height = height;
+    id<MTLTexture> texture = [_device newTextureWithDescriptor:textureDescriptor];
+    MTLRegion region = {
+        { 0, 0, 0 },
+        {width, height, 1}
+    };
+    [texture replaceRegion:region
+                mipmapLevel:0
+                  withBytes:textureData
+                bytesPerRow:bytesPerRow];
+    return texture;
+
+}
 
 @end
