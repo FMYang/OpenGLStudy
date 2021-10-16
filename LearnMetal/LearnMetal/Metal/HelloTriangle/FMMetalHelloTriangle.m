@@ -19,15 +19,6 @@
 
 @implementation FMMetalHelloTriangle
 
-- (id<MTLTexture>)loadTexture {
-    UIImage *image = [UIImage imageNamed:@"1.jpeg"];
-    CGImageRef imageRef = image.CGImage;
-    MTKTextureLoader*loader = [[MTKTextureLoader alloc]initWithDevice:_device];
-    NSError*error;
-    id<MTLTexture> texture = [loader newTextureWithCGImage:imageRef options:@{MTKTextureLoaderOptionSRGB:@(NO)} error:&error];
-    return texture;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
         
@@ -75,7 +66,7 @@
     static const float posData[] = {
         0.0, 0.33, 0.0, 1.0,
         -0.33, -0.33, 0.0, 1.0,
-        0.0, -0.33, 0.0, 1.0,
+        0.33, -0.33, 0.0, 1.0,
     };
     
     static const float colData[] = {
@@ -89,7 +80,7 @@
     MTLRenderPassDescriptor *renderPassDesc = [MTLRenderPassDescriptor renderPassDescriptor];
     renderPassDesc.colorAttachments[0].texture = self.currentDrawable.texture;
     renderPassDesc.colorAttachments[0].loadAction = MTLLoadActionClear;
-    renderPassDesc.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 1.0, 1.0, 1.0);
+    renderPassDesc.colorAttachments[0].clearColor = MTLClearColorMake(1.0, 1.0, 1.0, 1.0);
 
     id <MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDesc];
 
@@ -97,10 +88,10 @@
 
     [renderEncoder setRenderPipelineState:_pipeline];
 
-    id <MTLBuffer> posBuf = [_device newBufferWithBytes:posData length:sizeof(posData) options:0];
-    id <MTLBuffer> colBuf = [_device newBufferWithBytes:colData length:sizeof(colData) options:0];
+    id <MTLBuffer> posBuf = [_device newBufferWithBytes:posData length:sizeof(posData) options:MTLResourceStorageModeShared];
+    id <MTLBuffer> colBuf = [_device newBufferWithBytes:colData length:sizeof(colData) options:MTLResourceStorageModeShared];
 
-    [renderEncoder setTriangleFillMode:MTLTriangleFillModeLines];
+    [renderEncoder setTriangleFillMode:MTLTriangleFillModeFill];
 
     [renderEncoder setVertexBuffer:posBuf offset:0 atIndex:0];
     [renderEncoder setVertexBuffer:colBuf offset:0 atIndex:1];

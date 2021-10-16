@@ -10,17 +10,18 @@
 using namespace metal;
 
 struct VertexOutput {
-    float4 postion [[ position ]];
+    float4 position [[ position ]];
     float4 color_data;
 };
 
 vertex VertexOutput
 hello_vertex(const device float4 *pos_data [[ buffer(0) ]],
-             const device float4 *color_data [[ buffer(1) ]]) {
+             const device float4 *color_data [[ buffer(1) ]],
+             uint vertexID [[vertex_id]]) {
     VertexOutput out;
     
-    out.postion = pos_data[0];
-    out.color_data = color_data[0];
+    out.position = pos_data[vertexID];
+    out.color_data = color_data[vertexID];
     
     return out;
 }
