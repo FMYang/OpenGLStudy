@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8891F290271BF644007BC056 /* FMCameraVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8891F28F271BF644007BC056 /* FMCameraVC.m */; };
+		8891F295271BFA0F007BC056 /* FMMetalCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8891F294271BFA0F007BC056 /* FMMetalCameraView.m */; };
+		8891F298271C2403007BC056 /* CameraMetal.metal in Sources */ = {isa = PBXBuildFile; fileRef = 8891F297271C2403007BC056 /* CameraMetal.metal */; };
 		E4363EBC2715765B00AEB692 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4363EBB2715765B00AEB692 /* AppDelegate.m */; };
 		E4363EC22715765B00AEB692 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4363EC12715765B00AEB692 /* ViewController.m */; };
 		E4363EC52715765B00AEB692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4363EC32715765B00AEB692 /* Main.storyboard */; };
@@ -24,6 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8891F28E271BF644007BC056 /* FMCameraVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraVC.h; sourceTree = "<group>"; };
+		8891F28F271BF644007BC056 /* FMCameraVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraVC.m; sourceTree = "<group>"; };
+		8891F293271BFA0F007BC056 /* FMMetalCameraView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMMetalCameraView.h; sourceTree = "<group>"; };
+		8891F294271BFA0F007BC056 /* FMMetalCameraView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMMetalCameraView.m; sourceTree = "<group>"; };
+		8891F297271C2403007BC056 /* CameraMetal.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CameraMetal.metal; sourceTree = "<group>"; };
 		E4363EB72715765B00AEB692 /* LearnMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4363EBA2715765B00AEB692 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4363EBB2715765B00AEB692 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -60,6 +68,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8891F28D271BF62B007BC056 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				8891F28E271BF644007BC056 /* FMCameraVC.h */,
+				8891F28F271BF644007BC056 /* FMCameraVC.m */,
+				8891F293271BFA0F007BC056 /* FMMetalCameraView.h */,
+				8891F294271BFA0F007BC056 /* FMMetalCameraView.m */,
+				8891F297271C2403007BC056 /* CameraMetal.metal */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		E4363EAE2715765B00AEB692 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +116,7 @@
 		E4BBFA0F2716746A00D19F38 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
+				8891F28D271BF62B007BC056 /* Camera */,
 				E4BBFA2E2719323300D19F38 /* HelloTriangle */,
 				E4BBFA272716DA4400D19F38 /* Texture */,
 				E4BBFA262716DA3600D19F38 /* Triangle */,
@@ -210,8 +231,11 @@
 			files = (
 				E4363EC22715765B00AEB692 /* ViewController.m in Sources */,
 				E4BBFA33271935DB00D19F38 /* FMHelloTriangleShaders.metal in Sources */,
+				8891F298271C2403007BC056 /* CameraMetal.metal in Sources */,
 				E4BBFA312719325C00D19F38 /* FMMetalHelloTriangle.m in Sources */,
+				8891F295271BFA0F007BC056 /* FMMetalCameraView.m in Sources */,
 				E4BBFA2B2716DECF00D19F38 /* MFTriangleShaders.metal in Sources */,
+				8891F290271BF644007BC056 /* FMCameraVC.m in Sources */,
 				E4363EBC2715765B00AEB692 /* AppDelegate.m in Sources */,
 				E4363ECD2715766200AEB692 /* main.m in Sources */,
 				E4BBFA192716CA3000D19F38 /* FMMetalTextureView.m in Sources */,
