@@ -7,6 +7,7 @@
 
 #import "FMCameraVC.h"
 #import <AVFoundation/AVFoundation.h>
+#import "FMMetalCameraView.h"
 
 @interface FMCameraVC () <AVCaptureVideoDataOutputSampleBufferDelegate>
 
@@ -14,20 +15,13 @@
 @property (nonatomic) AVCaptureDeviceInput *videoInput;
 @property (nonatomic) AVCaptureVideoDataOutput *videoDataOutput;
 @property (nonatomic) dispatch_queue_t sessionQueue;
-//@property (nonatomic)
+@property (nonatomic) FMMetalCameraView *previewView;
 //@property (nonatomic)
 //@property (nonatomic)
 
 @end
 
 @implementation FMCameraVC
-
-- (instancetype)init {
-    if(self = [super init]) {
-        [self configSession];
-    }
-    return self;
-}
 
 - (void)configSession {
     _sessionQueue = dispatch_queue_create("com.fm.sessionQueue", DISPATCH_QUEUE_SERIAL);
@@ -55,6 +49,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.previewView = [[FMMetalCameraView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    [self.view addSubview:self.previewView];
+    
+    [self configSession];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.session startRunning];
 }
 
@@ -74,6 +76,8 @@
     float w = CVPixelBufferGetWidth(pixelBuffer);
     float h = CVPixelBufferGetHeight(pixelBuffer);
     NSLog(@"%@, %f, %f", pixelBuffer, w, h);
+    
+    [self.previewView renderPixelBuffer:pixelBuffer];
 }
 
 @end

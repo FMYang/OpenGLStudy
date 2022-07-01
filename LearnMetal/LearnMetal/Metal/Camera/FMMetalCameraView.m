@@ -22,7 +22,9 @@ typedef struct {
     id<MTLRenderPipelineState> _pipelineState;
     id<MTLTexture> _texture;
     id<MTLBuffer> _vertices;
+    NSUInteger _numVertices;
     CVMetalTextureCacheRef textureCacheRef;
+    vector_uint2 _viewportSize;
 }
 
 @end
@@ -50,13 +52,17 @@ typedef struct {
 //            { { -1.0,   -1.0 },  { 1.0, 1.0 } },
 //            { {  1.0,   -1.0 },  { 1.0, 0.0 } },
         };
-                
+        
         _vertices = [_device newBufferWithBytes:quadVertices
                                          length:sizeof(quadVertices)
                                         options:MTLResourceStorageModeShared];
 
+        _numVertices = sizeof(quadVertices) / sizeof(FMVertex);
+
         _device = MTLCreateSystemDefaultDevice();
         self.device = _device;
+        
+        CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, _device, nil, &textureCacheRef);
         
         _commandQueue = [_device newCommandQueue];
         
@@ -67,7 +73,7 @@ typedef struct {
         MTLRenderPipelineDescriptor *pipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
         pipelineStateDescriptor.vertexFunction = vextexFunction;
         pipelineStateDescriptor.fragmentFunction = fragmentFunction;
-        pipelineStateDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatRGBA8Unorm;
+        pipelineStateDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
         
         NSError *error;
         _pipelineState = [_device newRenderPipelineStateWithDescriptor:pipelineStateDescriptor
@@ -92,6 +98,8 @@ typedef struct {
         [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         renderEncoder.label = @"MyRenderEncoder";
 
+        [renderEncoder setViewport:(MTLViewport){0.0, 0.0, _viewportSize.x, _viewportSize.y, -1.0, 1.0 }];
+
         // 使用这个渲染管线state对象来进行图元绘制
         [renderEncoder setRenderPipelineState:_pipelineState];
 
@@ -105,7 +113,7 @@ typedef struct {
         // 绘制顶点构成的图元
         [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle
                           vertexStart:0
-                          vertexCount:6];
+                          vertexCount:_numVertices];
 
         [renderEncoder endEncoding];
 
@@ -128,5 +136,9 @@ typedef struct {
 
 
 #pragma mark - MTKViewDelegate
+- (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
+    _viewportSize.x = size.width;
+    _viewportSize.y = size.height;
+}
 
 @end

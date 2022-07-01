@@ -5,10 +5,9 @@
 //  Created by yfm on 2021/9/27.
 //
 
-
 #import "FMCameraVC.h"
 #import <AVFoundation/AVFoundation.h>
-#import "FMCameraOpenGLRGBView.h"
+//#import "FMCameraOpenGLRGBView.h"
 #import "FMFrameBuffer.h"
 #import "FMCameraContext.h"
 #import "FMDiplayView.h"
@@ -87,6 +86,10 @@ NSString *const picFragmentShaderString = SHADER_STRING(
     GLuint _texture2;
     
     FMDiplayView *ttDisplayView;
+    
+    //
+    CVOpenGLESTextureRef _glTexture1;
+    CVOpenGLESTextureRef _glTexture2;
 }
 @property (nonatomic) AVCaptureMultiCamSession *session;
 @property (nonatomic) AVCaptureDeviceInput *backVideoInput;
@@ -222,6 +225,49 @@ NSString *const picFragmentShaderString = SHADER_STRING(
         self.frontVideoInput = frontVideoDeviceInput;
     }
     
+    // 设置分辨率帧率
+    // back
+    int frameRate = 30;
+    AVCaptureDeviceFormat *backBestFormat = nil;
+    for(AVCaptureDeviceFormat *format in backVideoDevice.formats) {
+        CMFormatDescriptionRef formatDescriptionRef = format.formatDescription;
+        CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(formatDescriptionRef);
+        AVFrameRateRange *range = format.videoSupportedFrameRateRanges.firstObject;
+        if(1920 == dimensions.width &&
+           1080 == dimensions.height &&
+           frameRate >= range.minFrameRate &&
+           frameRate <= range.maxFrameRate) {
+            backBestFormat = format;
+            break;
+        }
+    }
+    
+    [backVideoDevice lockForConfiguration:nil];
+    backVideoDevice.activeFormat = backBestFormat;
+    [backVideoDevice setActiveVideoMinFrameDuration:CMTimeMake(1, frameRate)];
+    [backVideoDevice setActiveVideoMaxFrameDuration:CMTimeMake(1, frameRate)];
+    [backVideoDevice unlockForConfiguration];
+    
+    // front
+    AVCaptureDeviceFormat *frontBestFormat = nil;
+    for(AVCaptureDeviceFormat *format in frontVideoDevice.formats) {
+        CMFormatDescriptionRef formatDescriptionRef = format.formatDescription;
+        CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(formatDescriptionRef);
+        AVFrameRateRange *range = format.videoSupportedFrameRateRanges.firstObject;
+        if(1920 == dimensions.width &&
+           1080 == dimensions.height &&
+           frameRate >= range.minFrameRate &&
+           frameRate <= range.maxFrameRate) {
+            frontBestFormat = format;
+            break;
+        }
+    }
+    [frontVideoDevice lockForConfiguration:nil];
+    frontVideoDevice.activeFormat = frontBestFormat;
+    [frontVideoDevice setActiveVideoMinFrameDuration:CMTimeMake(1, frameRate)];
+    [frontVideoDevice setActiveVideoMaxFrameDuration:CMTimeMake(1, frameRate)];
+    [frontVideoDevice unlockForConfiguration];
+    
     AVCaptureInputPort *backPort = [self.backVideoInput ports].firstObject;
     self.backVideoPort = backPort;
     
@@ -258,7 +304,7 @@ NSString *const picFragmentShaderString = SHADER_STRING(
         return;
     }
     CFRetain(sampleBuffer);
-    if(output == self.backVideoOutput) {
+    if(connection == self.backVideoConnection) {
         dispatch_async(self.videoProcessQueue, ^{
             [self processSampleBuffer:sampleBuffer index:1];
             CFRelease(sampleBuffer);
@@ -278,7 +324,6 @@ NSString *const picFragmentShaderString = SHADER_STRING(
 - (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer index:(int)index {
     CVImageBufferRef cameraFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
     int bufferHeight = (int) CVPixelBufferGetHeight(cameraFrame);
-
     int bytesPerRow = (int) CVPixelBufferGetBytesPerRow(cameraFrame);
     [self renderToTexture:CGSizeMake(bytesPerRow / 4, bufferHeight) pixelBuffer:cameraFrame index:index];
 }
@@ -347,17 +392,18 @@ NSString *const picFragmentShaderString = SHADER_STRING(
         0.0, 1.0,
     };
 
-    [self generateTexture:cameraFrame index:index];
+//    [self generateTexture:cameraFrame index:index];
+    [self generateTexture2:cameraFrame index:index];
     
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, _texture1);
+//    glBindTexture(GL_TEXTURE_2D, _texture1);
     glUniform1i(glGetUniformLocation(_program, "textureIndex1"), 1);
 
     glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, _texture2);
+//    glBindTexture(GL_TEXTURE_2D, _texture2);
     glUniform1i(glGetUniformLocation(_program, "textureIndex2"), 2);
 
     GLuint textureCoordLoc = glGetAttribLocation(_program, "textureCoord");
@@ -439,6 +485,31 @@ NSString *const picFragmentShaderString = SHADER_STRING(
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 }
 
+//
+- (void)generateTexture2:(CVPixelBufferRef)pixelBuffer index:(int)index {
+    int width = (int)CVPixelBufferGetWidth(pixelBuffer);
+    int height = (int)CVPixelBufferGetHeight(pixelBuffer);
+
+    if(index == 1) {
+        glActiveTexture(GL_TEXTURE1);
+        CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [FMCameraContext.shared coreVideoTextureCache], pixelBuffer, NULL, GL_TEXTURE_2D, GL_RGBA, (GLsizei)width, (GLsizei)height, GL_BGRA, GL_UNSIGNED_BYTE, 0, &_glTexture1);
+        glBindTexture(GL_TEXTURE_2D, CVOpenGLESTextureGetName(_glTexture1));
+        glUniform1i(glGetUniformLocation(_program, "textureIndex1"), 1);
+        CFRelease(_glTexture1);
+    } else {
+        glActiveTexture(GL_TEXTURE2);
+        CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [FMCameraContext.shared coreVideoTextureCache], pixelBuffer, NULL, GL_TEXTURE_2D, GL_RGBA, (GLsizei)width, (GLsizei)height, GL_BGRA, GL_UNSIGNED_BYTE, 0, &_glTexture2);
+        glBindTexture(GL_TEXTURE_2D, CVOpenGLESTextureGetName(_glTexture2));
+        glUniform1i(glGetUniformLocation(_program, "textureIndex2"), 2);
+        CFRelease(_glTexture2);
+    }
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+
 - (void)createProgram {
     [FMCameraContext useImageProcessingContext]; // 一定要
 
@@ -496,9 +567,17 @@ NSString *const picFragmentShaderString = SHADER_STRING(
     if(self.recording) {
         [self.movieRecorder finishRecording];
     } else {
+//        NSDictionary *recommendedSettings = [[self.backVideoOutput recommendedVideoSettingsForAssetWriterWithOutputFileType:AVFileTypeQuickTimeMovie] mutableCopy];
+//        NSDictionary *commentedCompressionProperties = [recommendedSettings objectForKey:AVVideoCompressionPropertiesKey];
+//        // 设置帧率
+//        [commentedCompressionProperties setValue:@(30) forKey:AVVideoExpectedSourceFrameRateKey];
+//        [commentedCompressionProperties setValue:@(30) forKey:AVVideoMaxKeyFrameIntervalKey];
+//        [recommendedSettings setValue:commentedCompressionProperties forKey:AVVideoCompressionPropertiesKey];
+//        [recommendedSettings setValue:@(1080) forKey:AVVideoWidthKey];
+//        [recommendedSettings setValue:@(1920) forKey:AVVideoHeightKey];
+
         NSURL *recordUrl = [[NSURL alloc] initFileURLWithPath:[NSString pathWithComponents:@[NSTemporaryDirectory(), @"Movie.MOV"]]];
         _movieRecorder = [[ZYProCameraMovieRecorder alloc] initWithUrl:recordUrl delegate:self callBackQueue:self.recordDelegateQueue];
-        [_movieRecorder addVideoTrackWithSourceFormatDescription:self.outputVideoFormatDescription transform:CGAffineTransformIdentity settings:nil];
         [_movieRecorder addVideoTrackWithSourceFormatDescription:self.outputVideoFormatDescription transform:CGAffineTransformIdentity settings:nil];
         [_movieRecorder prepareToRecord];
     }
