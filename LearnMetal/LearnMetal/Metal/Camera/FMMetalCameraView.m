@@ -10,11 +10,7 @@
 #import <MetalKit/MetalKit.h>
 
 #include <simd/simd.h>
-
-typedef struct {
-    vector_float2 position;
-    vector_float2 textureCoordinate;
-} FMVertex;
+#include "CameraShaderTypes.h"
 
 @interface FMMetalCameraView() {
     id<MTLDevice> _device;
@@ -33,24 +29,24 @@ typedef struct {
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
+        _device = MTLCreateSystemDefaultDevice();
+        self.device = _device;
+
         static const FMVertex quadVertices[] = {
             // 顶点坐标, 纹理坐标
-            { {  -1.0,  1.0 },  { 0.0, 0.0 } },
-            { { 1.0,  1.0 },  { 1.0, 0.0 } },
-            { { -1.0,   -1.0 },  { 0.0, 1.0 } },
-
-            { {  1.0,  1.0 },  { 1.0, 0.0 } },
-            { { -1.0,   -1.0 },  { 0.0, 1.0 } },
-            { {  1.0,   -1.0 },  { 1.1, 1.1 } },
+//            { { -1.0,  1.0 }, { 0.0, 0.0 } },
+//            { {  1.0,  1.0 }, { 1.0, 0.0 } },
+//            { { -1.0, -1.0 }, { 0.0, 1.0 } },
+//            { {  1.0,  1.0 }, { 1.0, 0.0 } },
+//            { { -1.0, -1.0 }, { 0.0, 1.0 } },
+//            { {  1.0, -1.0 }, { 1.1, 1.1 } }
             
-//            // 右旋转90度，3.jpeg
-//            { {  -1.0,  1.0 },  { 0.0, 1.0 } },
-//            { { 1.0,  1.0 },  { 0.0, 0.0 } },
-//            { { -1.0,   -1.0 },  { 1.0, 1.0 } },
-//
-//            { {  1.0,  1.0 },  { 0.0, 0.0 } },
-//            { { -1.0,   -1.0 },  { 1.0, 1.0 } },
-//            { {  1.0,   -1.0 },  { 1.0, 0.0 } },
+            { { -1.0,  1.0 },  { 0.0, 1.0 } },
+            { {  1.0,  1.0 },  { 0.0, 0.0 } },
+            { { -1.0, -1.0 },  { 1.0, 1.0 } },
+            { {  1.0,  1.0 },  { 0.0, 0.0 } },
+            { { -1.0, -1.0 },  { 1.0, 1.0 } },
+            { {  1.0, -1.0 },  { 1.0, 0.0 } },
         };
         
         _vertices = [_device newBufferWithBytes:quadVertices
@@ -59,9 +55,6 @@ typedef struct {
 
         _numVertices = sizeof(quadVertices) / sizeof(FMVertex);
 
-        _device = MTLCreateSystemDefaultDevice();
-        self.device = _device;
-        
         CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, _device, nil, &textureCacheRef);
         
         _commandQueue = [_device newCommandQueue];
@@ -85,7 +78,9 @@ typedef struct {
     return self;
 }
 
-- (void)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer {
+- (void)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer {    
+    float w = self.drawableSize.width;//CVPixelBufferGetWidth(pixelBuffer);
+    float h = self.drawableSize.height;//CVPixelBufferGetWidth(pixelBuffer);
     
     _texture = [self loadTexture:pixelBuffer];
 
@@ -98,17 +93,17 @@ typedef struct {
         [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         renderEncoder.label = @"MyRenderEncoder";
 
-        [renderEncoder setViewport:(MTLViewport){0.0, 0.0, _viewportSize.x, _viewportSize.y, -1.0, 1.0 }];
+        [renderEncoder setViewport:(MTLViewport){0.0, 0.0, w, h, -1.0, 1.0 }];
 
         // 使用这个渲染管线state对象来进行图元绘制
         [renderEncoder setRenderPipelineState:_pipelineState];
 
         [renderEncoder setVertexBuffer:_vertices
                                 offset:0
-                              atIndex:0];
+                              atIndex:FMVertexInputIndexVertices];
 
         [renderEncoder setFragmentTexture:_texture
-                                  atIndex:0];
+                                  atIndex:FMTextureIndexBaseColor];
         
         // 绘制顶点构成的图元
         [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle
@@ -118,27 +113,28 @@ typedef struct {
         [renderEncoder endEncoding];
 
         [commandBuffer presentDrawable:self.currentDrawable];
+    } else {
+        NSLog(@"renderPassDescriptor nil");
     }
-
+    
     [commandBuffer commit];
-
 }
 
 // 通过MTKTextureLoader加载纹理
 - (id<MTLTexture>)loadTexture:(CVPixelBufferRef)pixcelBuffer {
-    CVMetalTextureRef textureRef;
-    float bufferW = CVPixelBufferGetWidth(pixcelBuffer);
-    float bufferH = CVPixelBufferGetHeight(pixcelBuffer);
-    CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCacheRef, pixcelBuffer, nil, MTLPixelFormatRG8Unorm, bufferW, bufferH, 0, &textureRef);
-    id <MTLTexture> texture = CVMetalTextureGetTexture(textureRef);
+    CVMetalTextureRef tmpTexture = NULL;
+    CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                              textureCacheRef,
+                                              pixcelBuffer,
+                                              nil,
+                                              MTLPixelFormatBGRA8Unorm,
+                                              CVPixelBufferGetWidth(pixcelBuffer),
+                                              CVPixelBufferGetHeight(pixcelBuffer),
+                                              0,
+                                              &tmpTexture);
+    id <MTLTexture> texture = CVMetalTextureGetTexture(tmpTexture);
+    CFRelease(tmpTexture); // 释放创建的纹理
     return texture;
-}
-
-
-#pragma mark - MTKViewDelegate
-- (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
-    _viewportSize.x = size.width;
-    _viewportSize.y = size.height;
 }
 
 @end

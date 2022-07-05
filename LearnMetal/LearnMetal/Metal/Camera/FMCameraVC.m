@@ -16,8 +16,6 @@
 @property (nonatomic) AVCaptureVideoDataOutput *videoDataOutput;
 @property (nonatomic) dispatch_queue_t sessionQueue;
 @property (nonatomic) FMMetalCameraView *previewView;
-//@property (nonatomic)
-//@property (nonatomic)
 
 @end
 
@@ -50,6 +48,7 @@
     [super viewDidLoad];
     
     self.previewView = [[FMMetalCameraView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.previewView.backgroundColor = UIColor.redColor;
     [self.view addSubview:self.previewView];
     
     [self configSession];
@@ -69,15 +68,7 @@
 #pragma mark -
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     CVImageBufferRef ref = CMSampleBufferGetImageBuffer(sampleBuffer);
-    [self processBuffer:ref];
-}
-
-- (void)processBuffer:(CVPixelBufferRef)pixelBuffer {
-    float w = CVPixelBufferGetWidth(pixelBuffer);
-    float h = CVPixelBufferGetHeight(pixelBuffer);
-    NSLog(@"%@, %f, %f", pixelBuffer, w, h);
-    
-    [self.previewView renderPixelBuffer:pixelBuffer];
+    [self.previewView renderPixelBuffer:ref];
 }
 
 @end

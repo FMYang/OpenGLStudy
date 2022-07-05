@@ -10,6 +10,8 @@
 #import "FMMetalTextureView.h"
 #import "FMMetalHelloTriangle.h"
 #import "FMCameraVC.h"
+#import "GPUCalculationVC.h"
+#import "DrawViewContentVC.h"
 
 @interface ViewController () {
     FMMetalTriangleView *triangleView;
@@ -41,9 +43,19 @@
 }
 
 - (void)btnClick {
-    _cameraVC = [[FMCameraVC alloc] init];
-    _cameraVC.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:_cameraVC animated:YES completion:nil];
+    // 1.GPU上执行计算
+//    GPUCalculationVC *vc = [[GPUCalculationVC alloc] init];
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:vc animated:YES completion:nil];
+    
+    // 2.使用Metal绘制视图内容
+    DrawViewContentVC *vc = [[DrawViewContentVC alloc] init];
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:vc animated:YES completion:nil];
+
+//    _cameraVC = [[FMCameraVC alloc] init];
+//    _cameraVC.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:_cameraVC animated:YES completion:nil];
 }
 
 - (void)viewWillLayoutSubviews {
