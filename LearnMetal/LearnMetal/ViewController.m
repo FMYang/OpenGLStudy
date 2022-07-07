@@ -12,6 +12,8 @@
 #import "FMCameraVC.h"
 #import "GPUCalculationVC.h"
 #import "DrawViewContentVC.h"
+#import "RenderTriangleVC.h"
+#import "CustomRenderPassVC.h"
 
 @interface ViewController () {
     FMMetalTriangleView *triangleView;
@@ -49,7 +51,17 @@
 //    [self presentViewController:vc animated:YES completion:nil];
     
     // 2.使用Metal绘制视图内容
-    DrawViewContentVC *vc = [[DrawViewContentVC alloc] init];
+//    DrawViewContentVC *vc = [[DrawViewContentVC alloc] init];
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:vc animated:YES completion:nil];
+
+    // 3、绘制三角形
+//    RenderTriangleVC *vc = [[RenderTriangleVC alloc] init];
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:vc animated:YES completion:nil];
+
+    // 4、自定义渲染通道
+    CustomRenderPassVC *vc = [[CustomRenderPassVC alloc] init];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 

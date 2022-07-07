@@ -31,7 +31,7 @@
     if(self = [super initWithFrame:frame]) {
         _device = MTLCreateSystemDefaultDevice();
         self.device = _device;
-
+        
         static const FMVertex quadVertices[] = {
             // 顶点坐标, 纹理坐标
 //            { { -1.0,  1.0 }, { 0.0, 0.0 } },
@@ -66,7 +66,8 @@
         MTLRenderPipelineDescriptor *pipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
         pipelineStateDescriptor.vertexFunction = vextexFunction;
         pipelineStateDescriptor.fragmentFunction = fragmentFunction;
-        pipelineStateDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
+        pipelineStateDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;// HDR10
+//        pipelineStateDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm; // BGRA
         
         NSError *error;
         _pipelineState = [_device newRenderPipelineStateWithDescriptor:pipelineStateDescriptor
@@ -78,16 +79,19 @@
     return self;
 }
 
-- (void)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer {    
-    float w = self.drawableSize.width;//CVPixelBufferGetWidth(pixelBuffer);
-    float h = self.drawableSize.height;//CVPixelBufferGetWidth(pixelBuffer);
+- (void)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer {
+    if(self.currentRenderPassDescriptor == nil || self.currentDrawable == nil) return;
+    
+    float w = self.drawableSize.width;
+    float h = self.drawableSize.height;
     
     _texture = [self loadTexture:pixelBuffer];
 
     id<MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
 
     MTLRenderPassDescriptor *renderPassDescriptor = self.currentRenderPassDescriptor;
-
+    renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(1.0, 0.0, 0.0, 1.0);
+    
     if(renderPassDescriptor != nil) {
         id<MTLRenderCommandEncoder> renderEncoder =
         [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
@@ -127,7 +131,7 @@
                                               textureCacheRef,
                                               pixcelBuffer,
                                               nil,
-                                              MTLPixelFormatBGRA8Unorm,
+                                              MTLPixelFormatBGRA8Unorm_sRGB,
                                               CVPixelBufferGetWidth(pixcelBuffer),
                                               CVPixelBufferGetHeight(pixcelBuffer),
                                               0,

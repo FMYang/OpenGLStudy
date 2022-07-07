@@ -20,6 +20,10 @@
 		E4A8536B2873F45500AA55B3 /* add.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4A8536A2873F45500AA55B3 /* add.metal */; };
 		E4A8536F28743A5B00AA55B3 /* DrawViewContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A8536E28743A5A00AA55B3 /* DrawViewContentVC.m */; };
 		E4A8537328744A1400AA55B3 /* RenderTriangleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A8537228744A1300AA55B3 /* RenderTriangleVC.m */; };
+		E4A8537528757F4700AA55B3 /* Triangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4A8537428757F4600AA55B3 /* Triangle.metal */; };
+		E4A8537A2876863800AA55B3 /* CustomRenderPassVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A853792876863700AA55B3 /* CustomRenderPassVC.m */; };
+		E4A8537C28768FE900AA55B3 /* CustomRenderPass.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4A8537B28768FE900AA55B3 /* CustomRenderPass.metal */; };
+		E4A853802876C27000AA55B3 /* CustomMetalViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A8537F2876C27000AA55B3 /* CustomMetalViewVC.m */; };
 		E4BBFA12271677A400D19F38 /* FMMetalTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA11271677A400D19F38 /* FMMetalTriangleView.m */; };
 		E4BBFA192716CA3000D19F38 /* FMMetalTextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA182716CA3000D19F38 /* FMMetalTextureView.m */; };
 		E4BBFA1B2716CBDB00D19F38 /* 3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E4BBFA1A2716CBDB00D19F38 /* 3.jpeg */; };
@@ -54,6 +58,12 @@
 		E4A8536E28743A5A00AA55B3 /* DrawViewContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawViewContentVC.m; sourceTree = "<group>"; };
 		E4A8537128744A1300AA55B3 /* RenderTriangleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderTriangleVC.h; sourceTree = "<group>"; };
 		E4A8537228744A1300AA55B3 /* RenderTriangleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderTriangleVC.m; sourceTree = "<group>"; };
+		E4A8537428757F4600AA55B3 /* Triangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Triangle.metal; sourceTree = "<group>"; };
+		E4A853782876863700AA55B3 /* CustomRenderPassVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRenderPassVC.h; sourceTree = "<group>"; };
+		E4A853792876863700AA55B3 /* CustomRenderPassVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRenderPassVC.m; sourceTree = "<group>"; };
+		E4A8537B28768FE900AA55B3 /* CustomRenderPass.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CustomRenderPass.metal; sourceTree = "<group>"; };
+		E4A8537E2876C27000AA55B3 /* CustomMetalViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomMetalViewVC.h; sourceTree = "<group>"; };
+		E4A8537F2876C27000AA55B3 /* CustomMetalViewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomMetalViewVC.m; sourceTree = "<group>"; };
 		E4BBFA10271677A400D19F38 /* FMMetalTriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMMetalTriangleView.h; sourceTree = "<group>"; };
 		E4BBFA11271677A400D19F38 /* FMMetalTriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMMetalTriangleView.m; sourceTree = "<group>"; };
 		E4BBFA142716850A00D19F38 /* FMShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMShaderTypes.h; sourceTree = "<group>"; };
@@ -150,8 +160,28 @@
 			children = (
 				E4A8537128744A1300AA55B3 /* RenderTriangleVC.h */,
 				E4A8537228744A1300AA55B3 /* RenderTriangleVC.m */,
+				E4A8537428757F4600AA55B3 /* Triangle.metal */,
 			);
 			path = "Lession3(绘制三角形)";
+			sourceTree = "<group>";
+		};
+		E4A85377287685FD00AA55B3 /* Lession4(自定义渲染通道设置) */ = {
+			isa = PBXGroup;
+			children = (
+				E4A853782876863700AA55B3 /* CustomRenderPassVC.h */,
+				E4A853792876863700AA55B3 /* CustomRenderPassVC.m */,
+				E4A8537B28768FE900AA55B3 /* CustomRenderPass.metal */,
+			);
+			path = "Lession4(自定义渲染通道设置)";
+			sourceTree = "<group>";
+		};
+		E4A8537D2876C24200AA55B3 /* Lession5(自定义MetalView) */ = {
+			isa = PBXGroup;
+			children = (
+				E4A8537E2876C27000AA55B3 /* CustomMetalViewVC.h */,
+				E4A8537F2876C27000AA55B3 /* CustomMetalViewVC.m */,
+			);
+			path = "Lession5(自定义MetalView)";
 			sourceTree = "<group>";
 		};
 		E4BBFA0F2716746A00D19F38 /* Metal */ = {
@@ -160,6 +190,8 @@
 				E4A853662873EF1000AA55B3 /* Lession1(GPU上执行计算) */,
 				E4A8536C28742DEF00AA55B3 /* Lession2(Metal绘制视图内容) */,
 				E4A853702874495800AA55B3 /* Lession3(绘制三角形) */,
+				E4A85377287685FD00AA55B3 /* Lession4(自定义渲染通道设置) */,
+				E4A8537D2876C24200AA55B3 /* Lession5(自定义MetalView) */,
 				8891F28D271BF62B007BC056 /* Camera */,
 				E4BBFA2E2719323300D19F38 /* HelloTriangle */,
 				E4BBFA272716DA4400D19F38 /* Texture */,
@@ -273,7 +305,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4A8537C28768FE900AA55B3 /* CustomRenderPass.metal in Sources */,
+				E4A8537528757F4700AA55B3 /* Triangle.metal in Sources */,
 				E4363EC22715765B00AEB692 /* ViewController.m in Sources */,
+				E4A8537A2876863800AA55B3 /* CustomRenderPassVC.m in Sources */,
 				E4A8536B2873F45500AA55B3 /* add.metal in Sources */,
 				E4BBFA33271935DB00D19F38 /* FMHelloTriangleShaders.metal in Sources */,
 				8891F298271C2403007BC056 /* CameraMetal.metal in Sources */,
@@ -286,6 +321,7 @@
 				E4363EBC2715765B00AEB692 /* AppDelegate.m in Sources */,
 				E4363ECD2715766200AEB692 /* main.m in Sources */,
 				E4A8537328744A1400AA55B3 /* RenderTriangleVC.m in Sources */,
+				E4A853802876C27000AA55B3 /* CustomMetalViewVC.m in Sources */,
 				E4BBFA192716CA3000D19F38 /* FMMetalTextureView.m in Sources */,
 				E4BBFA292716DC6800D19F38 /* FMTextureShaders.metal in Sources */,
 				E4BBFA12271677A400D19F38 /* FMMetalTriangleView.m in Sources */,
