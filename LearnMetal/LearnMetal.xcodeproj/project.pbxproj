@@ -16,6 +16,9 @@
 		E4363EC72715766200AEB692 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4363EC62715766200AEB692 /* Assets.xcassets */; };
 		E4363ECA2715766200AEB692 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4363EC82715766200AEB692 /* LaunchScreen.storyboard */; };
 		E4363ECD2715766200AEB692 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4363ECC2715766200AEB692 /* main.m */; };
+		E48F857E2877CA3300B21F76 /* CustomMTKView.m in Sources */ = {isa = PBXBuildFile; fileRef = E48F857D2877CA3300B21F76 /* CustomMTKView.m */; };
+		E48F85812877D80A00B21F76 /* CustomRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = E48F85802877D80900B21F76 /* CustomRenderer.m */; };
+		E48F85832877DCB600B21F76 /* CustomMTKView.metal in Sources */ = {isa = PBXBuildFile; fileRef = E48F85822877DCB600B21F76 /* CustomMTKView.metal */; };
 		E4A853692873EF8800AA55B3 /* GPUCalculationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A853682873EF8700AA55B3 /* GPUCalculationVC.m */; };
 		E4A8536B2873F45500AA55B3 /* add.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4A8536A2873F45500AA55B3 /* add.metal */; };
 		E4A8536F28743A5B00AA55B3 /* DrawViewContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A8536E28743A5A00AA55B3 /* DrawViewContentVC.m */; };
@@ -50,6 +53,11 @@
 		E4363EC92715766200AEB692 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4363ECB2715766200AEB692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4363ECC2715766200AEB692 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E48F857C2877CA3300B21F76 /* CustomMTKView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomMTKView.h; sourceTree = "<group>"; };
+		E48F857D2877CA3300B21F76 /* CustomMTKView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomMTKView.m; sourceTree = "<group>"; };
+		E48F857F2877D80900B21F76 /* CustomRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRenderer.h; sourceTree = "<group>"; };
+		E48F85802877D80900B21F76 /* CustomRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRenderer.m; sourceTree = "<group>"; };
+		E48F85822877DCB600B21F76 /* CustomMTKView.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CustomMTKView.metal; sourceTree = "<group>"; };
 		E4A853652872806F00AA55B3 /* CameraShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraShaderTypes.h; sourceTree = "<group>"; };
 		E4A853672873EF8700AA55B3 /* GPUCalculationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUCalculationVC.h; sourceTree = "<group>"; };
 		E4A853682873EF8700AA55B3 /* GPUCalculationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUCalculationVC.m; sourceTree = "<group>"; };
@@ -180,6 +188,11 @@
 			children = (
 				E4A8537E2876C27000AA55B3 /* CustomMetalViewVC.h */,
 				E4A8537F2876C27000AA55B3 /* CustomMetalViewVC.m */,
+				E48F857C2877CA3300B21F76 /* CustomMTKView.h */,
+				E48F857D2877CA3300B21F76 /* CustomMTKView.m */,
+				E48F857F2877D80900B21F76 /* CustomRenderer.h */,
+				E48F85802877D80900B21F76 /* CustomRenderer.m */,
+				E48F85822877DCB600B21F76 /* CustomMTKView.metal */,
 			);
 			path = "Lession5(自定义MetalView)";
 			sourceTree = "<group>";
@@ -311,7 +324,9 @@
 				E4A8537A2876863800AA55B3 /* CustomRenderPassVC.m in Sources */,
 				E4A8536B2873F45500AA55B3 /* add.metal in Sources */,
 				E4BBFA33271935DB00D19F38 /* FMHelloTriangleShaders.metal in Sources */,
+				E48F85832877DCB600B21F76 /* CustomMTKView.metal in Sources */,
 				8891F298271C2403007BC056 /* CameraMetal.metal in Sources */,
+				E48F857E2877CA3300B21F76 /* CustomMTKView.m in Sources */,
 				E4BBFA312719325C00D19F38 /* FMMetalHelloTriangle.m in Sources */,
 				8891F295271BFA0F007BC056 /* FMMetalCameraView.m in Sources */,
 				E4BBFA2B2716DECF00D19F38 /* MFTriangleShaders.metal in Sources */,
@@ -319,6 +334,7 @@
 				8891F290271BF644007BC056 /* FMCameraVC.m in Sources */,
 				E4A8536F28743A5B00AA55B3 /* DrawViewContentVC.m in Sources */,
 				E4363EBC2715765B00AEB692 /* AppDelegate.m in Sources */,
+				E48F85812877D80A00B21F76 /* CustomRenderer.m in Sources */,
 				E4363ECD2715766200AEB692 /* main.m in Sources */,
 				E4A8537328744A1400AA55B3 /* RenderTriangleVC.m in Sources */,
 				E4A853802876C27000AA55B3 /* CustomMetalViewVC.m in Sources */,

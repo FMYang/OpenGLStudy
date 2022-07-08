@@ -187,7 +187,7 @@ void add_arrays(const float* inA,
         // GPU的计算结果是否与CPU计算的结果相同
         if (result[index] != (a[index] + b[index])) {
             // 如果计算结果不相同分别打印GPU和CPU的计算结果，中断执行
-            printf(@"Compute ERROR: index=%lu result=%g vs %g=a+b\n",
+            NSLog(@"Compute ERROR: index=%lu result=%g vs %g=a+b\n",
                    index, result[index], a[index] + b[index]);
             assert(result[index] == (a[index] + b[index]));
         }

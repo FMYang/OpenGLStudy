@@ -14,6 +14,7 @@
 #import "DrawViewContentVC.h"
 #import "RenderTriangleVC.h"
 #import "CustomRenderPassVC.h"
+#import "CustomMetalViewVC.h"
 
 @interface ViewController () {
     FMMetalTriangleView *triangleView;
@@ -61,7 +62,12 @@
 //    [self presentViewController:vc animated:YES completion:nil];
 
     // 4、自定义渲染通道
-    CustomRenderPassVC *vc = [[CustomRenderPassVC alloc] init];
+//    CustomRenderPassVC *vc = [[CustomRenderPassVC alloc] init];
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:vc animated:YES completion:nil];
+
+    // 5、自定义MTKView
+    CustomMetalViewVC *vc = [[CustomMetalViewVC alloc] init];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 

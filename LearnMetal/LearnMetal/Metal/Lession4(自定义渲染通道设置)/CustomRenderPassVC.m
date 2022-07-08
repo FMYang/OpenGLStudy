@@ -103,10 +103,12 @@
 
 #pragma mark -
 - (void)mtkView:(MTKView *)view drawableSizeWillChange:(CGSize)size {
+    NSLog(@"1111 %@", [NSThread currentThread]);
     _aspectRatio =  (float)size.height / (float)size.width;
 }
 
 - (void)drawInMTKView:(MTKView *)view {
+    NSLog(@"2222 %@", [NSThread currentThread]);
     id<MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
     commandBuffer.label = @"Command Buffer";
     
