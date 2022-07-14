@@ -103,11 +103,11 @@
     [self.session commitConfiguration];
 }
 
-- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+- (void)captureOutput:(AVCaptureOutpu t *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CFRetain(pixelBuffer);
     
-    // 线程问题，MTKView在主线程渲染的
+    // 线程问题，drawable不能跨线程使用，使用信号量同步
     dispatch_async(self.renderQueue, ^{
 //    dispatch_async(dispatch_get_main_queue(), ^{
         CVMetalTextureRef texture = nil;
