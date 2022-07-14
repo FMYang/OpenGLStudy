@@ -35,6 +35,10 @@
 		E4BBFA2B2716DECF00D19F38 /* MFTriangleShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA2A2716DECF00D19F38 /* MFTriangleShaders.metal */; };
 		E4BBFA312719325C00D19F38 /* FMMetalHelloTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA302719325C00D19F38 /* FMMetalHelloTriangle.m */; };
 		E4BBFA33271935DB00D19F38 /* FMHelloTriangleShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4BBFA32271935DB00D19F38 /* FMHelloTriangleShaders.metal */; };
+		E4E15889287D5806008A2080 /* ProcessTextureWithComputeFuncVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E15888287D5806008A2080 /* ProcessTextureWithComputeFuncVC.m */; };
+		E4E1588C287D5A66008A2080 /* AAPLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E1588A287D5A65008A2080 /* AAPLImage.m */; };
+		E4E1588E287D6D08008A2080 /* processTexture.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4E1588D287D6D08008A2080 /* processTexture.metal */; };
+		E4E15890287E6075008A2080 /* Image.tga in Resources */ = {isa = PBXBuildFile; fileRef = E4E1588F287E6075008A2080 /* Image.tga */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +89,12 @@
 		E4BBFA2F2719325C00D19F38 /* FMMetalHelloTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMMetalHelloTriangle.h; sourceTree = "<group>"; };
 		E4BBFA302719325C00D19F38 /* FMMetalHelloTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMMetalHelloTriangle.m; sourceTree = "<group>"; };
 		E4BBFA32271935DB00D19F38 /* FMHelloTriangleShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = FMHelloTriangleShaders.metal; sourceTree = "<group>"; };
+		E4E15887287D5806008A2080 /* ProcessTextureWithComputeFuncVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessTextureWithComputeFuncVC.h; sourceTree = "<group>"; };
+		E4E15888287D5806008A2080 /* ProcessTextureWithComputeFuncVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessTextureWithComputeFuncVC.m; sourceTree = "<group>"; };
+		E4E1588A287D5A65008A2080 /* AAPLImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLImage.m; sourceTree = "<group>"; };
+		E4E1588B287D5A65008A2080 /* AAPLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLImage.h; sourceTree = "<group>"; };
+		E4E1588D287D6D08008A2080 /* processTexture.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = processTexture.metal; sourceTree = "<group>"; };
+		E4E1588F287E6075008A2080 /* Image.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = Image.tga; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +215,7 @@
 				E4A853702874495800AA55B3 /* Lession3(绘制三角形) */,
 				E4A85377287685FD00AA55B3 /* Lession4(自定义渲染通道设置) */,
 				E4A8537D2876C24200AA55B3 /* Lession5(自定义MetalView) */,
+				E4E15886287D57D4008A2080 /* Lession6(使用计算函数处理纹理) */,
 				8891F28D271BF62B007BC056 /* Camera */,
 				E4BBFA2E2719323300D19F38 /* HelloTriangle */,
 				E4BBFA272716DA4400D19F38 /* Texture */,
@@ -245,6 +256,19 @@
 				E4BBFA32271935DB00D19F38 /* FMHelloTriangleShaders.metal */,
 			);
 			path = HelloTriangle;
+			sourceTree = "<group>";
+		};
+		E4E15886287D57D4008A2080 /* Lession6(使用计算函数处理纹理) */ = {
+			isa = PBXGroup;
+			children = (
+				E4E1588F287E6075008A2080 /* Image.tga */,
+				E4E15887287D5806008A2080 /* ProcessTextureWithComputeFuncVC.h */,
+				E4E15888287D5806008A2080 /* ProcessTextureWithComputeFuncVC.m */,
+				E4E1588B287D5A65008A2080 /* AAPLImage.h */,
+				E4E1588A287D5A65008A2080 /* AAPLImage.m */,
+				E4E1588D287D6D08008A2080 /* processTexture.metal */,
+			);
+			path = "Lession6(使用计算函数处理纹理)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4E15890287E6075008A2080 /* Image.tga in Resources */,
 				E4BBFA252716DA2700D19F38 /* 1.jpeg in Resources */,
 				E4363ECA2715766200AEB692 /* LaunchScreen.storyboard in Resources */,
 				E4BBFA1B2716CBDB00D19F38 /* 3.jpeg in Resources */,
@@ -321,9 +346,11 @@
 				E4A8537C28768FE900AA55B3 /* CustomRenderPass.metal in Sources */,
 				E4A8537528757F4700AA55B3 /* Triangle.metal in Sources */,
 				E4363EC22715765B00AEB692 /* ViewController.m in Sources */,
+				E4E1588E287D6D08008A2080 /* processTexture.metal in Sources */,
 				E4A8537A2876863800AA55B3 /* CustomRenderPassVC.m in Sources */,
 				E4A8536B2873F45500AA55B3 /* add.metal in Sources */,
 				E4BBFA33271935DB00D19F38 /* FMHelloTriangleShaders.metal in Sources */,
+				E4E15889287D5806008A2080 /* ProcessTextureWithComputeFuncVC.m in Sources */,
 				E48F85832877DCB600B21F76 /* CustomMTKView.metal in Sources */,
 				8891F298271C2403007BC056 /* CameraMetal.metal in Sources */,
 				E48F857E2877CA3300B21F76 /* CustomMTKView.m in Sources */,
@@ -337,6 +364,7 @@
 				E48F85812877D80A00B21F76 /* CustomRenderer.m in Sources */,
 				E4363ECD2715766200AEB692 /* main.m in Sources */,
 				E4A8537328744A1400AA55B3 /* RenderTriangleVC.m in Sources */,
+				E4E1588C287D5A66008A2080 /* AAPLImage.m in Sources */,
 				E4A853802876C27000AA55B3 /* CustomMetalViewVC.m in Sources */,
 				E4BBFA192716CA3000D19F38 /* FMMetalTextureView.m in Sources */,
 				E4BBFA292716DC6800D19F38 /* FMTextureShaders.metal in Sources */,

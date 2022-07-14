@@ -15,6 +15,7 @@
 #import "RenderTriangleVC.h"
 #import "CustomRenderPassVC.h"
 #import "CustomMetalViewVC.h"
+#import "ProcessTextureWithComputeFuncVC.h"
 
 @interface ViewController () {
     FMMetalTriangleView *triangleView;
@@ -67,7 +68,12 @@
 //    [self presentViewController:vc animated:YES completion:nil];
 
     // 5、自定义MTKView
-    CustomMetalViewVC *vc = [[CustomMetalViewVC alloc] init];
+//    CustomMetalViewVC *vc = [[CustomMetalViewVC alloc] init];
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:vc animated:YES completion:nil];
+    
+    // 6、使用计算函数处理纹理
+    ProcessTextureWithComputeFuncVC *vc = [[ProcessTextureWithComputeFuncVC alloc] init];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 

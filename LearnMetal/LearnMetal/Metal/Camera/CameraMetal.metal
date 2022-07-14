@@ -34,5 +34,4 @@ fragment float4 cameraFrag(VextexOut in [[ stage_in ]],
     constexpr sampler textureSampler (mag_filter::linear, min_filter::linear);
     const half4 colorSample = colorTexture.sample(textureSampler, in.textureCoordinate);
     return float4(colorSample);
-
 }

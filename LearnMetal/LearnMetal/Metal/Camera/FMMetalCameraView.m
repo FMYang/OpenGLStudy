@@ -124,7 +124,6 @@
     [commandBuffer commit];
 }
 
-// 通过MTKTextureLoader加载纹理
 - (id<MTLTexture>)loadTexture:(CVPixelBufferRef)pixcelBuffer {
     CVMetalTextureRef tmpTexture = NULL;
     CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
