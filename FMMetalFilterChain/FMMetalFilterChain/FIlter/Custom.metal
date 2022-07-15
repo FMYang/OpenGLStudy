@@ -26,8 +26,6 @@ fragment float4 customFragmentShader(VextexOut in [[ stage_in ]],
                            texture2d<half> inputTexture [[ texture(0) ]],
                            texture2d<half> ouputTexture [[ texture(1) ]]) {
     constexpr sampler textureSampler (mag_filter::linear, min_filter::linear);
-    float r = inputTexture.sample(textureSampler, in.textureCoordinate).r;
-    float g = inputTexture.sample(textureSampler, in.textureCoordinate).g;
-    float b = inputTexture.sample(textureSampler, in.textureCoordinate).b;
-    return float4(1 - r, 1 - g, 1 - b, 1.0);
+    half4 color = inputTexture.sample(textureSampler, in.textureCoordinate);
+    return float4(1 - color.r, 1 - color.g, 1 - color.b, 1.0);
 }

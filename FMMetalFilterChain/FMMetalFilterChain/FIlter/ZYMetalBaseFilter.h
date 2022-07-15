@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZYMetalBaseFilter : NSObject <ZYMetalProcessing>
 
+@property (nonatomic) CVPixelBufferRef outputPixelBuffer;
+
 - (instancetype)initWithMetalRenderCommand:(id<ZYMetalFilterRenderCommand>)metalRenderCommand;
 
 @end

@@ -16,10 +16,8 @@ struct VextexOut {
 fragment float4 grayFragmentShader(VextexOut in [[ stage_in ]],
                            texture2d<half> inputTexture [[ texture(0) ]]) {
     constexpr sampler textureSampler (mag_filter::linear, min_filter::linear);
-    float r = inputTexture.sample(textureSampler, in.textureCoordinate).r;
-    float g = inputTexture.sample(textureSampler, in.textureCoordinate).g;
-    float b = inputTexture.sample(textureSampler, in.textureCoordinate).b;
-    float average = (r + g + b) / 3.0;
+    half4 color = inputTexture.sample(textureSampler, in.textureCoordinate);
+    float average = (color.r + color.g + color.b) / 3.0;
     return float4(average, average, average, 1.0);
 }
 

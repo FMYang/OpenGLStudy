@@ -36,7 +36,7 @@
     [commandEncoder setFragmentTexture:outputTexture atIndex:0];
 
     [commandEncoder drawPrimitives:MTLPrimitiveTypeTriangleStrip vertexStart:0 vertexCount:4];
-    
+
     return commandEncoder;
 }
 

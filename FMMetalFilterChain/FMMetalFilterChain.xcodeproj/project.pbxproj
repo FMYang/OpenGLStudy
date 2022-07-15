@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4318E8F288144D80002FAC1 /* ZYProCameraMovieRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318E8E288144D80002FAC1 /* ZYProCameraMovieRecorder.m */; };
 		E4E158A0287EAE28008A2080 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E1589F287EAE28008A2080 /* AppDelegate.m */; };
 		E4E158A6287EAE28008A2080 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E158A5287EAE28008A2080 /* ViewController.m */; };
 		E4E158A9287EAE28008A2080 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4E158A7287EAE28008A2080 /* Main.storyboard */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E4318E8D288144D80002FAC1 /* ZYProCameraMovieRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYProCameraMovieRecorder.h; path = ../../../FMMultiCamera/FMMultiCamera/Source/ZYProCameraMovieRecorder.h; sourceTree = "<group>"; };
+		E4318E8E288144D80002FAC1 /* ZYProCameraMovieRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYProCameraMovieRecorder.m; path = ../../../FMMultiCamera/FMMultiCamera/Source/ZYProCameraMovieRecorder.m; sourceTree = "<group>"; };
 		E4E1589B287EAE28008A2080 /* FMMetalFilterChain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMMetalFilterChain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4E1589E287EAE28008A2080 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4E1589F287EAE28008A2080 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -65,6 +68,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E4318E8C288144AA0002FAC1 /* MovieRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				E4318E8D288144D80002FAC1 /* ZYProCameraMovieRecorder.h */,
+				E4318E8E288144D80002FAC1 /* ZYProCameraMovieRecorder.m */,
+			);
+			path = MovieRecorder;
+			sourceTree = "<group>";
+		};
 		E4E15892287EAE28008A2080 = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +96,7 @@
 		E4E1589D287EAE28008A2080 /* FMMetalFilterChain */ = {
 			isa = PBXGroup;
 			children = (
+				E4318E8C288144AA0002FAC1 /* MovieRecorder */,
 				E4E158B7287EAE5A008A2080 /* FIlter */,
 				E4E158C4287ECBB0008A2080 /* FMMetalCameraView.h */,
 				E4E158C3287ECBB0008A2080 /* FMMetalCameraView.m */,
@@ -199,6 +212,7 @@
 				E4E75CA5287FC3DA00738B89 /* ZYMetalGrayFilter.m in Sources */,
 				E4E158BA287EAE71008A2080 /* ZYMetalBaseFilter.m in Sources */,
 				E4E75CA0287FBCDD00738B89 /* ZYMPSFilter.m in Sources */,
+				E4318E8F288144D80002FAC1 /* ZYProCameraMovieRecorder.m in Sources */,
 				E4E158BD287EC0A9008A2080 /* ZYCustomFilter.m in Sources */,
 				E4E158A0287EAE28008A2080 /* AppDelegate.m in Sources */,
 				E4E158C7287ECBE6008A2080 /* Camera.metal in Sources */,

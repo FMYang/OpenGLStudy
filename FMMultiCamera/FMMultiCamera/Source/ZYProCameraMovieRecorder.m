@@ -326,7 +326,7 @@ static NSUInteger uniqueId = 1;
                                                          outputSettings:videoSettings
                                                        sourceFormatHint:videoFormatDescription];
         self.videoInput.expectsMediaDataInRealTime = YES;
-//        self.videoInput.transform = transform;
+        self.videoInput.transform = transform;
                 
         if([self.assetWritter canAddInput:self.videoInput]) {
             [self.assetWritter addInput:self.videoInput];

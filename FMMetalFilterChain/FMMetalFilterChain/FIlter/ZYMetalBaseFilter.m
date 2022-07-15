@@ -15,7 +15,6 @@
 @property (nonatomic, readonly) id<MTLFunction> function;
 @property (nonatomic, readonly) id<MTLRenderPipelineState> renderPipelineState;
 @property (nonatomic) CVMetalTextureRef outputTexture;
-@property (nonatomic) CVPixelBufferRef outputPixelBuffer;
 
 @end
 
