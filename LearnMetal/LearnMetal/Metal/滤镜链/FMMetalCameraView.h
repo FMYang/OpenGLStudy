@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FMMetalCameraView : MTKView
 
-- (void)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer;
+- (void)renderPixelBuffer:(id<MTLTexture>)inputTexture;
 
 @end
 

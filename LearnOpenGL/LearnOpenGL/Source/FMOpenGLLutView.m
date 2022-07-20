@@ -248,7 +248,7 @@ NSString *const lutFragmentShaderSource = SHADER_STRING(
     glEnableVertexAttribArray(glGetAttribLocation(self.program, "position"));
     glVertexAttribPointer(glGetAttribLocation(self.program, "position"), 3, GL_FLOAT, GL_FALSE, 0, vertices);
     
-    glVertexAttribPointer(glGetAttribLocation(self.program, "a_texCoordIn"), 2, GL_FLOAT, GL_FALSE, 0, coords);
+    glVertexAttribPointer(glGetAttribLocation(self.program, "a_texCoordIn"), 2, GL_FLOAT, GL_FALSE, 0, rotateYCoords);
     glEnableVertexAttribArray(glGetAttribLocation(self.program, "a_texCoordIn"));
     
     // 原始图片纹理

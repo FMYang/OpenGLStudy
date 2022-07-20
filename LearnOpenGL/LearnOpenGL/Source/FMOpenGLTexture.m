@@ -118,7 +118,7 @@ NSString *const textureFragmentShaderSource = SHADER_STRING(
 }
 
 - (void)genTexture {
-    UIImage *img = [UIImage imageNamed:@"1.jpeg"];
+    UIImage *img = [UIImage imageNamed:@"2.jpeg"];
     
     CGImageRef imageRef = img.CGImage;
     

@@ -1,11 +1,11 @@
 //
-//  ViewController.m
+//  FilterChainVC.m
 //  FMMetalFilterChain
 //
 //  Created by yfm on 2022/7/13.
 //
 
-#import "ViewController.h"
+#import "FilterChainVC.h"
 #import <AVFoundation/AVFoundation.h>
 #import "FMMetalCameraView.h"
 
@@ -18,7 +18,7 @@
 #import "ZYProCameraMovieRecorder.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ViewController () <AVCaptureVideoDataOutputSampleBufferDelegate, ZYProCameraMovieRecorderDelegate>
+@interface FilterChainVC () <AVCaptureVideoDataOutputSampleBufferDelegate, ZYProCameraMovieRecorderDelegate>
 @property (nonatomic) AVCaptureSession *session;
 @property (nonatomic) AVCaptureDevice *videoDevice;
 @property (nonatomic) AVCaptureInput *videoDeviceInput;
@@ -50,7 +50,7 @@
 
 @end
 
-@implementation ViewController
+@implementation FilterChainVC
 
 - (instancetype)init {
     if(self = [super init]) {
@@ -144,7 +144,6 @@
         id<MTLTexture> mtlTexture = CVMetalTextureGetTexture(texture);
         id<MTLTexture> result1 = [self.reverseColorFilter render:mtlTexture];
         id<MTLTexture> result2 = [self.grayFilter render:result1];
-//        CVPixelBufferRef result1Ref = self.reverseColorFilter.outputPixelBuffer;
 //        id<MTLTexture> result3 = [self.mpsFilter render:result2];
         [self.metalView renderPixelBuffer:result2];
         

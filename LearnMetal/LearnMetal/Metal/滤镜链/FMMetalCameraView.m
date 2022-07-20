@@ -22,7 +22,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
         self.device = ZYMetalDevice.shared.device;
-
+        self.preferredFramesPerSecond = 120;
         self.framebufferOnly = NO;
         self.autoResizeDrawable = NO;
         

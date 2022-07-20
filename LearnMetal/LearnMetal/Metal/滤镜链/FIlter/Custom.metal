@@ -22,14 +22,6 @@ vertex VextexOut normalVertex(uint vertexID [[ vertex_id ]],
     return out;
 }
 
-fragment float4 normalFragmentShader(VextexOut in [[ stage_in ]],
-                           texture2d<half> inputTexture [[ texture(0) ]]) {
-    constexpr sampler textureSampler (mag_filter::linear, min_filter::linear);
-    half4 color = inputTexture.sample(textureSampler, in.textureCoordinate);
-    return float4(color);
-}
-
-
 fragment float4 customFragmentShader(VextexOut in [[ stage_in ]],
                            texture2d<half> inputTexture [[ texture(0) ]],
                            texture2d<half> ouputTexture [[ texture(1) ]]) {

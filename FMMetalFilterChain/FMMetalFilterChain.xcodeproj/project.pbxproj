@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		E4318E8F288144D80002FAC1 /* ZYProCameraMovieRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318E8E288144D80002FAC1 /* ZYProCameraMovieRecorder.m */; };
+		E4318EF928865AFF0002FAC1 /* ZYMetalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318EF828865AFF0002FAC1 /* ZYMetalContext.m */; };
+		E4318EFC28865B110002FAC1 /* ZYMetalFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318EFB28865B110002FAC1 /* ZYMetalFrameBuffer.m */; };
+		E4318EFF28865B1C0002FAC1 /* ZYMetalFrameBufferCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318EFE28865B1C0002FAC1 /* ZYMetalFrameBufferCache.m */; };
+		E4318F0228865B250002FAC1 /* ZYMetalOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318F0128865B250002FAC1 /* ZYMetalOutput.m */; };
+		E4D9313D2887DA6800C4B2C5 /* ZYMetalFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D9313C2887DA6800C4B2C5 /* ZYMetalFilter.m */; };
+		E4D931412887DD1400C4B2C5 /* FMMetalGPU1FilterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D931402887DD1400C4B2C5 /* FMMetalGPU1FilterVC.m */; };
+		E4D931442887E5FC00C4B2C5 /* FMMetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D931432887E5FC00C4B2C5 /* FMMetalView.m */; };
+		E4D931482887F38C00C4B2C5 /* ZYMetalGrayFilter1.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D931472887F38C00C4B2C5 /* ZYMetalGrayFilter1.m */; };
+		E4D9314A2887F3E600C4B2C5 /* GrayFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4D931492887F3E600C4B2C5 /* GrayFilter.metal */; };
+		E4D9314D2887FAB200C4B2C5 /* ZYMetalReverseColorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D9314C2887FAB200C4B2C5 /* ZYMetalReverseColorFilter.m */; };
+		E4D9314F2887FABF00C4B2C5 /* ReverseColor.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4D9314E2887FABF00C4B2C5 /* ReverseColor.metal */; };
 		E4E158A0287EAE28008A2080 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E1589F287EAE28008A2080 /* AppDelegate.m */; };
 		E4E158A6287EAE28008A2080 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E158A5287EAE28008A2080 /* ViewController.m */; };
 		E4E158A9287EAE28008A2080 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4E158A7287EAE28008A2080 /* Main.storyboard */; };
@@ -29,6 +40,26 @@
 /* Begin PBXFileReference section */
 		E4318E8D288144D80002FAC1 /* ZYProCameraMovieRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYProCameraMovieRecorder.h; path = ../../../FMMultiCamera/FMMultiCamera/Source/ZYProCameraMovieRecorder.h; sourceTree = "<group>"; };
 		E4318E8E288144D80002FAC1 /* ZYProCameraMovieRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYProCameraMovieRecorder.m; path = ../../../FMMultiCamera/FMMultiCamera/Source/ZYProCameraMovieRecorder.m; sourceTree = "<group>"; };
+		E4318EF728865AFF0002FAC1 /* ZYMetalContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalContext.h; sourceTree = "<group>"; };
+		E4318EF828865AFF0002FAC1 /* ZYMetalContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalContext.m; sourceTree = "<group>"; };
+		E4318EFA28865B110002FAC1 /* ZYMetalFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalFrameBuffer.h; sourceTree = "<group>"; };
+		E4318EFB28865B110002FAC1 /* ZYMetalFrameBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalFrameBuffer.m; sourceTree = "<group>"; };
+		E4318EFD28865B1C0002FAC1 /* ZYMetalFrameBufferCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalFrameBufferCache.h; sourceTree = "<group>"; };
+		E4318EFE28865B1C0002FAC1 /* ZYMetalFrameBufferCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalFrameBufferCache.m; sourceTree = "<group>"; };
+		E4318F0028865B250002FAC1 /* ZYMetalOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalOutput.h; sourceTree = "<group>"; };
+		E4318F0128865B250002FAC1 /* ZYMetalOutput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalOutput.m; sourceTree = "<group>"; };
+		E4D9313B2887DA6800C4B2C5 /* ZYMetalFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalFilter.h; sourceTree = "<group>"; };
+		E4D9313C2887DA6800C4B2C5 /* ZYMetalFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalFilter.m; sourceTree = "<group>"; };
+		E4D9313F2887DD1400C4B2C5 /* FMMetalGPU1FilterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMMetalGPU1FilterVC.h; sourceTree = "<group>"; };
+		E4D931402887DD1400C4B2C5 /* FMMetalGPU1FilterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMMetalGPU1FilterVC.m; sourceTree = "<group>"; };
+		E4D931422887E5FC00C4B2C5 /* FMMetalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMMetalView.h; sourceTree = "<group>"; };
+		E4D931432887E5FC00C4B2C5 /* FMMetalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMMetalView.m; sourceTree = "<group>"; };
+		E4D931462887F38C00C4B2C5 /* ZYMetalGrayFilter1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalGrayFilter1.h; sourceTree = "<group>"; };
+		E4D931472887F38C00C4B2C5 /* ZYMetalGrayFilter1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalGrayFilter1.m; sourceTree = "<group>"; };
+		E4D931492887F3E600C4B2C5 /* GrayFilter.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = GrayFilter.metal; sourceTree = "<group>"; };
+		E4D9314B2887FAB200C4B2C5 /* ZYMetalReverseColorFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalReverseColorFilter.h; sourceTree = "<group>"; };
+		E4D9314C2887FAB200C4B2C5 /* ZYMetalReverseColorFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalReverseColorFilter.m; sourceTree = "<group>"; };
+		E4D9314E2887FABF00C4B2C5 /* ReverseColor.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ReverseColor.metal; sourceTree = "<group>"; };
 		E4E1589B287EAE28008A2080 /* FMMetalFilterChain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMMetalFilterChain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4E1589E287EAE28008A2080 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4E1589F287EAE28008A2080 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -77,6 +108,48 @@
 			path = MovieRecorder;
 			sourceTree = "<group>";
 		};
+		E4318EEA288659E30002FAC1 /* filterChain_GPUImage1 */ = {
+			isa = PBXGroup;
+			children = (
+				E4D931452887F36500C4B2C5 /* Filter */,
+				E4318EF728865AFF0002FAC1 /* ZYMetalContext.h */,
+				E4318EF828865AFF0002FAC1 /* ZYMetalContext.m */,
+				E4318EFA28865B110002FAC1 /* ZYMetalFrameBuffer.h */,
+				E4318EFB28865B110002FAC1 /* ZYMetalFrameBuffer.m */,
+				E4318EFD28865B1C0002FAC1 /* ZYMetalFrameBufferCache.h */,
+				E4318EFE28865B1C0002FAC1 /* ZYMetalFrameBufferCache.m */,
+				E4318F0028865B250002FAC1 /* ZYMetalOutput.h */,
+				E4318F0128865B250002FAC1 /* ZYMetalOutput.m */,
+				E4D9313F2887DD1400C4B2C5 /* FMMetalGPU1FilterVC.h */,
+				E4D931402887DD1400C4B2C5 /* FMMetalGPU1FilterVC.m */,
+				E4D931422887E5FC00C4B2C5 /* FMMetalView.h */,
+				E4D931432887E5FC00C4B2C5 /* FMMetalView.m */,
+			);
+			path = filterChain_GPUImage1;
+			sourceTree = "<group>";
+		};
+		E4D931452887F36500C4B2C5 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				E4D9313B2887DA6800C4B2C5 /* ZYMetalFilter.h */,
+				E4D9313C2887DA6800C4B2C5 /* ZYMetalFilter.m */,
+				E4D931462887F38C00C4B2C5 /* ZYMetalGrayFilter1.h */,
+				E4D931472887F38C00C4B2C5 /* ZYMetalGrayFilter1.m */,
+				E4D931492887F3E600C4B2C5 /* GrayFilter.metal */,
+				E4D9314B2887FAB200C4B2C5 /* ZYMetalReverseColorFilter.h */,
+				E4D9314C2887FAB200C4B2C5 /* ZYMetalReverseColorFilter.m */,
+				E4D9314E2887FABF00C4B2C5 /* ReverseColor.metal */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		E4D93150288803E700C4B2C5 /* filterChain_GPUImage3 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = filterChain_GPUImage3;
+			sourceTree = "<group>";
+		};
 		E4E15892287EAE28008A2080 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +169,8 @@
 		E4E1589D287EAE28008A2080 /* FMMetalFilterChain */ = {
 			isa = PBXGroup;
 			children = (
+				E4D93150288803E700C4B2C5 /* filterChain_GPUImage3 */,
+				E4318EEA288659E30002FAC1 /* filterChain_GPUImage1 */,
 				E4318E8C288144AA0002FAC1 /* MovieRecorder */,
 				E4E158B7287EAE5A008A2080 /* FIlter */,
 				E4E158C4287ECBB0008A2080 /* FMMetalCameraView.h */,
@@ -205,18 +280,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4E158C5287ECBB0008A2080 /* FMMetalCameraView.m in Sources */,
+				E4D9314F2887FABF00C4B2C5 /* ReverseColor.metal in Sources */,
+				E4318F0228865B250002FAC1 /* ZYMetalOutput.m in Sources */,
 				E4E158BF287EC34B008A2080 /* Custom.metal in Sources */,
 				E4E75CA2287FBCF500738B89 /* Blur.metal in Sources */,
 				E4E75CB0287FFBB200738B89 /* ZYMetalDevice.m in Sources */,
+				E4D931442887E5FC00C4B2C5 /* FMMetalView.m in Sources */,
+				E4D9313D2887DA6800C4B2C5 /* ZYMetalFilter.m in Sources */,
 				E4E158A6287EAE28008A2080 /* ViewController.m in Sources */,
+				E4318EF928865AFF0002FAC1 /* ZYMetalContext.m in Sources */,
 				E4E75CA5287FC3DA00738B89 /* ZYMetalGrayFilter.m in Sources */,
 				E4E158BA287EAE71008A2080 /* ZYMetalBaseFilter.m in Sources */,
 				E4E75CA0287FBCDD00738B89 /* ZYMPSFilter.m in Sources */,
 				E4318E8F288144D80002FAC1 /* ZYProCameraMovieRecorder.m in Sources */,
+				E4D9314D2887FAB200C4B2C5 /* ZYMetalReverseColorFilter.m in Sources */,
+				E4318EFC28865B110002FAC1 /* ZYMetalFrameBuffer.m in Sources */,
 				E4E158BD287EC0A9008A2080 /* ZYCustomFilter.m in Sources */,
+				E4D9314A2887F3E600C4B2C5 /* GrayFilter.metal in Sources */,
+				E4D931482887F38C00C4B2C5 /* ZYMetalGrayFilter1.m in Sources */,
+				E4D931412887DD1400C4B2C5 /* FMMetalGPU1FilterVC.m in Sources */,
 				E4E158A0287EAE28008A2080 /* AppDelegate.m in Sources */,
 				E4E158C7287ECBE6008A2080 /* Camera.metal in Sources */,
 				E4E75CA7287FC3E600738B89 /* Gray.metal in Sources */,
+				E4318EFF28865B1C0002FAC1 /* ZYMetalFrameBufferCache.m in Sources */,
 				E4E158B1287EAE2F008A2080 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

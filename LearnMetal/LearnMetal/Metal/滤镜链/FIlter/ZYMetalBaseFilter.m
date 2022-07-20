@@ -9,6 +9,7 @@
 
 @interface ZYMetalBaseFilter() {
     dispatch_semaphore_t frameRenderingSemaphore;
+    id<MTLTexture> currentTexture;
 }
 
 @property (nonatomic, readonly) id<MTLFunction> function;
@@ -46,24 +47,28 @@
 
 #pragma mark - processing
 - (id<MTLTexture>)render:(id<MTLTexture>)inputTexture {
+    currentTexture = inputTexture;
+    
     id<MTLRenderPipelineState> pipelineState = self.renderPipelineState;
-    if(!pipelineState) return inputTexture;
+    if(!pipelineState) return currentTexture;
     
     CVMetalTextureCacheRef textureCacheRef = ZYMetalDevice.shared.textureCache;
-    if(!textureCacheRef) return inputTexture;
+    if(!textureCacheRef) return currentTexture;
     
     id<MTLCommandQueue> commandQueue = ZYMetalDevice.shared.commandQueue;
-    if(!commandQueue) return inputTexture;
+    if(!commandQueue) return currentTexture;
         
     id<MTLCommandBuffer> commandBuffer = [commandQueue commandBuffer];
     NSAssert(_metalRenderCommand, @"Metal module must be initialized with an ZYMetalRenderCommand");
     
-    id<MTLRenderCommandEncoder> renderCommandEncoder = [_metalRenderCommand encodeMetalCommand:commandBuffer pipelineState:pipelineState inputTexture:inputTexture outputTexture:CVMetalTextureGetTexture(_outputTexture) device:ZYMetalDevice.shared.device];
+    id<MTLRenderCommandEncoder> renderCommandEncoder = [_metalRenderCommand encodeMetalCommand:commandBuffer pipelineState:pipelineState inputTexture:currentTexture outputTexture:CVMetalTextureGetTexture(_outputTexture) device:ZYMetalDevice.shared.device];
     
     [renderCommandEncoder endEncoding];
     [commandBuffer commit];
     [commandBuffer waitUntilCompleted];
-        
+    
+    currentTexture = nil;
+    
     return CVMetalTextureGetTexture(_outputTexture);
 }
 

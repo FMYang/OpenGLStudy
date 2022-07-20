@@ -85,7 +85,7 @@ NSString *const multiTextureFragmentShaderSource = SHADER_STRING(
     glEnableVertexAttribArray(texLoc);
     glVertexAttribPointer(texLoc, 2, GL_FLOAT, 0, 0, textureCoord);
 
-    GLuint texture1 = [self genTexture:@"1.jpeg" index:1];
+    GLuint texture1 = [self genTexture:@"4.jpeg" index:1];
     GLuint texture2 = [self genTexture:@"2.jpeg" index:2];
 
     glActiveTexture(GL_TEXTURE1);

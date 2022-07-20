@@ -1,27 +1,23 @@
 //
-//  FMMetalCameraView.m
-//  LearnMetal
+//  FMMetalView.m
+//  FMMetalFilterChain
 //
-//  Created by yfm on 2021/10/17.
+//  Created by yfm on 2022/7/20.
 //
 
-#import "FMMetalCameraView.h"
-#import <Metal/Metal.h>
-#import <MetalKit/MetalKit.h>
-#import "ZYMetalDevice.h"
+#import "FMMetalView.h"
 
-@interface FMMetalCameraView() {
+@interface FMMetalView() {
     id<MTLRenderPipelineState> _pipelineState;
     id<MTLTexture> renderTexture;
 }
-
 @end
 
-@implementation FMMetalCameraView
+@implementation FMMetalView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
-        self.device = ZYMetalDevice.shared.device;
+        self.device = ZYMetalContext.shared.device;
 
         self.framebufferOnly = NO;
         self.autoResizeDrawable = NO;
@@ -29,8 +25,8 @@
         self.paused = YES;
         self.enableSetNeedsDisplay = NO;
                 
-        id<MTLFunction> vextexFunction = [ZYMetalDevice.shared.library newFunctionWithName:@"cameraVertex"];
-        id<MTLFunction> fragmentFunction = [ZYMetalDevice.shared.library newFunctionWithName:@"cameraFrag"];
+        id<MTLFunction> vextexFunction = [ZYMetalContext.shared.library newFunctionWithName:@"cameraVertex"];
+        id<MTLFunction> fragmentFunction = [ZYMetalContext.shared.library newFunctionWithName:@"cameraFrag"];
         
         MTLRenderPipelineDescriptor *pipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
         pipelineStateDescriptor.vertexFunction = vextexFunction;
@@ -46,15 +42,9 @@
     return self;
 }
 
-- (void)renderPixelBuffer:(id<MTLTexture>)inputTexture {
-    self.drawableSize = CGSizeMake(inputTexture.width, inputTexture.height);
-    renderTexture = inputTexture;
-    [self draw];
-}
-
 - (void)drawRect:(CGRect)rect {
     if(!self.currentDrawable || !renderTexture) return;
-    id<MTLCommandBuffer> commandBuffer = [ZYMetalDevice.shared.commandQueue commandBuffer];
+    id<MTLCommandBuffer> commandBuffer = [ZYMetalContext.shared.commandQueue commandBuffer];
 
     MTLRenderPassDescriptor *renderPassDescriptor = [[MTLRenderPassDescriptor alloc] init];
     renderPassDescriptor.colorAttachments[0].texture = self.currentDrawable.texture;
@@ -69,8 +59,6 @@
     id<MTLBuffer> positionBuffer = [self.device newBufferWithBytes:normalVertices length:sizeof(normalVertices) options:MTLResourceStorageModeShared];
     id<MTLBuffer> texCoordinateBuffer = [self.device newBufferWithBytes:rotateCounterclockwiseCoordinates length:sizeof(rotateCounterclockwiseCoordinates) options:MTLResourceStorageModeShared];
 
-//    // 正面图元的缠绕规则，三角形是顺时针还是逆时针绘制
-//    [renderEncoder setFrontFacingWinding:MTLWindingClockwise];
     [renderEncoder setRenderPipelineState:_pipelineState];
 
     [renderEncoder setVertexBuffer:positionBuffer offset:0 atIndex:0];
@@ -85,6 +73,16 @@
     [commandBuffer presentDrawable:self.currentDrawable];
 
     [commandBuffer commit];
+}
+
+#pragma mark -
+- (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex {
+    self.drawableSize = CGSizeMake(renderTexture.width, renderTexture.height);
+    [self draw];
+}
+
+- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer atIndex:(NSInteger)textureIndex {
+    renderTexture = newInputFramebuffer.texture;
 }
 
 @end

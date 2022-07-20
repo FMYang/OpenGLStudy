@@ -7,9 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8891F290271BF644007BC056 /* FMCameraVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8891F28F271BF644007BC056 /* FMCameraVC.m */; };
-		8891F295271BFA0F007BC056 /* FMMetalCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8891F294271BFA0F007BC056 /* FMMetalCameraView.m */; };
-		8891F298271C2403007BC056 /* CameraMetal.metal in Sources */ = {isa = PBXBuildFile; fileRef = 8891F297271C2403007BC056 /* CameraMetal.metal */; };
+		E4318EA4288643AC0002FAC1 /* FilterChainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318E91288643AB0002FAC1 /* FilterChainVC.m */; };
+		E4318EDE288648470002FAC1 /* ZYProCameraMovieRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318ECB288648460002FAC1 /* ZYProCameraMovieRecorder.m */; };
+		E4318EDF288648470002FAC1 /* Camera.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4318ECC288648460002FAC1 /* Camera.metal */; };
+		E4318EE0288648470002FAC1 /* ZYCustomFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318ED0288648460002FAC1 /* ZYCustomFilter.m */; };
+		E4318EE1288648470002FAC1 /* Blur.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4318ED3288648460002FAC1 /* Blur.metal */; };
+		E4318EE2288648470002FAC1 /* Gray.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4318ED4288648460002FAC1 /* Gray.metal */; };
+		E4318EE3288648470002FAC1 /* ZYMetalDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318ED5288648460002FAC1 /* ZYMetalDevice.m */; };
+		E4318EE4288648470002FAC1 /* ZYMetalBaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318ED6288648460002FAC1 /* ZYMetalBaseFilter.m */; };
+		E4318EE5288648470002FAC1 /* ZYMPSFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318ED7288648460002FAC1 /* ZYMPSFilter.m */; };
+		E4318EE6288648470002FAC1 /* ZYMetalGrayFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318ED9288648460002FAC1 /* ZYMetalGrayFilter.m */; };
+		E4318EE7288648470002FAC1 /* Custom.metal in Sources */ = {isa = PBXBuildFile; fileRef = E4318EDA288648460002FAC1 /* Custom.metal */; };
+		E4318EE8288648470002FAC1 /* FMMetalCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318EDD288648460002FAC1 /* FMMetalCameraView.m */; };
 		E4363EBC2715765B00AEB692 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4363EBB2715765B00AEB692 /* AppDelegate.m */; };
 		E4363EC22715765B00AEB692 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4363EC12715765B00AEB692 /* ViewController.m */; };
 		E4363EC52715765B00AEB692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4363EC32715765B00AEB692 /* Main.storyboard */; };
@@ -42,11 +51,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8891F28E271BF644007BC056 /* FMCameraVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMCameraVC.h; sourceTree = "<group>"; };
-		8891F28F271BF644007BC056 /* FMCameraVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMCameraVC.m; sourceTree = "<group>"; };
-		8891F293271BFA0F007BC056 /* FMMetalCameraView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMMetalCameraView.h; sourceTree = "<group>"; };
-		8891F294271BFA0F007BC056 /* FMMetalCameraView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMMetalCameraView.m; sourceTree = "<group>"; };
-		8891F297271C2403007BC056 /* CameraMetal.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CameraMetal.metal; sourceTree = "<group>"; };
+		E4318E91288643AB0002FAC1 /* FilterChainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterChainVC.m; sourceTree = "<group>"; };
+		E4318EA1288643AC0002FAC1 /* FilterChainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterChainVC.h; sourceTree = "<group>"; };
+		E4318ECB288648460002FAC1 /* ZYProCameraMovieRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYProCameraMovieRecorder.m; sourceTree = "<group>"; };
+		E4318ECC288648460002FAC1 /* Camera.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Camera.metal; sourceTree = "<group>"; };
+		E4318ECE288648460002FAC1 /* ZYMetalBaseFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMetalBaseFilter.h; sourceTree = "<group>"; };
+		E4318ECF288648460002FAC1 /* ZYMetalDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMetalDevice.h; sourceTree = "<group>"; };
+		E4318ED0288648460002FAC1 /* ZYCustomFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomFilter.m; sourceTree = "<group>"; };
+		E4318ED1288648460002FAC1 /* ZYMPSFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMPSFilter.h; sourceTree = "<group>"; };
+		E4318ED2288648460002FAC1 /* ZYMetalGrayFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMetalGrayFilter.h; sourceTree = "<group>"; };
+		E4318ED3288648460002FAC1 /* Blur.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Blur.metal; sourceTree = "<group>"; };
+		E4318ED4288648460002FAC1 /* Gray.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Gray.metal; sourceTree = "<group>"; };
+		E4318ED5288648460002FAC1 /* ZYMetalDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMetalDevice.m; sourceTree = "<group>"; };
+		E4318ED6288648460002FAC1 /* ZYMetalBaseFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMetalBaseFilter.m; sourceTree = "<group>"; };
+		E4318ED7288648460002FAC1 /* ZYMPSFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMPSFilter.m; sourceTree = "<group>"; };
+		E4318ED8288648460002FAC1 /* ZYCustomFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomFilter.h; sourceTree = "<group>"; };
+		E4318ED9288648460002FAC1 /* ZYMetalGrayFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMetalGrayFilter.m; sourceTree = "<group>"; };
+		E4318EDA288648460002FAC1 /* Custom.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Custom.metal; sourceTree = "<group>"; };
+		E4318EDB288648460002FAC1 /* FMMetalCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMMetalCameraView.h; sourceTree = "<group>"; };
+		E4318EDC288648460002FAC1 /* ZYProCameraMovieRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYProCameraMovieRecorder.h; sourceTree = "<group>"; };
+		E4318EDD288648460002FAC1 /* FMMetalCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMMetalCameraView.m; sourceTree = "<group>"; };
 		E4363EB72715765B00AEB692 /* LearnMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4363EBA2715765B00AEB692 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4363EBB2715765B00AEB692 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -62,7 +86,6 @@
 		E48F857F2877D80900B21F76 /* CustomRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRenderer.h; sourceTree = "<group>"; };
 		E48F85802877D80900B21F76 /* CustomRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRenderer.m; sourceTree = "<group>"; };
 		E48F85822877DCB600B21F76 /* CustomMTKView.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CustomMTKView.metal; sourceTree = "<group>"; };
-		E4A853652872806F00AA55B3 /* CameraShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraShaderTypes.h; sourceTree = "<group>"; };
 		E4A853672873EF8700AA55B3 /* GPUCalculationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUCalculationVC.h; sourceTree = "<group>"; };
 		E4A853682873EF8700AA55B3 /* GPUCalculationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUCalculationVC.m; sourceTree = "<group>"; };
 		E4A8536A2873F45500AA55B3 /* add.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = add.metal; sourceTree = "<group>"; };
@@ -108,17 +131,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8891F28D271BF62B007BC056 /* Camera */ = {
+		E4318E902886432A0002FAC1 /* 滤镜链 */ = {
 			isa = PBXGroup;
 			children = (
-				8891F28E271BF644007BC056 /* FMCameraVC.h */,
-				8891F28F271BF644007BC056 /* FMCameraVC.m */,
-				8891F293271BFA0F007BC056 /* FMMetalCameraView.h */,
-				8891F294271BFA0F007BC056 /* FMMetalCameraView.m */,
-				8891F297271C2403007BC056 /* CameraMetal.metal */,
-				E4A853652872806F00AA55B3 /* CameraShaderTypes.h */,
+				E4318ECC288648460002FAC1 /* Camera.metal */,
+				E4318ECD288648460002FAC1 /* FIlter */,
+				E4318EDB288648460002FAC1 /* FMMetalCameraView.h */,
+				E4318EDD288648460002FAC1 /* FMMetalCameraView.m */,
+				E4318EDC288648460002FAC1 /* ZYProCameraMovieRecorder.h */,
+				E4318ECB288648460002FAC1 /* ZYProCameraMovieRecorder.m */,
+				E4318EA1288643AC0002FAC1 /* FilterChainVC.h */,
+				E4318E91288643AB0002FAC1 /* FilterChainVC.m */,
 			);
-			path = Camera;
+			path = "滤镜链";
+			sourceTree = "<group>";
+		};
+		E4318ECD288648460002FAC1 /* FIlter */ = {
+			isa = PBXGroup;
+			children = (
+				E4318ED3288648460002FAC1 /* Blur.metal */,
+				E4318EDA288648460002FAC1 /* Custom.metal */,
+				E4318ED4288648460002FAC1 /* Gray.metal */,
+				E4318ED8288648460002FAC1 /* ZYCustomFilter.h */,
+				E4318ED0288648460002FAC1 /* ZYCustomFilter.m */,
+				E4318ECE288648460002FAC1 /* ZYMetalBaseFilter.h */,
+				E4318ED6288648460002FAC1 /* ZYMetalBaseFilter.m */,
+				E4318ECF288648460002FAC1 /* ZYMetalDevice.h */,
+				E4318ED5288648460002FAC1 /* ZYMetalDevice.m */,
+				E4318ED2288648460002FAC1 /* ZYMetalGrayFilter.h */,
+				E4318ED9288648460002FAC1 /* ZYMetalGrayFilter.m */,
+				E4318ED1288648460002FAC1 /* ZYMPSFilter.h */,
+				E4318ED7288648460002FAC1 /* ZYMPSFilter.m */,
+			);
+			path = FIlter;
 			sourceTree = "<group>";
 		};
 		E4363EAE2715765B00AEB692 = {
@@ -216,7 +261,7 @@
 				E4A85377287685FD00AA55B3 /* Lession4(自定义渲染通道设置) */,
 				E4A8537D2876C24200AA55B3 /* Lession5(自定义MetalView) */,
 				E4E15886287D57D4008A2080 /* Lession6(使用计算函数处理纹理) */,
-				8891F28D271BF62B007BC056 /* Camera */,
+				E4318E902886432A0002FAC1 /* 滤镜链 */,
 				E4BBFA2E2719323300D19F38 /* HelloTriangle */,
 				E4BBFA272716DA4400D19F38 /* Texture */,
 				E4BBFA262716DA3600D19F38 /* Triangle */,
@@ -344,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4A8537C28768FE900AA55B3 /* CustomRenderPass.metal in Sources */,
+				E4318EDE288648470002FAC1 /* ZYProCameraMovieRecorder.m in Sources */,
 				E4A8537528757F4700AA55B3 /* Triangle.metal in Sources */,
 				E4363EC22715765B00AEB692 /* ViewController.m in Sources */,
 				E4E1588E287D6D08008A2080 /* processTexture.metal in Sources */,
@@ -352,16 +398,24 @@
 				E4BBFA33271935DB00D19F38 /* FMHelloTriangleShaders.metal in Sources */,
 				E4E15889287D5806008A2080 /* ProcessTextureWithComputeFuncVC.m in Sources */,
 				E48F85832877DCB600B21F76 /* CustomMTKView.metal in Sources */,
-				8891F298271C2403007BC056 /* CameraMetal.metal in Sources */,
+				E4318EA4288643AC0002FAC1 /* FilterChainVC.m in Sources */,
 				E48F857E2877CA3300B21F76 /* CustomMTKView.m in Sources */,
 				E4BBFA312719325C00D19F38 /* FMMetalHelloTriangle.m in Sources */,
-				8891F295271BFA0F007BC056 /* FMMetalCameraView.m in Sources */,
 				E4BBFA2B2716DECF00D19F38 /* MFTriangleShaders.metal in Sources */,
+				E4318EE8288648470002FAC1 /* FMMetalCameraView.m in Sources */,
 				E4A853692873EF8800AA55B3 /* GPUCalculationVC.m in Sources */,
-				8891F290271BF644007BC056 /* FMCameraVC.m in Sources */,
+				E4318EE6288648470002FAC1 /* ZYMetalGrayFilter.m in Sources */,
+				E4318EE7288648470002FAC1 /* Custom.metal in Sources */,
 				E4A8536F28743A5B00AA55B3 /* DrawViewContentVC.m in Sources */,
+				E4318EE3288648470002FAC1 /* ZYMetalDevice.m in Sources */,
+				E4318EE5288648470002FAC1 /* ZYMPSFilter.m in Sources */,
 				E4363EBC2715765B00AEB692 /* AppDelegate.m in Sources */,
+				E4318EE0288648470002FAC1 /* ZYCustomFilter.m in Sources */,
+				E4318EE2288648470002FAC1 /* Gray.metal in Sources */,
 				E48F85812877D80A00B21F76 /* CustomRenderer.m in Sources */,
+				E4318EE4288648470002FAC1 /* ZYMetalBaseFilter.m in Sources */,
+				E4318EDF288648470002FAC1 /* Camera.metal in Sources */,
+				E4318EE1288648470002FAC1 /* Blur.metal in Sources */,
 				E4363ECD2715766200AEB692 /* main.m in Sources */,
 				E4A8537328744A1400AA55B3 /* RenderTriangleVC.m in Sources */,
 				E4E1588C287D5A66008A2080 /* AAPLImage.m in Sources */,

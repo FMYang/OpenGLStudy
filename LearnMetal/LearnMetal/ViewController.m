@@ -9,18 +9,18 @@
 #import "FMMetalTriangleView.h"
 #import "FMMetalTextureView.h"
 #import "FMMetalHelloTriangle.h"
-#import "FMCameraVC.h"
 #import "GPUCalculationVC.h"
 #import "DrawViewContentVC.h"
 #import "RenderTriangleVC.h"
 #import "CustomRenderPassVC.h"
 #import "CustomMetalViewVC.h"
 #import "ProcessTextureWithComputeFuncVC.h"
+#import "FilterChainVC.h"
 
 @interface ViewController () {
     FMMetalTriangleView *triangleView;
     FMMetalTextureView *textureView;
-    FMCameraVC *_cameraVC;
+    FilterChainVC *filterVC;
 }
 
 @end
@@ -73,13 +73,14 @@
 //    [self presentViewController:vc animated:YES completion:nil];
     
     // 6、使用计算函数处理纹理
-    ProcessTextureWithComputeFuncVC *vc = [[ProcessTextureWithComputeFuncVC alloc] init];
-    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:vc animated:YES completion:nil];
-
-//    _cameraVC = [[FMCameraVC alloc] init];
-//    _cameraVC.modalPresentationStyle = UIModalPresentationFullScreen;
-//    [self presentViewController:_cameraVC animated:YES completion:nil];
+//    ProcessTextureWithComputeFuncVC *vc = [[ProcessTextureWithComputeFuncVC alloc] init];
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:vc animated:YES completion:nil];
+    
+    // 7、滤镜连
+    filterVC = [[FilterChainVC alloc] init];
+    filterVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:filterVC animated:YES completion:nil];
 }
 
 - (void)viewWillLayoutSubviews {

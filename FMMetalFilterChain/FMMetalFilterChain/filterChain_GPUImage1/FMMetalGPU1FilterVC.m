@@ -1,24 +1,23 @@
 //
-//  ViewController.m
+//  FMMetalGPU1FilterVC.m
 //  FMMetalFilterChain
 //
-//  Created by yfm on 2022/7/13.
+//  Created by yfm on 2022/7/20.
 //
 
-#import "ViewController.h"
+#import "FMMetalGPU1FilterVC.h"
 #import <AVFoundation/AVFoundation.h>
-#import "FMMetalCameraView.h"
+#import "FMMetalView.h"
 
 // filter
-#import "ZYCustomFilter.h"
-#import "ZYMPSFilter.h"
-#import "ZYMetalGrayFilter.h"
+#import "ZYMetalGrayFilter1.h"
+#import "ZYMetalReverseColorFilter.h"
 
 // record
 #import "ZYProCameraMovieRecorder.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ViewController () <AVCaptureVideoDataOutputSampleBufferDelegate, ZYProCameraMovieRecorderDelegate>
+@interface FMMetalGPU1FilterVC () <AVCaptureVideoDataOutputSampleBufferDelegate, ZYProCameraMovieRecorderDelegate>
 @property (nonatomic) AVCaptureSession *session;
 @property (nonatomic) AVCaptureDevice *videoDevice;
 @property (nonatomic) AVCaptureInput *videoDeviceInput;
@@ -31,16 +30,11 @@
 @property (nonatomic) dispatch_semaphore_t frameRenderingSemaphore;
 // MARK: - 滤镜
 
-// 反色
-@property (nonatomic) ZYMetalBaseFilter *reverseColorFilter;
-
 // 灰度
-@property (nonatomic) ZYMetalGrayFilter *grayFilter;
+@property (nonatomic) ZYMetalReverseColorFilter *reverseColorFilter;
+@property (nonatomic) ZYMetalGrayFilter1 *grayFilter;
 
-// 模糊
-@property (nonatomic) ZYMetalBaseFilter *mpsFilter;
-
-@property (nonatomic) FMMetalCameraView *metalView;
+@property (nonatomic) FMMetalView *metalView;
 
 // MARK: - 录像
 @property (nonatomic) ZYProCameraMovieRecorder *movieRecorder;
@@ -50,7 +44,7 @@
 
 @end
 
-@implementation ViewController
+@implementation FMMetalGPU1FilterVC
 
 - (instancetype)init {
     if(self = [super init]) {
@@ -68,7 +62,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.blackColor;
     
-    _metalView = [[FMMetalCameraView alloc] init];
+    _metalView = [[FMMetalView alloc] init];
     _metalView.backgroundColor = UIColor.blackColor;
     CGFloat h = UIScreen.mainScreen.bounds.size.width * 16.0 / 9;
     _metalView.frame = CGRectMake(0, 0.5 * (UIScreen.mainScreen.bounds.size.height - h), UIScreen.mainScreen.bounds.size.width, h);
@@ -82,6 +76,9 @@
     _recordButton.layer.masksToBounds = YES;
     [_recordButton addTarget:self action:@selector(recordAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_recordButton];
+    
+    [self.reverseColorFilter addTarget:self.grayFilter];
+    [self.grayFilter addTarget:self.metalView];
 
     self.session = [[AVCaptureSession alloc] init];
 
@@ -132,56 +129,35 @@
     if(dispatch_semaphore_wait(self.frameRenderingSemaphore, DISPATCH_TIME_NOW) != 0) {
         return;
     }
-    self.outputVideoFormatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);;
+    self.outputVideoFormatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);
     CMTime presentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
     CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CFRetain(pixelBuffer);
     dispatch_async(self.renderQueue, ^{
-        CVMetalTextureRef texture = nil;
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, ZYMetalDevice.shared.textureCache, pixelBuffer, nil, MTLPixelFormatBGRA8Unorm, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer), 0, &texture);
-        
-        // 原图 -> 反色 -> 灰度 -> 模糊
-        id<MTLTexture> mtlTexture = CVMetalTextureGetTexture(texture);
-        id<MTLTexture> result1 = [self.reverseColorFilter render:mtlTexture];
-        id<MTLTexture> result2 = [self.grayFilter render:result1];
-//        CVPixelBufferRef result1Ref = self.reverseColorFilter.outputPixelBuffer;
-//        id<MTLTexture> result3 = [self.mpsFilter render:result2];
-        [self.metalView renderPixelBuffer:result2];
-        
-        if(self.isRecording) {
-            CVPixelBufferRef writeBuffer = self.grayFilter.outputPixelBuffer;
-            CFRetain(writeBuffer);
-            dispatch_async(self.movieRecorder.writtingQueue, ^{
-                [self.movieRecorder appendVideoPixelBuffer:writeBuffer withPresentationTime:presentationTimeStamp];
-                CFRelease(writeBuffer);
-            });
-        }
-        
+        ///////////
+        CGSize size = CGSizeMake(CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
+        [self.reverseColorFilter push:pixelBuffer];
+        ZYMetalFrameBuffer *frameBuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:size];
+        [self.reverseColorFilter setInputFramebuffer:frameBuffer atIndex:0];
+        [self.reverseColorFilter newFrameReadyAtTime:presentationTimeStamp atIndex:0];
+
         CFRelease(pixelBuffer);
-        CFRelease(texture);
         dispatch_semaphore_signal(self.frameRenderingSemaphore);
     });
 }
 
-- (ZYMetalBaseFilter *)reverseColorFilter {
-    if(!_reverseColorFilter) {
-        _reverseColorFilter = [[ZYMetalBaseFilter alloc] initWithMetalRenderCommand:[ZYCustomFilter new]];
-    }
-    return _reverseColorFilter;
-}
-
-- (ZYMetalBaseFilter *)mpsFilter {
-    if(!_mpsFilter) {
-        _mpsFilter = [[ZYMetalBaseFilter alloc] initWithMetalRenderCommand:[ZYMPSFilter new]];
-    }
-    return _mpsFilter;
-}
-
-- (ZYMetalGrayFilter *)grayFilter {
+- (ZYMetalGrayFilter1 *)grayFilter {
     if(!_grayFilter) {
-        _grayFilter = [[ZYMetalGrayFilter alloc] initWithMetalRenderCommand:[ZYMetalGrayFilter new]];
+        _grayFilter = [[ZYMetalGrayFilter1 alloc] init];
     }
     return _grayFilter;
+}
+
+- (ZYMetalReverseColorFilter *)reverseColorFilter {
+    if(!_reverseColorFilter) {
+        _reverseColorFilter = [[ZYMetalReverseColorFilter alloc] init];
+    }
+    return _reverseColorFilter;
 }
 
 #pragma mark - record
