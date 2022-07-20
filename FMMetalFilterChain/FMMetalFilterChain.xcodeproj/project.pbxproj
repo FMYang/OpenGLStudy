@@ -150,6 +150,19 @@
 			path = filterChain_GPUImage3;
 			sourceTree = "<group>";
 		};
+		E4D93151288811A000C4B2C5 /* filterChain_Simple */ = {
+			isa = PBXGroup;
+			children = (
+				E4E158B7287EAE5A008A2080 /* FIlter */,
+				E4E158C4287ECBB0008A2080 /* FMMetalCameraView.h */,
+				E4E158C3287ECBB0008A2080 /* FMMetalCameraView.m */,
+				E4E158C6287ECBE6008A2080 /* Camera.metal */,
+				E4E158A4287EAE28008A2080 /* ViewController.h */,
+				E4E158A5287EAE28008A2080 /* ViewController.m */,
+			);
+			path = filterChain_Simple;
+			sourceTree = "<group>";
+		};
 		E4E15892287EAE28008A2080 = {
 			isa = PBXGroup;
 			children = (
@@ -169,17 +182,12 @@
 		E4E1589D287EAE28008A2080 /* FMMetalFilterChain */ = {
 			isa = PBXGroup;
 			children = (
+				E4318E8C288144AA0002FAC1 /* MovieRecorder */,
+				E4D93151288811A000C4B2C5 /* filterChain_Simple */,
 				E4D93150288803E700C4B2C5 /* filterChain_GPUImage3 */,
 				E4318EEA288659E30002FAC1 /* filterChain_GPUImage1 */,
-				E4318E8C288144AA0002FAC1 /* MovieRecorder */,
-				E4E158B7287EAE5A008A2080 /* FIlter */,
-				E4E158C4287ECBB0008A2080 /* FMMetalCameraView.h */,
-				E4E158C3287ECBB0008A2080 /* FMMetalCameraView.m */,
-				E4E158C6287ECBE6008A2080 /* Camera.metal */,
 				E4E1589E287EAE28008A2080 /* AppDelegate.h */,
 				E4E1589F287EAE28008A2080 /* AppDelegate.m */,
-				E4E158A4287EAE28008A2080 /* ViewController.h */,
-				E4E158A5287EAE28008A2080 /* ViewController.m */,
 				E4E158A7287EAE28008A2080 /* Main.storyboard */,
 				E4E158AA287EAE2F008A2080 /* Assets.xcassets */,
 				E4E158AC287EAE2F008A2080 /* LaunchScreen.storyboard */,

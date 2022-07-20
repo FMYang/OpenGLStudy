@@ -23,7 +23,8 @@
     return self;
 }
 
-- (void)push:(CVPixelBufferRef)pixelBuffer {
+// 第一步：将相机输出帧，写入离屏纹理（outputFramebuffer）
+- (void)push:(CVPixelBufferRef)pixelBuffer frameTime:(CMTime)frameTime {
     CVMetalTextureRef texture = nil;
     CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, ZYMetalContext.shared.textureCache, pixelBuffer, nil, MTLPixelFormatBGRA8Unorm, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer), 0, &texture);
     CGSize size = CGSizeMake(CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
@@ -63,18 +64,22 @@
     [commandBuffer waitUntilCompleted];
         
     CFRelease(texture);
-}
-
-- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer atIndex:(NSInteger)textureIndex {
-    inputTexture = newInputFramebuffer.texture;
+    
+    // 第二步：开始滤镜链调用
+    [self setInputFramebuffer:outputFramebuffer atIndex:0];
+    [self newFrameReadyAtTime:frameTime atIndex:0];
 }
 
 - (CGSize)sizeOfFBO {
     return CGSizeMake(inputTexture.width, inputTexture.height);
 }
 
+// 第三部：子类滤镜逐个调用setInputFramebuffer: 和 newFrameReadyAtTime:
+- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer atIndex:(NSInteger)textureIndex {
+    inputTexture = newInputFramebuffer.texture;
+}
+
 - (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex {
-    
     outputFramebuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:[self sizeOfFBO]];
     
     NSError *error = nil;

@@ -4,6 +4,7 @@
 //
 //  Created by yfm on 2022/7/19.
 //
+//  管理离屏缓存
 
 #import "ZYMetalFrameBufferCache.h"
 

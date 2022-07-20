@@ -31,6 +31,7 @@
 // MARK: - 滤镜
 
 // 灰度
+@property (nonatomic) ZYMetalFilter *baseFilter;
 @property (nonatomic) ZYMetalReverseColorFilter *reverseColorFilter;
 @property (nonatomic) ZYMetalGrayFilter1 *grayFilter;
 
@@ -77,6 +78,8 @@
     [_recordButton addTarget:self action:@selector(recordAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_recordButton];
     
+    // 滤镜链
+    [self.baseFilter addTarget:self.reverseColorFilter];
     [self.reverseColorFilter addTarget:self.grayFilter];
     [self.grayFilter addTarget:self.metalView];
 
@@ -134,16 +137,30 @@
     CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CFRetain(pixelBuffer);
     dispatch_async(self.renderQueue, ^{
-        ///////////
-        CGSize size = CGSizeMake(CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
-        [self.reverseColorFilter push:pixelBuffer];
-        ZYMetalFrameBuffer *frameBuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:size];
-        [self.reverseColorFilter setInputFramebuffer:frameBuffer atIndex:0];
-        [self.reverseColorFilter newFrameReadyAtTime:presentationTimeStamp atIndex:0];
-
+        [self.baseFilter push:pixelBuffer frameTime:presentationTimeStamp];
+        
+        if(self.isRecording) {
+            CGSize size = CGSizeMake(CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
+            ZYMetalFrameBuffer *outputFrameBuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:size];
+            CVPixelBufferRef writeBuffer = outputFrameBuffer.pixelBuffer;
+            CFRetain(writeBuffer);
+            dispatch_async(self.movieRecorder.writtingQueue, ^{
+                [self.movieRecorder appendVideoPixelBuffer:writeBuffer withPresentationTime:presentationTimeStamp];
+                CFRelease(writeBuffer);
+            });
+        }
+        
         CFRelease(pixelBuffer);
         dispatch_semaphore_signal(self.frameRenderingSemaphore);
     });
+}
+
+// 滤镜链
+- (ZYMetalFilter *)baseFilter {
+    if(!_baseFilter) {
+        _baseFilter = [[ZYMetalFilter alloc] initWithFragmentFunction:@"normalFragmentShader"];
+    }
+    return _baseFilter;
 }
 
 - (ZYMetalGrayFilter1 *)grayFilter {

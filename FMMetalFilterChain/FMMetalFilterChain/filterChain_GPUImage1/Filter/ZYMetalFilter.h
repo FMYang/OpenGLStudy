@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZYMetalFilter : ZYMetalOutput <ZYMetalInput> 
 
-- (void)push:(CVPixelBufferRef)pixelBuffer;
+- (void)push:(CVPixelBufferRef)pixelBuffer frameTime:(CMTime)frameTime;
 
 - (id)initWithFragmentFunction:(NSString *)function;
 
