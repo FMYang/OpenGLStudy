@@ -9,9 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZYMetalOutputFilter : ZYMetalOutput <ZYMetalInput>
+@interface ZYMetalOutputFilter : ZYMetalFilter
 
-@property (nonatomic) ZYMetalFrameBuffer *metalOutputFrameBuffer;
+- (ZYMetalFrameBuffer *)getFrameBuffer;
 
 @end
 

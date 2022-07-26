@@ -23,14 +23,17 @@
 }
 
 - (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex {
-    if(!_metalOutputFrameBuffer) {
-        NSLog(@"fm ~~~~~~~~~");
-        _metalOutputFrameBuffer = [[ZYMetalFrameBuffer alloc] initWithSize:[self sizeOfFBO]];
+    if(!outputFramebuffer) {
+        outputFramebuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:[self sizeOfFBO]];
     }
     
-    id<MTLCommandBuffer> commandBuffer = render(ZYMetalContext.shared.normalRenderPipelineState, _metalOutputFrameBuffer.texture, renderTargetTexture, normalVertices, normalCoordinates);
+    id<MTLCommandBuffer> commandBuffer = render(ZYMetalContext.shared.normalRenderPipelineState, outputFramebuffer.texture, renderTargetTexture, normalVertices, normalCoordinates);
     [commandBuffer commit];
     [commandBuffer waitUntilCompleted];
+}
+
+- (ZYMetalFrameBuffer *)getFrameBuffer {
+    return outputFramebuffer;
 }
 
 @end

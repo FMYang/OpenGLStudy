@@ -148,8 +148,9 @@
         if(self.isRecording) {
             CFRetain(pixelBuffer);
             dispatch_async(self.movieRecorder.writtingQueue, ^{
-                ZYMetalFrameBuffer *outputFrameBuffer = self.outputFilter.metalOutputFrameBuffer;
-                [self.movieRecorder appendVideoPixelBuffer:outputFrameBuffer.pixelBuffer withPresentationTime:presentationTimeStamp];
+                ZYMetalFrameBuffer *outputFrameBuffer = [self.outputFilter getFrameBuffer];
+                CVPixelBufferRef pixel = outputFrameBuffer.pixelBuffer;
+                [self.movieRecorder appendVideoPixelBuffer:pixel withPresentationTime:presentationTimeStamp];
                 [outputFrameBuffer unlock];
                 CFRelease(pixelBuffer);
             });

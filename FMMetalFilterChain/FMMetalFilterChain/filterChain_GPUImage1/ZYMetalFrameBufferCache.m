@@ -28,9 +28,10 @@
 
 - (ZYMetalFrameBuffer *)fetchFramebufferForSize:(CGSize)framebufferSize {
     NSString *lookupHash = [self hashForSize:framebufferSize];
+    NSLog(@"%@", framebufferCache);
     ZYMetalFrameBuffer *frameBuffer = [framebufferCache objectForKey:lookupHash];
     if(frameBuffer == nil) {
-//        NSLog(@"没有缓存");
+        NSLog(@"没有缓存");
         frameBuffer = [[ZYMetalFrameBuffer alloc] initWithSize:framebufferSize];
         [framebufferCache setObject:frameBuffer forKey:lookupHash];
     } else {

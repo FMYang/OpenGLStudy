@@ -4,7 +4,6 @@
 //
 //  Created by yfm on 2022/7/19.
 //
-//  离屏缓存
 
 #import "ZYMetalFrameBuffer.h"
 #import "ZYMetalContext.h"

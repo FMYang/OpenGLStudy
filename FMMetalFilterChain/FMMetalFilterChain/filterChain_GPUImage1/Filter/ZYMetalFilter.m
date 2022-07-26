@@ -6,6 +6,7 @@
 //
 
 #import "ZYMetalFilter.h"
+#import "ZYMetalOutputFilter.h"
 
 @interface ZYMetalFilter() {
     id<MTLTexture> renderTargetTexture;
@@ -65,15 +66,18 @@
 - (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex {
     // 写和显示是两块缓存，不能只取显示的缓存，这里要区分（怎么区分，缓存机制还不完善）
     outputFramebuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:[self sizeOfFBO]];
-    NSLog(@"%@", outputFramebuffer);
+//    NSLog(@"%@", outputFramebuffer);
     id<MTLCommandBuffer> commandBuffer = render(renderPipelineState, renderTargetTexture, outputFramebuffer.texture, normalVertices, normalCoordinates);
     [commandBuffer commit];
     [commandBuffer waitUntilCompleted];
+    
+    for(id<ZYMetalInput> target in targets) {
+        [target setInputFramebuffer:outputFramebuffer atIndex:0];
+    }
 
     [outputFramebuffer unlock];
 
     for(id<ZYMetalInput> target in targets) {
-        [target setInputFramebuffer:outputFramebuffer atIndex:0];
         [target newFrameReadyAtTime:frameTime atIndex:0];
     }
 }
