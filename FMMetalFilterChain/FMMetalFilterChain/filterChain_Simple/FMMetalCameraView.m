@@ -53,7 +53,6 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    if(!self.currentDrawable || !renderTexture) return;
     id<MTLCommandBuffer> commandBuffer = [ZYMetalDevice.shared.commandQueue commandBuffer];
 
     MTLRenderPassDescriptor *renderPassDescriptor = [[MTLRenderPassDescriptor alloc] init];

@@ -12,6 +12,8 @@
 // filter
 #import "ZYMetalGrayFilter1.h"
 #import "ZYMetalReverseColorFilter.h"
+#import "ZYMetalSignleColorFilter.h"
+#import "ZYMetalOutputFilter.h"
 
 // record
 #import "ZYProCameraMovieRecorder.h"
@@ -33,7 +35,9 @@
 // 灰度
 @property (nonatomic) ZYMetalFilter *baseFilter;
 @property (nonatomic) ZYMetalReverseColorFilter *reverseColorFilter;
+@property (nonatomic) ZYMetalSignleColorFilter *singleColorFilter;
 @property (nonatomic) ZYMetalGrayFilter1 *grayFilter;
+@property (nonatomic) ZYMetalOutputFilter *outputFilter;
 
 @property (nonatomic) FMMetalView *metalView;
 
@@ -79,9 +83,11 @@
     [self.view addSubview:_recordButton];
     
     // 滤镜链
-    [self.baseFilter addTarget:self.reverseColorFilter];
-    [self.reverseColorFilter addTarget:self.grayFilter];
-    [self.grayFilter addTarget:self.metalView];
+    [self.baseFilter addTarget:self.reverseColorFilter]; // -> 反色
+    [self.reverseColorFilter addTarget:self.singleColorFilter]; // 反色 -> 单色
+    [self.singleColorFilter addTarget:self.outputFilter]; // 单色 -> 输出（录像）
+    [self.singleColorFilter addTarget:self.grayFilter]; // 单色 -> 灰度
+    [self.grayFilter addTarget:self.metalView]; // 灰度 -> 预览
 
     self.session = [[AVCaptureSession alloc] init];
 
@@ -140,13 +146,12 @@
         [self.baseFilter push:pixelBuffer frameTime:presentationTimeStamp];
         
         if(self.isRecording) {
-            CGSize size = CGSizeMake(CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
-            ZYMetalFrameBuffer *outputFrameBuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:size];
-            CVPixelBufferRef writeBuffer = outputFrameBuffer.pixelBuffer;
-            CFRetain(writeBuffer);
+            CFRetain(pixelBuffer);
             dispatch_async(self.movieRecorder.writtingQueue, ^{
-                [self.movieRecorder appendVideoPixelBuffer:writeBuffer withPresentationTime:presentationTimeStamp];
-                CFRelease(writeBuffer);
+                ZYMetalFrameBuffer *outputFrameBuffer = self.outputFilter.metalOutputFrameBuffer;
+                [self.movieRecorder appendVideoPixelBuffer:outputFrameBuffer.pixelBuffer withPresentationTime:presentationTimeStamp];
+                [outputFrameBuffer unlock];
+                CFRelease(pixelBuffer);
             });
         }
         
@@ -175,6 +180,20 @@
         _reverseColorFilter = [[ZYMetalReverseColorFilter alloc] init];
     }
     return _reverseColorFilter;
+}
+
+- (ZYMetalSignleColorFilter *)singleColorFilter {
+    if(!_singleColorFilter) {
+        _singleColorFilter = [[ZYMetalSignleColorFilter alloc] init];
+    }
+    return _singleColorFilter;
+}
+
+- (ZYMetalOutputFilter *)outputFilter {
+    if(!_outputFilter) {
+        _outputFilter = [[ZYMetalOutputFilter alloc] init];
+    }
+    return _outputFilter;
 }
 
 #pragma mark - record

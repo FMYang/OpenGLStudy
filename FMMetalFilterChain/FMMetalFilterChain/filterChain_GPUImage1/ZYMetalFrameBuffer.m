@@ -12,6 +12,7 @@
 @interface ZYMetalFrameBuffer() {
     CVPixelBufferRef renderTarget;
     CVMetalTextureRef renderTexture;
+    NSUInteger framebufferReferenceCount;
 }
 
 @end
@@ -29,6 +30,7 @@
         return nil;
     }
     
+    framebufferReferenceCount = 0;
     _size = framebufferSize;
     [self generateTexture];
 
@@ -52,6 +54,20 @@
     CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, ZYMetalContext.shared.textureCache, renderTarget, nil, MTLPixelFormatBGRA8Unorm, _size.width, _size.height, 0, &renderTexture);
     
     _texture = CVMetalTextureGetTexture(renderTexture);
+}
+
+- (void)lock {
+    framebufferReferenceCount++;
+}
+
+- (void)unlock {
+    [self save];
+    
+    framebufferReferenceCount--;
+}
+
+- (void)save {
+    [ZYMetalContext.shared.sharedFrameBufferCache returnFramebufferToCache:self];
 }
 
 - (void)destroyFramebuffer {

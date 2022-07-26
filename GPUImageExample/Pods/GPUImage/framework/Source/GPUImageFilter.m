@@ -300,6 +300,7 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
     [GPUImageContext setActiveShaderProgram:filterProgram];
 
     outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:[self sizeOfFBO] textureOptions:self.outputTextureOptions onlyTexture:NO];
+    NSLog(@"=== %@", outputFramebuffer);
     [outputFramebuffer activateFramebuffer];
     if (usingNextFrameForImageCapture)
     {

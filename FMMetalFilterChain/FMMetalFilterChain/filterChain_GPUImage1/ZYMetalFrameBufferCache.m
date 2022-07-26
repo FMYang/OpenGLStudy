@@ -35,14 +35,17 @@
         [framebufferCache setObject:frameBuffer forKey:lookupHash];
     } else {
 //        NSLog(@"有缓存");
-        return [framebufferCache objectForKey:lookupHash];
+        frameBuffer = [framebufferCache objectForKey:lookupHash];
+        [framebufferCache removeObjectForKey:lookupHash];
     }
     
+    [frameBuffer lock];
     return frameBuffer;
 }
 
 - (void)returnFramebufferToCache:(ZYMetalFrameBuffer *)framebuffer {
-    
+    NSString *lookupHash = [self hashForSize:framebuffer.size];
+    [framebufferCache setObject:framebuffer forKey:lookupHash];
 }
 
 @end

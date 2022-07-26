@@ -13,15 +13,6 @@ struct VextexOut {
     float2 textureCoordinate;
 };
 
-//vertex VextexOut normalVertex(uint vertexID [[ vertex_id ]],
-//                              constant float2 *position [[ buffer(0) ]],
-//                              constant float2 *texCoordinate [[ buffer(1) ]]) {
-//    VextexOut out;
-//    out.position = float4(position[vertexID].xy, 0.0, 1.0);
-//    out.textureCoordinate = texCoordinate[vertexID];
-//    return out;
-//}
-
 fragment float4 reverseColorFragmentShader(VextexOut in [[ stage_in ]],
                                            texture2d<half> inputTexture [[ texture(0) ]],
                                            texture2d<half> ouputTexture [[ texture(1) ]]) {

@@ -15,9 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(readonly) CGSize size;
 @property(readonly) id<MTLTexture> texture;
+@property(nonatomic) NSInteger index;
+
+- (id)initWithSize:(CGSize)framebufferSize;
 
 - (CVPixelBufferRef)pixelBuffer;
-- (id)initWithSize:(CGSize)framebufferSize;
+
+- (void)lock;
+- (void)unlock;
 
 @end
 
