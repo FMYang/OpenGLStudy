@@ -29,6 +29,7 @@
 }
 
 - (ZYMetalFrameBuffer *)fetchFramebufferForSize:(CGSize)framebufferSize {
+    NSLog(@"fm %@", _framebufferCache);
     [_lock lock];
     NSString *lookupHash = [self hashForSize:framebufferSize];
     ZYMetalFrameBuffer *frameBuffer = [_framebufferCache objectForKey:lookupHash];
@@ -46,10 +47,9 @@
 }
 
 - (void)returnFramebufferToCache:(ZYMetalFrameBuffer *)framebuffer {
-    [_lock lock];
     NSString *lookupHash = [self hashForSize:framebuffer.size];
+    NSLog(@"fm 111 %@ %@", framebuffer, _framebufferCache);
     [_framebufferCache setObject:framebuffer forKey:lookupHash];
-    [_lock unlock];
 }
 
 @end

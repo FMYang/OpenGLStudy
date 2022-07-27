@@ -149,7 +149,7 @@
         if(self.isRecording) {
             dispatch_async(self.movieRecorder.writtingQueue, ^{
                 // 写视频帧
-                [self.movieRecorder appendVideoPixelBuffer:[self.outputFilter getFrameBuffer].pixelBuffer
+                [self.movieRecorder appendVideoPixelBuffer:[self.outputFilter framebufferForOutput].pixelBuffer
                                       withPresentationTime:presentationTimeStamp];
             });
         }
@@ -221,6 +221,8 @@
 
 - (void)movieRecorder:(ZYProCameraMovieRecorder *)recorder didFailWithError:(NSError *)error {
     NSLog(@"movieRecorder didFailWithError");
+    [[self.outputFilter framebufferForOutput] unlock];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         self.isRecording = NO;
     });
@@ -233,6 +235,7 @@
 - (void)movieRecorderDidStopRecording:(ZYProCameraMovieRecorder *)recorder url:(NSURL *)url {
     NSLog(@"movieRecorderDidStopRecording");
     
+    [[self.outputFilter framebufferForOutput] unlock];
     [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:url completionBlock:^(NSURL *assetURL, NSError *error) {
         if(error) {
             NSLog(@"error %@", error);

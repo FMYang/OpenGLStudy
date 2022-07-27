@@ -32,8 +32,4 @@
     [commandBuffer waitUntilCompleted];
 }
 
-- (ZYMetalFrameBuffer *)getFrameBuffer {
-    return outputFramebuffer;
-}
-
 @end

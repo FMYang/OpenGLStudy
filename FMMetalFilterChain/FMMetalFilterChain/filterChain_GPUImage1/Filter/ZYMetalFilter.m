@@ -32,7 +32,6 @@
     return self;
 }
 
-// 将相机输出帧，写入全局缓存的离屏纹理（outputFramebuffer）
 - (void)push:(CVPixelBufferRef)pixelBuffer frameTime:(CMTime)frameTime {
     CVMetalTextureRef cameraTexture = nil;
     CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, ZYMetalContext.shared.textureCache, pixelBuffer, nil, MTLPixelFormatBGRA8Unorm, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer), 0, &cameraTexture);

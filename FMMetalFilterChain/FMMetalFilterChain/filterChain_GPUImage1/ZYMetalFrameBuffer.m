@@ -12,6 +12,7 @@
     CVPixelBufferRef renderTarget;
     CVMetalTextureRef renderTexture;
     NSUInteger framebufferReferenceCount;
+    NSLock *_lock;
 }
 
 @end
@@ -29,6 +30,7 @@
         return nil;
     }
     
+    _lock = [[NSLock alloc] init];
     framebufferReferenceCount = 0;
     _size = framebufferSize;
     [self generateTexture];
@@ -55,13 +57,19 @@
 }
 
 - (void)lock {
+    [_lock lock];
     framebufferReferenceCount++;
+    [_lock unlock];
 }
 
 - (void)unlock {
-    [self save];
-    
+    [_lock lock];
     framebufferReferenceCount--;
+
+    if(framebufferReferenceCount < 1) {
+        [self save];
+    }
+    [_lock unlock];
 }
 
 - (void)save {
