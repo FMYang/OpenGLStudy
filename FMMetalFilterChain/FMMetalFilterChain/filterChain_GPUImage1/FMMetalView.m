@@ -34,12 +34,12 @@
 }
 
 #pragma mark -
-- (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex {
+- (void)newFrameReadyAtTime:(CMTime)frameTime {
     self.drawableSize = CGSizeMake(renderTexture.width, renderTexture.height);
     [self draw];
 }
 
-- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer atIndex:(NSInteger)textureIndex {
+- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer {
     renderTexture = newInputFramebuffer.texture;
 }
 

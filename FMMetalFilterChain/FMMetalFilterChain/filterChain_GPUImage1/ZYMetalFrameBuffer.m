@@ -37,7 +37,6 @@
 }
 
 - (void)generateTexture {
-#pragma mark - 线程问题，同步执行下面代码
     // 创建一个null的pixelbuffer与outputTexture绑定
     CFDictionaryRef empty; // empty value for attr value.
     CFMutableDictionaryRef attrs;
@@ -70,7 +69,6 @@
 }
 
 - (void)destroyFramebuffer {
-#pragma mark - 线程问题，同步执行下面代码
     if(renderTarget) {
         CFRelease(renderTarget);
         renderTarget = NULL;

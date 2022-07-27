@@ -9,7 +9,8 @@
 #import "ZYMetalFrameBufferCache.h"
 
 @interface ZYMetalFrameBufferCache() {
-    NSMutableDictionary *framebufferCache;
+    NSMutableDictionary *_framebufferCache;
+    NSLock *_lock;
 }
 @end
 
@@ -17,7 +18,8 @@
 
 - (instancetype)init {
     if(self = [super init]) {
-        framebufferCache = @{}.mutableCopy;
+        _framebufferCache = @{}.mutableCopy;
+        _lock = [[NSLock alloc] init];
     }
     return self;
 }
@@ -27,26 +29,27 @@
 }
 
 - (ZYMetalFrameBuffer *)fetchFramebufferForSize:(CGSize)framebufferSize {
+    [_lock lock];
     NSString *lookupHash = [self hashForSize:framebufferSize];
-    NSLog(@"%@", framebufferCache);
-    ZYMetalFrameBuffer *frameBuffer = [framebufferCache objectForKey:lookupHash];
+    ZYMetalFrameBuffer *frameBuffer = [_framebufferCache objectForKey:lookupHash];
     if(frameBuffer == nil) {
-        NSLog(@"没有缓存");
+        // 缓存里没有创建一个
         frameBuffer = [[ZYMetalFrameBuffer alloc] initWithSize:framebufferSize];
-        [framebufferCache setObject:frameBuffer forKey:lookupHash];
     } else {
-//        NSLog(@"有缓存");
-        frameBuffer = [framebufferCache objectForKey:lookupHash];
-        [framebufferCache removeObjectForKey:lookupHash];
+        // 取缓存的
+        frameBuffer = [_framebufferCache objectForKey:lookupHash];
+        [_framebufferCache removeObjectForKey:lookupHash];
     }
-    
     [frameBuffer lock];
+    [_lock unlock];
     return frameBuffer;
 }
 
 - (void)returnFramebufferToCache:(ZYMetalFrameBuffer *)framebuffer {
+    [_lock lock];
     NSString *lookupHash = [self hashForSize:framebuffer.size];
-    [framebufferCache setObject:framebuffer forKey:lookupHash];
+    [_framebufferCache setObject:framebuffer forKey:lookupHash];
+    [_lock unlock];
 }
 
 @end

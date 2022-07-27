@@ -143,16 +143,14 @@
     CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CFRetain(pixelBuffer);
     dispatch_async(self.renderQueue, ^{
+        // 开始滤镜链
         [self.baseFilter push:pixelBuffer frameTime:presentationTimeStamp];
         
         if(self.isRecording) {
-            CFRetain(pixelBuffer);
             dispatch_async(self.movieRecorder.writtingQueue, ^{
-                ZYMetalFrameBuffer *outputFrameBuffer = [self.outputFilter getFrameBuffer];
-                CVPixelBufferRef pixel = outputFrameBuffer.pixelBuffer;
-                [self.movieRecorder appendVideoPixelBuffer:pixel withPresentationTime:presentationTimeStamp];
-                [outputFrameBuffer unlock];
-                CFRelease(pixelBuffer);
+                // 写视频帧
+                [self.movieRecorder appendVideoPixelBuffer:[self.outputFilter getFrameBuffer].pixelBuffer
+                                      withPresentationTime:presentationTimeStamp];
             });
         }
         

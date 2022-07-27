@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (ZYMetalFrameBuffer *)framebufferForOutput;
 - (void)removeOutputFramebuffer;
-- (void)setInputFramebufferForTarget:(id<ZYMetalInput>)target atIndex:(NSInteger)inputTextureIndex;
 
 @end
 

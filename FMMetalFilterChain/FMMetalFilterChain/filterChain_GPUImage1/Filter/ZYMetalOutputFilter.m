@@ -18,11 +18,11 @@
     return CGSizeMake(renderTargetTexture.width, renderTargetTexture.height);
 }
 
-- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer atIndex:(NSInteger)textureIndex {
+- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer {
     renderTargetTexture = newInputFramebuffer.texture;
 }
 
-- (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex {
+- (void)newFrameReadyAtTime:(CMTime)frameTime {
     if(!outputFramebuffer) {
         outputFramebuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:[self sizeOfFBO]];
     }

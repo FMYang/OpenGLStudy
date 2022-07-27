@@ -38,8 +38,8 @@ id<MTLCommandBuffer> render(id<MTLRenderPipelineState> pipelineState, id<MTLText
 
 @protocol ZYMetalInput <NSObject>
 
-- (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex;
-- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer atIndex:(NSInteger)textureIndex;
+- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer;
+- (void)newFrameReadyAtTime:(CMTime)frameTime;
 
 @end
 

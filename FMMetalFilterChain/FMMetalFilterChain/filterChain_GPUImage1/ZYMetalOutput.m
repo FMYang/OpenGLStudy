@@ -16,10 +16,6 @@
     return self;
 }
 
-- (void)setInputFramebufferForTarget:(id<ZYMetalInput>)target atIndex:(NSInteger)inputTextureIndex {
-    [target setInputFramebuffer:[self framebufferForOutput] atIndex:inputTextureIndex];
-}
-
 - (ZYMetalFrameBuffer *)framebufferForOutput {
     return outputFramebuffer;
 }

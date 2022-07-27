@@ -48,8 +48,8 @@
     CFRelease(cameraTexture);
     
     // 开始滤镜链调用
-    [self setInputFramebuffer:outputFramebuffer atIndex:0];
-    [self newFrameReadyAtTime:frameTime atIndex:0];
+    [self setInputFramebuffer:outputFramebuffer];
+    [self newFrameReadyAtTime:frameTime];
 }
 
 - (CGSize)sizeOfFBO {
@@ -59,26 +59,26 @@
 #pragma mark - ZYMetalInput
 
 // 子类逐个调用setInputFramebuffer: 和 newFrameReadyAtTime:
-- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer atIndex:(NSInteger)textureIndex {
+- (void)setInputFramebuffer:(ZYMetalFrameBuffer *)newInputFramebuffer {
     renderTargetTexture = newInputFramebuffer.texture;
 }
 
-- (void)newFrameReadyAtTime:(CMTime)frameTime atIndex:(NSInteger)textureIndex {
-    // 写和显示是两块缓存，不能只取显示的缓存，这里要区分（怎么区分，缓存机制还不完善）
+- (void)newFrameReadyAtTime:(CMTime)frameTime {
     outputFramebuffer = [ZYMetalContext.shared.sharedFrameBufferCache fetchFramebufferForSize:[self sizeOfFBO]];
-//    NSLog(@"%@", outputFramebuffer);
+
     id<MTLCommandBuffer> commandBuffer = render(renderPipelineState, renderTargetTexture, outputFramebuffer.texture, normalVertices, normalCoordinates);
     [commandBuffer commit];
     [commandBuffer waitUntilCompleted];
     
     for(id<ZYMetalInput> target in targets) {
-        [target setInputFramebuffer:outputFramebuffer atIndex:0];
+        [target setInputFramebuffer:outputFramebuffer];
     }
 
+    // 用完，放回缓存
     [outputFramebuffer unlock];
 
     for(id<ZYMetalInput> target in targets) {
-        [target newFrameReadyAtTime:frameTime atIndex:0];
+        [target newFrameReadyAtTime:frameTime];
     }
 }
 
