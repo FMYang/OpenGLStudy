@@ -1,0 +1,488 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E459044128926A770086FD09 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E459044028926A770086FD09 /* AppDelegate.m */; };
+		E459044C28926A7A0086FD09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E459044B28926A7A0086FD09 /* Assets.xcassets */; };
+		E459044F28926A7A0086FD09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E459044D28926A7A0086FD09 /* LaunchScreen.storyboard */; };
+		E459045228926A7A0086FD09 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E459045128926A7A0086FD09 /* main.m */; };
+		E459045B28926AF90086FD09 /* FMFilterListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E459045A28926AF90086FD09 /* FMFilterListVC.m */; };
+		E459045E28926B030086FD09 /* FMFilterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E459045D28926B030086FD09 /* FMFilterVC.m */; };
+		E459046A28927ACF0086FD09 /* voroni_points2.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046028927ACE0086FD09 /* voroni_points2.png */; };
+		E459046B28927ACF0086FD09 /* WID-small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E459046128927ACE0086FD09 /* WID-small.jpg */; };
+		E459046C28927ACF0086FD09 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046228927ACF0086FD09 /* lookup_soft_elegance_2.png */; };
+		E459046D28927ACF0086FD09 /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046328927ACF0086FD09 /* lookup_miss_etikate.png */; };
+		E459046E28927ACF0086FD09 /* curvies.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046428927ACF0086FD09 /* curvies.png */; };
+		E459046F28927ACF0086FD09 /* lookup_amatorka.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046528927ACF0086FD09 /* lookup_amatorka.png */; };
+		E459047028927ACF0086FD09 /* squares.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046628927ACF0086FD09 /* squares.png */; };
+		E459047128927ACF0086FD09 /* lookup_soft_elegance_1.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046728927ACF0086FD09 /* lookup_soft_elegance_1.png */; };
+		E459047228927ACF0086FD09 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046828927ACF0086FD09 /* mask.png */; };
+		E459047328927ACF0086FD09 /* dotletterstiles.png in Resources */ = {isa = PBXBuildFile; fileRef = E459046928927ACF0086FD09 /* dotletterstiles.png */; };
+		E45904752892805E0086FD09 /* CustomFilter.fsh in Resources */ = {isa = PBXBuildFile; fileRef = E45904742892805E0086FD09 /* CustomFilter.fsh */; };
+		E45904772892850C0086FD09 /* SampleConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = E45904762892850C0086FD09 /* SampleConfiguration.plist */; };
+		F9FB637B27B506B6B6BD5CDC /* Pods_FMGPUImageFilterList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44CADB605DC83DE5758FBB0 /* Pods_FMGPUImageFilterList.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D44CADB605DC83DE5758FBB0 /* Pods_FMGPUImageFilterList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FMGPUImageFilterList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E459043C28926A770086FD09 /* FMGPUImageFilterList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMGPUImageFilterList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E459043F28926A770086FD09 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E459044028926A770086FD09 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E459044B28926A7A0086FD09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E459044E28926A7A0086FD09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E459045028926A7A0086FD09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E459045128926A7A0086FD09 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E459045928926AF90086FD09 /* FMFilterListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMFilterListVC.h; sourceTree = "<group>"; };
+		E459045A28926AF90086FD09 /* FMFilterListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMFilterListVC.m; sourceTree = "<group>"; };
+		E459045C28926B030086FD09 /* FMFilterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMFilterVC.h; sourceTree = "<group>"; };
+		E459045D28926B030086FD09 /* FMFilterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMFilterVC.m; sourceTree = "<group>"; };
+		E459046028927ACE0086FD09 /* voroni_points2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voroni_points2.png; sourceTree = "<group>"; };
+		E459046128927ACE0086FD09 /* WID-small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "WID-small.jpg"; sourceTree = "<group>"; };
+		E459046228927ACF0086FD09 /* lookup_soft_elegance_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_2.png; sourceTree = "<group>"; };
+		E459046328927ACF0086FD09 /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
+		E459046428927ACF0086FD09 /* curvies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = curvies.png; sourceTree = "<group>"; };
+		E459046528927ACF0086FD09 /* lookup_amatorka.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_amatorka.png; sourceTree = "<group>"; };
+		E459046628927ACF0086FD09 /* squares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squares.png; sourceTree = "<group>"; };
+		E459046728927ACF0086FD09 /* lookup_soft_elegance_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_1.png; sourceTree = "<group>"; };
+		E459046828927ACF0086FD09 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
+		E459046928927ACF0086FD09 /* dotletterstiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dotletterstiles.png; sourceTree = "<group>"; };
+		E45904742892805E0086FD09 /* CustomFilter.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = CustomFilter.fsh; sourceTree = "<group>"; };
+		E45904762892850C0086FD09 /* SampleConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SampleConfiguration.plist; sourceTree = "<group>"; };
+		F4E3C82AE57BD63C276D400B /* Pods-FMGPUImageFilterList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMGPUImageFilterList.debug.xcconfig"; path = "Target Support Files/Pods-FMGPUImageFilterList/Pods-FMGPUImageFilterList.debug.xcconfig"; sourceTree = "<group>"; };
+		F8652396F8DA9FD3830CC727 /* Pods-FMGPUImageFilterList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMGPUImageFilterList.release.xcconfig"; path = "Target Support Files/Pods-FMGPUImageFilterList/Pods-FMGPUImageFilterList.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E459043928926A770086FD09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9FB637B27B506B6B6BD5CDC /* Pods_FMGPUImageFilterList.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9A2531CC653974490827DEBC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D44CADB605DC83DE5758FBB0 /* Pods_FMGPUImageFilterList.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E459043328926A770086FD09 = {
+			isa = PBXGroup;
+			children = (
+				E459043E28926A770086FD09 /* FMGPUImageFilterList */,
+				E459043D28926A770086FD09 /* Products */,
+				F05AE0C4A5157A0C4CD96A03 /* Pods */,
+				9A2531CC653974490827DEBC /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E459043D28926A770086FD09 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E459043C28926A770086FD09 /* FMGPUImageFilterList.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E459043E28926A770086FD09 /* FMGPUImageFilterList */ = {
+			isa = PBXGroup;
+			children = (
+				E459045F28927A970086FD09 /* Resources */,
+				E459045828926ADC0086FD09 /* Classes */,
+				E459043F28926A770086FD09 /* AppDelegate.h */,
+				E459044028926A770086FD09 /* AppDelegate.m */,
+				E459044B28926A7A0086FD09 /* Assets.xcassets */,
+				E459044D28926A7A0086FD09 /* LaunchScreen.storyboard */,
+				E459045028926A7A0086FD09 /* Info.plist */,
+				E459045128926A7A0086FD09 /* main.m */,
+			);
+			path = FMGPUImageFilterList;
+			sourceTree = "<group>";
+		};
+		E459045828926ADC0086FD09 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E459045928926AF90086FD09 /* FMFilterListVC.h */,
+				E459045A28926AF90086FD09 /* FMFilterListVC.m */,
+				E459045C28926B030086FD09 /* FMFilterVC.h */,
+				E459045D28926B030086FD09 /* FMFilterVC.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		E459045F28927A970086FD09 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E45904762892850C0086FD09 /* SampleConfiguration.plist */,
+				E45904742892805E0086FD09 /* CustomFilter.fsh */,
+				E459046428927ACF0086FD09 /* curvies.png */,
+				E459046928927ACF0086FD09 /* dotletterstiles.png */,
+				E459046528927ACF0086FD09 /* lookup_amatorka.png */,
+				E459046328927ACF0086FD09 /* lookup_miss_etikate.png */,
+				E459046728927ACF0086FD09 /* lookup_soft_elegance_1.png */,
+				E459046228927ACF0086FD09 /* lookup_soft_elegance_2.png */,
+				E459046828927ACF0086FD09 /* mask.png */,
+				E459046628927ACF0086FD09 /* squares.png */,
+				E459046028927ACE0086FD09 /* voroni_points2.png */,
+				E459046128927ACE0086FD09 /* WID-small.jpg */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F05AE0C4A5157A0C4CD96A03 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F4E3C82AE57BD63C276D400B /* Pods-FMGPUImageFilterList.debug.xcconfig */,
+				F8652396F8DA9FD3830CC727 /* Pods-FMGPUImageFilterList.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E459043B28926A770086FD09 /* FMGPUImageFilterList */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E459045528926A7A0086FD09 /* Build configuration list for PBXNativeTarget "FMGPUImageFilterList" */;
+			buildPhases = (
+				AC83B645305C1E1D0399DBAB /* [CP] Check Pods Manifest.lock */,
+				E459043828926A770086FD09 /* Sources */,
+				E459043928926A770086FD09 /* Frameworks */,
+				E459043A28926A770086FD09 /* Resources */,
+				8C41887868B1703872E0E1E4 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FMGPUImageFilterList;
+			productName = FMGPUImageFilterList;
+			productReference = E459043C28926A770086FD09 /* FMGPUImageFilterList.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E459043428926A770086FD09 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					E459043B28926A770086FD09 = {
+						CreatedOnToolsVersion = 13.4;
+					};
+				};
+			};
+			buildConfigurationList = E459043728926A770086FD09 /* Build configuration list for PBXProject "FMGPUImageFilterList" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E459043328926A770086FD09;
+			productRefGroup = E459043D28926A770086FD09 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E459043B28926A770086FD09 /* FMGPUImageFilterList */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E459043A28926A770086FD09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E459044F28926A7A0086FD09 /* LaunchScreen.storyboard in Resources */,
+				E459046A28927ACF0086FD09 /* voroni_points2.png in Resources */,
+				E459046C28927ACF0086FD09 /* lookup_soft_elegance_2.png in Resources */,
+				E45904752892805E0086FD09 /* CustomFilter.fsh in Resources */,
+				E459046B28927ACF0086FD09 /* WID-small.jpg in Resources */,
+				E459047228927ACF0086FD09 /* mask.png in Resources */,
+				E459047328927ACF0086FD09 /* dotletterstiles.png in Resources */,
+				E459046E28927ACF0086FD09 /* curvies.png in Resources */,
+				E459047028927ACF0086FD09 /* squares.png in Resources */,
+				E459044C28926A7A0086FD09 /* Assets.xcassets in Resources */,
+				E459047128927ACF0086FD09 /* lookup_soft_elegance_1.png in Resources */,
+				E459046D28927ACF0086FD09 /* lookup_miss_etikate.png in Resources */,
+				E459046F28927ACF0086FD09 /* lookup_amatorka.png in Resources */,
+				E45904772892850C0086FD09 /* SampleConfiguration.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8C41887868B1703872E0E1E4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FMGPUImageFilterList/Pods-FMGPUImageFilterList-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FMGPUImageFilterList/Pods-FMGPUImageFilterList-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FMGPUImageFilterList/Pods-FMGPUImageFilterList-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC83B645305C1E1D0399DBAB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FMGPUImageFilterList-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E459043828926A770086FD09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E459044128926A770086FD09 /* AppDelegate.m in Sources */,
+				E459045E28926B030086FD09 /* FMFilterVC.m in Sources */,
+				E459045228926A7A0086FD09 /* main.m in Sources */,
+				E459045B28926AF90086FD09 /* FMFilterListVC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E459044D28926A7A0086FD09 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E459044E28926A7A0086FD09 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E459045328926A7A0086FD09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E459045428926A7A0086FD09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E459045628926A7A0086FD09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E3C82AE57BD63C276D400B /* Pods-FMGPUImageFilterList.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DQFEA2B5H2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FMGPUImageFilterList/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ZHIYUN.www.FMGPUImageFilterList;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E459045728926A7A0086FD09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8652396F8DA9FD3830CC727 /* Pods-FMGPUImageFilterList.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DQFEA2B5H2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FMGPUImageFilterList/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ZHIYUN.www.FMGPUImageFilterList;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E459043728926A770086FD09 /* Build configuration list for PBXProject "FMGPUImageFilterList" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E459045328926A7A0086FD09 /* Debug */,
+				E459045428926A7A0086FD09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E459045528926A7A0086FD09 /* Build configuration list for PBXNativeTarget "FMGPUImageFilterList" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E459045628926A7A0086FD09 /* Debug */,
+				E459045728926A7A0086FD09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E459043428926A770086FD09 /* Project object */;
+}
