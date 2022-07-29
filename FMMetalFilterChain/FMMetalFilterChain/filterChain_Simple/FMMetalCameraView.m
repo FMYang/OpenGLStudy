@@ -57,7 +57,7 @@
 
     MTLRenderPassDescriptor *renderPassDescriptor = [[MTLRenderPassDescriptor alloc] init];
     renderPassDescriptor.colorAttachments[0].texture = self.currentDrawable.texture;
-    renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(1, 0, 0, 1);
+    renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
     renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
     renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
     
@@ -69,7 +69,7 @@
     id<MTLBuffer> texCoordinateBuffer = [self.device newBufferWithBytes:rotateCounterclockwiseCoordinates length:sizeof(rotateCounterclockwiseCoordinates) options:MTLResourceStorageModeShared];
 
 //    // 正面图元的缠绕规则，三角形是顺时针还是逆时针绘制
-//    [renderEncoder setFrontFacingWinding:MTLWindingClockwise];
+    [renderEncoder setFrontFacingWinding:MTLWindingClockwise];
     [renderEncoder setRenderPipelineState:_pipelineState];
 
     [renderEncoder setVertexBuffer:positionBuffer offset:0 atIndex:0];

@@ -15,6 +15,7 @@
 		E4318EFC28865B110002FAC1 /* ZYMetalFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318EFB28865B110002FAC1 /* ZYMetalFrameBuffer.m */; };
 		E4318EFF28865B1C0002FAC1 /* ZYMetalFrameBufferCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318EFE28865B1C0002FAC1 /* ZYMetalFrameBufferCache.m */; };
 		E4318F0228865B250002FAC1 /* ZYMetalOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = E4318F0128865B250002FAC1 /* ZYMetalOutput.m */; };
+		E459047D2893DA180086FD09 /* ZYHisFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E459047C2893DA180086FD09 /* ZYHisFilter.m */; };
 		E4D9313D2887DA6800C4B2C5 /* ZYMetalFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D9313C2887DA6800C4B2C5 /* ZYMetalFilter.m */; };
 		E4D931412887DD1400C4B2C5 /* FMMetalGPU1FilterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D931402887DD1400C4B2C5 /* FMMetalGPU1FilterVC.m */; };
 		E4D931442887E5FC00C4B2C5 /* FMMetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D931432887E5FC00C4B2C5 /* FMMetalView.m */; };
@@ -56,6 +57,8 @@
 		E4318EFE28865B1C0002FAC1 /* ZYMetalFrameBufferCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalFrameBufferCache.m; sourceTree = "<group>"; };
 		E4318F0028865B250002FAC1 /* ZYMetalOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalOutput.h; sourceTree = "<group>"; };
 		E4318F0128865B250002FAC1 /* ZYMetalOutput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalOutput.m; sourceTree = "<group>"; };
+		E459047B2893DA170086FD09 /* ZYHisFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYHisFilter.h; sourceTree = "<group>"; };
+		E459047C2893DA180086FD09 /* ZYHisFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYHisFilter.m; sourceTree = "<group>"; };
 		E4D9313B2887DA6800C4B2C5 /* ZYMetalFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMetalFilter.h; sourceTree = "<group>"; };
 		E4D9313C2887DA6800C4B2C5 /* ZYMetalFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMetalFilter.m; sourceTree = "<group>"; };
 		E4D9313F2887DD1400C4B2C5 /* FMMetalGPU1FilterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMMetalGPU1FilterVC.h; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 				E4E75CA3287FC3DA00738B89 /* ZYMetalGrayFilter.h */,
 				E4E75CA4287FC3DA00738B89 /* ZYMetalGrayFilter.m */,
 				E4E75CA6287FC3E600738B89 /* Gray.metal */,
+				E459047B2893DA170086FD09 /* ZYHisFilter.h */,
+				E459047C2893DA180086FD09 /* ZYHisFilter.m */,
 			);
 			path = FIlter;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				E4E75CA5287FC3DA00738B89 /* ZYMetalGrayFilter.m in Sources */,
 				E4E158BA287EAE71008A2080 /* ZYMetalBaseFilter.m in Sources */,
 				E4013424288FE19F0053BF6A /* SignleColor.metal in Sources */,
+				E459047D2893DA180086FD09 /* ZYHisFilter.m in Sources */,
 				E4E75CA0287FBCDD00738B89 /* ZYMPSFilter.m in Sources */,
 				E4318E8F288144D80002FAC1 /* ZYProCameraMovieRecorder.m in Sources */,
 				E4013422288FE1900053BF6A /* ZYMetalSignleColorFilter.m in Sources */,

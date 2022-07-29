@@ -13,6 +13,7 @@
 #import "ZYCustomFilter.h"
 #import "ZYMPSFilter.h"
 #import "ZYMetalGrayFilter.h"
+#import "ZYHisFilter.h"
 
 // record
 #import "ZYProCameraMovieRecorder.h"
@@ -39,6 +40,9 @@
 
 // 模糊
 @property (nonatomic) ZYMetalBaseFilter *mpsFilter;
+
+//
+@property (nonatomic) ZYHisFilter *hisFilter;
 
 @property (nonatomic) FMMetalCameraView *metalView;
 
@@ -142,9 +146,9 @@
         
         // 原图 -> 反色 -> 灰度 -> 模糊
         id<MTLTexture> mtlTexture = CVMetalTextureGetTexture(texture);
+//        id<MTLTexture> result2 = [self.hisFilter render:mtlTexture]; //
         id<MTLTexture> result1 = [self.reverseColorFilter render:mtlTexture];
         id<MTLTexture> result2 = [self.grayFilter render:result1];
-//        CVPixelBufferRef result1Ref = self.reverseColorFilter.outputPixelBuffer;
 //        id<MTLTexture> result3 = [self.mpsFilter render:result2];
         [self.metalView renderPixelBuffer:result2];
         
@@ -182,6 +186,13 @@
         _grayFilter = [[ZYMetalGrayFilter alloc] initWithMetalRenderCommand:[ZYMetalGrayFilter new]];
     }
     return _grayFilter;
+}
+
+- (ZYHisFilter *)hisFilter {
+    if(!_hisFilter) {
+        _hisFilter = [[ZYHisFilter alloc] initWithMetalRenderCommand:[ZYHisFilter new]];
+    }
+    return _hisFilter;
 }
 
 #pragma mark - record
